@@ -2,12 +2,22 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
+import * as firebase from "firebase";
 
-export default class Login extends React.Component {
-  state = { email: "", password: "", errorMessage: null };
-  handleLogin = () => {
-    // TODO: Firebase stuff...
-    console.log("handleLogin");
+export default class Registre extends React.Component {
+  state = {
+    email: "",
+    password: "",
+    firstname: "",
+    phonenumber: "",
+    errorMessage: null
+  };
+  handleSignUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate("Main"))
+      .catch(error => this.setState({ errorMessage: error.message }));
   };
   render() {
     return (
@@ -23,16 +33,15 @@ export default class Login extends React.Component {
         <View
           style={{
             flex: 1,
-            // justifyContent: "center",
             alignItems: "center",
             paddingTop: 130
           }}
         >
-          <Text style={styles.textStyle}>Login</Text>
+          <Text style={styles.textStyle}>Registre</Text>
           <Item style={styles.Iteminput}>
             <Icon name="mail" color="#c50d66" />
             <TextInput
-              placeholder="user@gmail.com"
+              placeholder="email"
               placeholderTextColor="#393E46"
               returnKeyType="next"
               onSubmitEditing={() => this.passwordInput.focus()}
@@ -46,38 +55,59 @@ export default class Login extends React.Component {
             />
           </Item>
           <Item style={styles.Iteminput}>
-            <Icon name="user" type="font-awesome" color="#c50d66" />
+            <Icon name="lock" type="font-awesome" color="#c50d66" />
             <TextInput
               secureTextEntry
               style={styles.textInput}
               placeholderTextColor="#393E46"
+              placeholder="Password"
               autoCapitalize="none"
-              returnKeyType="go"
+              returnKeyType="next"
               multiline={false}
               ref={input => (this.passwordInput = input)}
-              placeholder="Password"
+              onSubmitEditing={() => this.firstname.focus()}
               underlineColorAndroid="transparent"
               onChangeText={password => this.setState({ password })}
               value={this.state.password}
             />
           </Item>
-          <Button iconRight transparent primary>
-            <Text style={styles.forgettext}>Forget password</Text>
-            <Icon
-              size={20}
-              name="info-circle"
-              type="font-awesome"
-              color="blue"
+          <Item style={styles.Iteminput}>
+            <Icon name="user" type="font-awesome" color="#c50d66" />
+            <TextInput
+              placeholder="First name"
+              placeholderTextColor="#393E46"
+              ref={input => (this.firstname = input)}
+              returnKeyType="next"
+              onSubmitEditing={() => this.phonenumber.focus()}
+              style={styles.textInput}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={firstname => this.setState({ firstname })}
             />
-          </Button>
+          </Item>
+          <Item style={styles.Iteminput}>
+            <Icon name="phone" type="font-awesome" color="#c50d66" />
+            <TextInput
+              placeholder="Phone Number"
+              placeholderTextColor="#393E46"
+              ref={input => (this.phonenumber = input)}
+              returnKeyType="go"
+              keyboardType="numeric"
+              style={styles.textInput}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={phonenumber => this.setState({ phonenumber })}
+            />
+          </Item>
           <View style={{ width: "80%", paddingTop: 50 }}>
-            <Button block onPress={this.handleLogin}>
-              <Text style={styles.buttonstyle}>SIGN IN</Text>
+            <Button block onPress={this.handleSignUp}>
+              <Text style={styles.buttonstyle}>Create Account</Text>
             </Button>
           </View>
-          <Button iconRight transparent primary>
-            <Text style={styles.forgettext}>No account yet?Create one</Text>
-          </Button>
         </View>
       </View>
     );
