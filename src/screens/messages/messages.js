@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as firebase from "firebase";
 
-export default class Main extends React.Component {
+export default class Messages extends React.Component {
   state = { currentUser: null };
 
   componentDidMount() {
@@ -13,7 +13,7 @@ export default class Main extends React.Component {
     const { currentUser } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Hi {currentUser && currentUser.email}!</Text>
+        <Text>Hi {currentUser && currentUser.email} Messages screen!</Text>
       </View>
     );
   }

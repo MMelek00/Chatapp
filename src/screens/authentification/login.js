@@ -14,6 +14,9 @@ export default class Login extends React.Component {
       .then(() => this.props.navigation.navigate("Main"))
       .catch(error => this.setState({ errorMessage: error.message }));
   };
+  _signup = () => {
+    this.props.navigation.navigate("Signup");
+  };
   render() {
     return (
       <View
@@ -80,7 +83,7 @@ export default class Login extends React.Component {
               <Text style={styles.buttonstyle}>SIGN IN</Text>
             </Button>
           </View>
-          <Button iconRight transparent primary>
+          <Button iconRight transparent primary onPress={this._signup}>
             <Text style={styles.forgettext}>No account yet?Create one</Text>
           </Button>
         </View>
