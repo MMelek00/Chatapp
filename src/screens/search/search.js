@@ -1,55 +1,49 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import {
-  Item,
-  Button,
-  Segment,
-  Header,
-  Title,
-  Body,
-  Container
-} from "native-base";
-import { Icon } from "react-native-elements";
-import SegmentControl from "react-native-segment-controller";
+import { StyleSheet, TextInput, View } from "react-native";
+import { Item, Header, Title, Body, Container } from "native-base";
+import { Icon, ButtonGroup } from "react-native-elements";
 
 export default class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { segment: 1 };
-  }
+  state = {
+    index: 0
+  };
+  updateIndex = index => {
+    this.setState({ index });
+  };
 
   render() {
     return (
-      <Container hasSegment>
-        <Header hasSegment>
+      <Container>
+        <Header>
           <Body>
             <Title>Search</Title>
           </Body>
         </Header>
-        <Item style={styles.Iteminput}>
-          <Icon name="user" type="font-awesome" color="white" />
-          <TextInput
-            placeholder="Name"
-            placeholderTextColor="white"
-            ref={input => (this.firstname = input)}
-            returnKeyType="next"
-            onSubmitEditing={() => this.phonenumber.focus()}
-            style={styles.textInput}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            onChangeText={firstname => this.setState({ firstname })}
+        <View style={styles.container}>
+          <Item style={styles.Iteminput}>
+            <Icon name="user" type="font-awesome" color="white" />
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="white"
+              ref={input => (this.firstname = input)}
+              returnKeyType="next"
+              onSubmitEditing={() => this.phonenumber.focus()}
+              style={styles.textInput}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={firstname => this.setState({ firstname })}
+            />
+          </Item>
+          <ButtonGroup
+            selectedBackgroundColor="gray"
+            onPress={this.updateIndex}
+            selectedIndex={this.state.index}
+            buttons={["Freelancer", "Part Time", "Full Time"]}
+            containerStyle={{ height: 40 }}
           />
-        </Item>
-        <SegmentControl
-          values={["One", "Two", "Three", "Four"]}
-          badges={[0, 5, 0, 2]}
-          selectedIndex={0}
-          height={40}
-          onTabPress={() => {}}
-          borderRadius={5}
-        />
+        </View>
       </Container>
     );
   }
@@ -57,9 +51,9 @@ export default class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    //justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#EBEBEB"
+    backgroundColor: "#ecf0f1"
   },
   textInput: {
     height: 45,

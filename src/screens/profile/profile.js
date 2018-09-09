@@ -1,51 +1,58 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Container,
   Header,
   Left,
   Body,
   Right,
-  Button,
-  Icon,
   Title,
-  Segment,
-  Content,
-  Text
+  Tab,
+  Tabs,
+  ScrollableTab
 } from "native-base";
+import { Icon } from "react-native-elements";
+
+import About from "./ProfileDetails/about";
+import History from "./ProfileDetails/historyLine";
+import Certificates from "./ProfileDetails/certificates";
+import Skills from "./ProfileDetails/skills";
+import Mywork from "./ProfileDetails/mywork";
 
 export default class Profile extends React.Component {
   render() {
     return (
       <Container>
-        <Header hasSegment>
-          <Left>
-            <Button transparent>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
+        <Header hasTabs>
+          <Left />
           <Body>
-            <Title>Segments</Title>
+            <Title>Profile</Title>
           </Body>
           <Right>
-            <Button transparent>
-              <Icon name="search" />
-            </Button>
+            <Icon
+              name="edit"
+              type="Entypo"
+              color="white"
+              onPress={() => console.log("hello")}
+            />
           </Right>
         </Header>
-        <Segment>
-          <Button first>
-            <Text>Puppies</Text>
-          </Button>
-          <Button>
-            <Text>Kittens</Text>
-          </Button>
-          <Button last active>
-            <Text>Cubs</Text>
-          </Button>
-        </Segment>
-        <Content padder>
-          <Text>Awesome segment</Text>
-        </Content>
+        <Tabs renderTabBar={() => <ScrollableTab />}>
+          <Tab heading="About">
+            <About />
+          </Tab>
+          <Tab heading="History">
+            <History />
+          </Tab>
+          <Tab heading="Certificates">
+            <Certificates />
+          </Tab>
+          <Tab heading="Skills">
+            <Skills />
+          </Tab>
+          <Tab heading="Mywork">
+            <Mywork />
+          </Tab>
+        </Tabs>
       </Container>
     );
   }
