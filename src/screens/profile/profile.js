@@ -22,7 +22,7 @@ export default class Profile extends React.Component {
   render() {
     return (
       <Container>
-        <Header hasTabs>
+        <Header>
           <Left />
           <Body>
             <Title>Profile</Title>
