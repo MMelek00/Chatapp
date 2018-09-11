@@ -11,7 +11,6 @@ class About extends Component {
         style={{
           flex: 1,
           flexDirection: "column"
-          // alignItems: "center"
         }}
       >
         <CheckRating />

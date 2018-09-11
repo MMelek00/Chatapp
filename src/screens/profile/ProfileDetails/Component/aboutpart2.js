@@ -45,7 +45,12 @@ class Aboutpart2 extends Component {
           <Button
             rounded
             title="Send message"
-            rightIcon={{ name: "envira", type: "font-awesome" }}
+            rightIcon={{
+              name: "send",
+              type: "materialIcons",
+              size: 20,
+              style: { paddingLeft: 10 }
+            }}
             backgroundColor="#1C39A1"
           />
         </View>

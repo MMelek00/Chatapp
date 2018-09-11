@@ -25,7 +25,8 @@ class AboutPart3 extends Component {
         <Text
           style={{
             padding: 5,
-            color: "#535353"
+            color: "#535353",
+            paddingLeft: 10
           }}
         >
           xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
