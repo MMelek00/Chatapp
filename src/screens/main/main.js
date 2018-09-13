@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions } from "react-native";
+import { View, Dimensions } from "react-native";
 //import * as firebase from "firebase";
 import {
   Container,
@@ -8,7 +8,8 @@ import {
   Body,
   Right,
   Title,
-  Picker
+  Picker,
+  Content
 } from "native-base";
 import { Icon } from "react-native-elements";
 import UserCard from "../component/UserCard";
@@ -16,7 +17,7 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "Profile"
+      selected: "Settings"
     };
   }
   onValueChange(value: string) {
@@ -46,15 +47,71 @@ export default class Main extends React.Component {
             </Picker>
           </Right>
         </Header>
-        <UserCard />
+        <Content>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignItems: "center",
+              padding: 5
+            }}
+          >
+            <View
+              style={{
+                width: "40%",
+                backgroundColor: "gray",
+                height: 40,
+                borderRadius: 20,
+                justifyContent: "center",
+                alignItems: "center",
+                paddingHorizontal: 10
+              }}
+            >
+              <Picker
+                selectedValue={this.state.Category}
+                style={{ height: 20, width: "90%" }}
+                itemStyle={{ color: "blue" }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ Category: itemValue })
+                }
+              >
+                <Picker.Item label="EGYPT" value="EGYPT" />
+                <Picker.Item label="2 years" value="2" />
+                <Picker.Item label="+3 years" value="3" />
+                <Picker.Item label="+5 years" value="5" />
+              </Picker>
+            </View>
+            <View
+              style={{
+                width: "50%",
+                backgroundColor: "#57A0FD",
+                height: 40,
+                borderRadius: 20,
+                justifyContent: "center",
+                alignItems: "center",
+                paddingHorizontal: 10
+              }}
+            >
+              <Picker
+                selectedValue={this.state.Job}
+                style={{ height: 20, width: "90%" }}
+                itemStyle={{ color: "blue" }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ Job: itemValue })
+                }
+              >
+                <Picker.Item label="DESIGN" value="DESIGN" />
+                <Picker.Item label="2 years" value="2" />
+                <Picker.Item label="+3 years" value="3" />
+                <Picker.Item label="+5 years" value="5" />
+              </Picker>
+            </View>
+          </View>
+          <UserCard />
+          <UserCard />
+          <UserCard />
+        </Content>
       </Container>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-    // justifyContent: "center",
-    // alignItems: "center"
-  }
-});

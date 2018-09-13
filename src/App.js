@@ -62,10 +62,13 @@ const AuthStack = createStackNavigator(
     headerMode: "none"
   }
 );
-const topnav = createStackNavigator(
+const AppStack = createStackNavigator(
   {
     Profile: {
       screen: Profile
+    },
+    Main: {
+      screen: MainNav
     },
     NewGroupe: {
       screen: NewGroupe
@@ -84,7 +87,7 @@ const App = createSwitchNavigator(
     Loading: Loading,
     Auth: AuthStack,
     Main: MainNav,
-    topnav: topnav
+    AppStack: AppStack
   },
   {
     initialRouteName: "Loading"
