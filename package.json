@@ -40,6 +40,7 @@
     "firebase": "^5.4.2",
     "lodash": "4.17.4",
     "native-base": "^2.8.0",
+    "ramda": "^0.25.0",
     "react": "16.2.0",
     "react-native": "0.51.0",
     "react-native-country-picker-modal": "^0.6.2",

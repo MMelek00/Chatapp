@@ -1,10 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import { signUp } from "../../actions/member";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
 import * as firebase from "firebase";
 
-export default class Registre extends React.Component {
+class Registre extends React.Component {
   state = {
     email: "",
     password: "",
@@ -20,6 +22,7 @@ export default class Registre extends React.Component {
       .catch(error => this.setState({ errorMessage: error.message }));
   };
   render() {
+    console.log(this.props);
     return (
       <View
         style={{
@@ -158,3 +161,14 @@ const styles = StyleSheet.create({
     paddingRight: 10
   }
 });
+
+const mapStateToProps = state => ({
+  member: state.member || {},
+  status: state.status.signup || null,
+});
+
+const mapDispatchToProps = {
+  onFormSubmit: signUp,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registre);
