@@ -1,11 +1,8 @@
-// @flow
-// import { AsyncStorage } from "react-native";
 import { createStore } from "redux";
-//import thunk from "redux-thunk";
-//import { persistStore } from "redux-persist";
-import reducer from "../reducers";
+
+import combineReducers from "../reducers/index";
 const configureStore = () => {
-  const store = createStore(reducer);
+  const store = createStore(combineReducers);
   return { store };
 };
 export default configureStore;

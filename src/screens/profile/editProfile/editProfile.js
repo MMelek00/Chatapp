@@ -1,8 +1,13 @@
 import React from "react";
 import { Container, Header, Left, Body, Right, Title } from "native-base";
 import { Icon } from "react-native-elements";
+import { connect } from "react-redux";
 
-class NewGroupe extends React.Component {
+import { GetUser } from "../../../action/Users";
+class EditProfile extends React.Component {
+  componentDidMount = () => {
+    this.props.GetUserProp();
+  };
   render() {
     return (
       <Container>
@@ -15,19 +20,22 @@ class NewGroupe extends React.Component {
             />
           </Left>
           <Body>
-            <Title>NewGroupe</Title>
+            <Title>EditProfile</Title>
           </Body>
-          <Right>
-            <Icon
-              name="check"
-              color="white"
-              onPress={() => this.props.navigation.goBack()}
-            />
-          </Right>
+          <Right />
         </Header>
       </Container>
     );
   }
 }
-
-export default NewGroupe;
+const mapDispatchToProps = dispatch => {
+  return {
+    GetUserProp: user => {
+      return dispatch(GetUser());
+    }
+  };
+};
+export default connect(
+  store => ({ Users: store.Users }),
+  mapDispatchToProps
+)(EditProfile);

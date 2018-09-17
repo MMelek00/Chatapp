@@ -17,6 +17,7 @@ import Search from "./screens/search/search";
 import Messages from "./screens/messages/messages";
 import NewGroupe from "./screens/newgroupe/newgroup";
 import Settings from "./screens/settings/settings";
+import EditProfile from "./screens/profile/editProfile/editProfile";
 
 const MainNav = createBottomTabNavigator(
   {
@@ -53,6 +54,9 @@ const AuthStack = createStackNavigator(
     Login: {
       screen: Login
     },
+    Profilee: {
+      screen: EditProfile
+    },
 
     Signup: {
       screen: Registre
@@ -66,9 +70,6 @@ const AppStack = createStackNavigator(
   {
     Profile: {
       screen: Profile
-    },
-    Main: {
-      screen: MainNav
     },
     NewGroupe: {
       screen: NewGroupe
@@ -87,10 +88,11 @@ const App = createSwitchNavigator(
     Loading: Loading,
     Auth: AuthStack,
     Main: MainNav,
+    Profilee: EditProfile,
     AppStack: AppStack
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Profilee"
   }
 );
 export default App;
