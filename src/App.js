@@ -15,13 +15,15 @@ import Main from "./screens/main/main";
 import Profile from "./screens/profile/profile";
 import Search from "./screens/search/search";
 import Messages from "./screens/messages/messages";
+import NewGroupe from "./screens/newgroupe/newgroup";
+import Settings from "./screens/settings/settings";
+import EditProfile from "./screens/profile/editProfile/editProfile";
 
 const MainNav = createBottomTabNavigator(
   {
     Home: Main,
     Search: Search,
-    Messages: Messages,
-    Profile: Profile
+    Messages: Messages
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -34,8 +36,6 @@ const MainNav = createBottomTabNavigator(
           iconName = `ios-search${focused ? "" : "-outline"}`;
         } else if (routeName === "Messages") {
           iconName = `ios-chatbubbles${focused ? "" : "-outline"}`;
-        } else if (routeName === "Profile") {
-          iconName = `ios-person${focused ? "" : "-outline"}`;
         }
         return <Ionicons name={iconName} size={30} color={tintColor} />;
       }
@@ -54,9 +54,28 @@ const AuthStack = createStackNavigator(
     Login: {
       screen: Login
     },
+    Profilee: {
+      screen: EditProfile
+    },
 
     Signup: {
       screen: Registre
+    }
+  },
+  {
+    headerMode: "none"
+  }
+);
+const AppStack = createStackNavigator(
+  {
+    Profile: {
+      screen: Profile
+    },
+    NewGroupe: {
+      screen: NewGroupe
+    },
+    Settings: {
+      screen: Settings
     }
   },
   {
@@ -68,10 +87,12 @@ const App = createSwitchNavigator(
   {
     Loading: Loading,
     Auth: AuthStack,
-    Main: MainNav
+    Main: MainNav,
+    Profilee: EditProfile,
+    AppStack: AppStack
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Profilee"
   }
 );
 export default App;

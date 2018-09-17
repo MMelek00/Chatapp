@@ -5,20 +5,57 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
 import * as firebase from "firebase";
+require("firebase/firestore");
 
-class Registre extends React.Component {
-  state = {
-    email: "",
-    password: "",
-    firstname: "",
-    phonenumber: "",
-    errorMessage: null
+export default class Registre extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      firstname: "",
+      phonenumber: "",
+      errorMessage: null
+    };
+  }
+
+  updateUser = id => {
+    const { firstname, phonenumber, email } = this.state;
+    const firestore = firebase.firestore();
+    const settings = { timestampsInSnapshots: true };
+    firestore.settings(settings);
+    const originalSend = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send = function (body) {
+      if (body === "") {
+        originalSend.call(this);
+      } else {
+        originalSend.call(this, body);
+      }
+    };
+    const DocCol = firestore.collection("User");
+    DocCol.add({
+      Userid: id,
+      mail: email,
+      Name: firstname,
+      AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+      phonenumber: phonenumber
+    })
+      .then(() => {
+        this.props.navigation.navigate("Profilee");
+      })
+      .catch(error => this.setState({ errorMessage: error.message }));
   };
+
   handleSignUp = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Main"))
+      .then(response => {
+        return response;
+      })
+      .then(response => {
+        this.updateUser(response.user.uid);
+      })
       .catch(error => this.setState({ errorMessage: error.message }));
   };
   render() {
@@ -120,9 +157,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column"
-
-    // justifyContent: "center",
-    // alignItems: "center"
   },
   textInput: {
     height: 45,

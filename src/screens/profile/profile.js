@@ -23,7 +23,13 @@ export default class Profile extends React.Component {
     return (
       <Container>
         <Header>
-          <Left />
+          <Left>
+            <Icon
+              name="arrow-back"
+              color="white"
+              onPress={() => this.props.navigation.navigate("Main")}
+            />
+          </Left>
           <Body>
             <Title>Profile</Title>
           </Body>
@@ -32,7 +38,7 @@ export default class Profile extends React.Component {
               name="edit"
               type="Entypo"
               color="white"
-              onPress={() => console.log("hello")}
+              onPress={() => this.props.navigation.navigate("Profilee")}
             />
           </Right>
         </Header>
