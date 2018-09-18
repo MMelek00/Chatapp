@@ -3,11 +3,9 @@ import { Container, Header, Left, Body, Right, Title } from "native-base";
 import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
 
-import { GetUser } from "../../../action/Users";
+
 class EditProfile extends React.Component {
-  componentDidMount = () => {
-    this.props.GetUserProp();
-  };
+
   render() {
     return (
       <Container>
@@ -28,14 +26,4 @@ class EditProfile extends React.Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    GetUserProp: user => {
-      return dispatch(GetUser());
-    }
-  };
-};
-export default connect(
-  store => ({ Users: store.Users }),
-  mapDispatchToProps
-)(EditProfile);
+export default EditProfile;

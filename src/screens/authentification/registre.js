@@ -7,7 +7,7 @@ import { Icon } from "react-native-elements";
 import * as firebase from "firebase";
 require("firebase/firestore");
 
-export default class Registre extends React.Component {
+class Registre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
