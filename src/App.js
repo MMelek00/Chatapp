@@ -18,7 +18,7 @@ import Messages from "./screens/messages/messages";
 import NewGroupe from "./screens/newgroupe/newgroup";
 import Settings from "./screens/settings/settings";
 import EditProfile from "./screens/profile/editProfile/editProfile";
-
+import Company from "./screens/profile/editProfile/Company";
 const MainNav = createBottomTabNavigator(
   {
     Home: Main,
@@ -66,6 +66,24 @@ const AuthStack = createStackNavigator(
     headerMode: "none"
   }
 );
+const ProfileStack = createStackNavigator(
+  {
+    Profile: {
+      screen: Profile
+    },
+
+    EditProfile: {
+      screen: EditProfile
+    },
+
+    Company: {
+      screen: Company
+    }
+  },
+  {
+    headerMode: "none"
+  }
+);
 const AppStack = createStackNavigator(
   {
     Profile: {
@@ -88,11 +106,11 @@ const App = createSwitchNavigator(
     Loading: Loading,
     Auth: AuthStack,
     Main: MainNav,
-    Profilee: EditProfile,
+    ProfileStack: ProfileStack,
     AppStack: AppStack
   },
   {
-    initialRouteName: "Auth"
+    initialRouteName: "Loading"
   }
 );
 export default App;

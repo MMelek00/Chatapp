@@ -7,7 +7,10 @@ import {
   Right,
   Title,
   Item,
-  Card
+  Label,
+  Input,
+  Card,
+  Form
 } from "native-base";
 import {
   TouchableOpacity,
@@ -19,7 +22,7 @@ import {
   Text,
   ScrollView
 } from "react-native";
-import { Icon, Button } from "react-native-elements";
+import { Icon, Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import * as firebase from "firebase";
 
@@ -27,10 +30,15 @@ class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      index: 1,
       name: "User Name ",
+      Number: "",
       AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
       isloading: false,
-      Years: 1
+      Years: 1,
+      Country: "Tunisia",
+      City: "",
+      Description: ""
     };
   }
   updateIndex = index => {
@@ -43,7 +51,6 @@ class EditProfile extends React.Component {
       base64: true
     });
     if (!result.cancelled) {
-      console.log(result.base64);
       this.setState({ AvatarLink: result.uri });
       const sessionId = new Date().getTime();
       const snapshot = await firebase
@@ -84,63 +91,37 @@ class EditProfile extends React.Component {
               }}
             />
           </TouchableOpacity>
-          <View
-            style={{
-              flexDirection: "row",
-              padding: 10
-            }}
-          >
-            <Item style={styles.Iteminput}>
-              <Icon name="user" type="font-awesome" color="white" />
-              <TextInput
-                placeholder="Name"
-                placeholderTextColor="white"
-                style={styles.textInput}
-                autoCorrect={false}
-                multiline={false}
-                autoCapitalize="none"
-                underlineColorAndroid="transparent"
-                onChangeText={name => this.setState({ name })}
-              />
+
+          <Form>
+            <Item floatingLabel>
+              <Label>Username</Label>
+              <Input onChangeText={name => this.setState({ name })} />
             </Item>
-            <Item style={styles.Iteminput}>
-              <Icon name="phone" type="font-awesome" color="white" />
-              <TextInput
-                placeholder="Phone Number"
-                placeholderTextColor="white"
-                ref={input => (this.phonenumber = input)}
-                returnKeyType="go"
-                keyboardType="numeric"
-                style={styles.textInput}
-                autoCorrect={false}
-                multiline={false}
-                autoCapitalize="none"
-                underlineColorAndroid="transparent"
-                onChangeText={phonenumber => this.setState({ phonenumber })}
-              />
+
+            <Item floatingLabel>
+              <Label>Phone Number</Label>
+              <Input onChangeText={Number => this.setState({ Number })} />
             </Item>
+
+            <Item floatingLabel>
+              <Label>Country</Label>
+              <Input onChangeText={Country => this.setState({ Country })} />
+            </Item>
+            <Item floatingLabel>
+              <Label>City</Label>
+              <Input onChangeText={City => this.setState({ City })} />
+            </Item>
+          </Form>
+          <View style={{ paddingTop: 10 }}>
+            <ButtonGroup
+              selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
+              onPress={this.updateIndex}
+              selectedIndex={this.state.index}
+              buttons={["Freelancer", "Part Time", "Full Time"]}
+              containerStyle={{ height: 45, width: "90%" }}
+            />
           </View>
-          <Card style={{ width: "90%", height: 90, alignSelf: "center" }}>
-            <Item style={{ paddingTop: 10, paddingLeft: 15 }}>
-              <Icon name="chain" type="font-awesome" color="gray" />
-              <Text style={{ paddingLeft: 20 }}>Years Experience</Text>
-            </Item>
-            <View style={{ paddingLeft: 10 }}>
-              <Picker
-                selectedValue={this.state.Years}
-                style={{ height: 50, width: "50%" }}
-                itemStyle={{ color: "blue" }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Years: itemValue })
-                }
-              >
-                <Picker.Item label="1 year" value="1" />
-                <Picker.Item label="2 years" value="2" />
-                <Picker.Item label="+3 years" value="3" />
-                <Picker.Item label="+5 years" value="5" />
-              </Picker>
-            </View>
-          </Card>
+
           <View
             style={{
               flexDirection: "row",
@@ -189,31 +170,30 @@ class EditProfile extends React.Component {
               </View>
             </Card>
           </View>
-          <TextInput
-            placeholder="Description"
-            placeholderTextColor="white"
-            returnKeyType="go"
-            style={{
-              padding: 5,
-              paddingLeft: 10,
-              borderWidth: 0.5,
-              width: "90%",
-              color: "black",
-              backgroundColor: "gray",
-              borderRadius: 8,
-              height: 150,
-              alignSelf: "center"
-            }}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-          />
+
+          <View style={{ paddingTop: 10 }}>
+            <TextInput
+              placeholder="Description"
+              placeholderTextColor="white"
+              returnKeyType="go"
+              style={{
+                padding: 5,
+                width: "90%",
+                backgroundColor: "gray",
+                borderRadius: 8,
+                height: 150,
+                alignSelf: "center"
+              }}
+              multiline={true}
+              underlineColorAndroid="transparent"
+              onChangeText={Description => this.setState({ Description })}
+            />
+          </View>
         </ScrollView>
         <View style={{ width: "30%", alignSelf: "flex-end" }}>
           <Button
             block
-            onPress={() => console.log(this.state.index)}
+            onPress={() => this.props.navigation.navigate("Company")}
             title="Next"
             backgroundColor="#1C39A1"
           />
@@ -225,7 +205,6 @@ class EditProfile extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
     paddingTop: 5,
     backgroundColor: "#ecf0f1"
   },
@@ -239,7 +218,7 @@ const styles = StyleSheet.create({
   },
   Iteminput: {
     height: 50,
-    width: "50%",
+    width: "90%",
     backgroundColor: "gray",
     borderColor: "#a39e9e",
     borderRadius: 8,

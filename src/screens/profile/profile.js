@@ -38,7 +38,7 @@ export default class Profile extends React.Component {
               name="edit"
               type="Entypo"
               color="white"
-              onPress={() => this.props.navigation.navigate("Profilee")}
+              onPress={() => this.props.navigation.navigate("EditProfile")}
             />
           </Right>
         </Header>

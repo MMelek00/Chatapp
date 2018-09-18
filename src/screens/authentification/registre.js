@@ -25,7 +25,7 @@ class Registre extends React.Component {
     const settings = { timestampsInSnapshots: true };
     firestore.settings(settings);
     const originalSend = XMLHttpRequest.prototype.send;
-    XMLHttpRequest.prototype.send = function (body) {
+    XMLHttpRequest.prototype.send = function(body) {
       if (body === "") {
         originalSend.call(this);
       } else {
@@ -198,11 +198,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   member: state.member || {},
-  status: state.status.signup || null,
+  status: state.status.signup || null
 });
 
 const mapDispatchToProps = {
-  onFormSubmit: signUp,
+  onFormSubmit: signUp
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registre);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Registre);
