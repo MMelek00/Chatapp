@@ -1,11 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { signUp } from "../../actions/member";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
 import * as firebase from "firebase";
 require("firebase/firestore");
 
-export default class Registre extends React.Component {
+class Registre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +25,7 @@ export default class Registre extends React.Component {
     const settings = { timestampsInSnapshots: true };
     firestore.settings(settings);
     const originalSend = XMLHttpRequest.prototype.send;
-    XMLHttpRequest.prototype.send = function(body) {
+    XMLHttpRequest.prototype.send = function (body) {
       if (body === "") {
         originalSend.call(this);
       } else {
@@ -57,6 +59,7 @@ export default class Registre extends React.Component {
       .catch(error => this.setState({ errorMessage: error.message }));
   };
   render() {
+    console.log(this.props);
     return (
       <View
         style={{
@@ -192,3 +195,14 @@ const styles = StyleSheet.create({
     paddingRight: 10
   }
 });
+
+const mapStateToProps = state => ({
+  member: state.member || {},
+  status: state.status.signup || null,
+});
+
+const mapDispatchToProps = {
+  onFormSubmit: signUp,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registre);
