@@ -1,20 +1,12 @@
 import * as Expo from "expo";
 import React, { Component } from "react";
-//import { Provider } from "react-redux";
+import { Provider } from "react-redux";
 
-//import configureStore from "./configureStore";
+import configureStore from "./configureStore";
 import App from "../App";
-import * as firebase from "firebase";
 
-//const store = configureStore();
-const firebaseConfig = {
-  apiKey: "AIzaSyA51fNIZF9OYWXQFVh8hmsaekMmmQDaHzQ",
-  authDomain: "princeapp-f99b8.firebaseapp.com",
-  databaseURL: "https://princeapp-f99b8.firebaseio.com",
-  projectId: "princeapp-f99b8",
-  storageBucket: "princeapp-f99b8.appspot.com",
-  messagingSenderId: "79288961689"
-};
+const { store } = configureStore();
+
 export default class Setup extends Component {
   constructor(props) {
     super(props);
@@ -24,9 +16,6 @@ export default class Setup extends Component {
   }
   componentWillMount() {
     this.loadFonts();
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
   }
   async loadFonts() {
     await Expo.Font.loadAsync({
@@ -43,9 +32,9 @@ export default class Setup extends Component {
       return <Expo.AppLoading />;
     }
     return (
-      //  <Provider store={store}>
-      <App />
-      //    </Provider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     );
   }
 }

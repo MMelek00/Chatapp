@@ -92,7 +92,7 @@ const App = createSwitchNavigator(
     AppStack: AppStack
   },
   {
-    initialRouteName: "Profilee"
+    initialRouteName: "Auth"
   }
 );
 export default App;

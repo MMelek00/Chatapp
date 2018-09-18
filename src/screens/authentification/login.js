@@ -31,7 +31,6 @@ export default class Login extends React.Component {
         <View
           style={{
             flex: 1,
-            // justifyContent: "center",
             alignItems: "center",
             paddingTop: 130
           }}
@@ -95,9 +94,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column"
-
-    // justifyContent: "center",
-    // alignItems: "center"
   },
   textInput: {
     height: 45,
