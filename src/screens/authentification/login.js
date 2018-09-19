@@ -1,19 +1,22 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { connect } from "react-redux";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
-import * as firebase from "firebase";
+import { login } from "../../actions/member";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   state = { email: "", password: "", errorMessage: null };
-  handleLogin = () => {
-    const { email, password } = this.state;
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate("Main"))
-      .catch(error => this.setState({ errorMessage: error.message }));
-  };
+
+  handleSubmit = async () => {
+    const { onFormSubmit } = this.props;
+    const { navigate } = this.props.navigation;
+    onFormSubmit(this.state)
+      .then((resp) => {
+        navigate("Main");
+      })
+      .catch(e => console.log(`Error: ${e}`));
+  }
   _signup = () => {
     this.props.navigation.navigate("Signup");
   };
@@ -78,7 +81,7 @@ export default class Login extends React.Component {
             />
           </Button>
           <View style={{ width: "80%", paddingTop: 50 }}>
-            <Button block onPress={this.handleLogin}>
+            <Button block onPress={this.handleSubmit}>
               <Text style={styles.buttonstyle}>SIGN IN</Text>
             </Button>
           </View>
@@ -132,3 +135,17 @@ const styles = StyleSheet.create({
     paddingRight: 10
   }
 });
+
+const mapStateToProps = state => ({
+  member: state.member || {},
+  status: state.status.login || null
+});
+
+const mapDispatchToProps = {
+  onFormSubmit: login
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

@@ -4,8 +4,6 @@ import { signUp } from "../../actions/member";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
-import * as firebase from "firebase";
-require("firebase/firestore");
 
 class Registre extends React.Component {
   constructor(props) {
@@ -13,53 +11,22 @@ class Registre extends React.Component {
     this.state = {
       email: "",
       password: "",
-      firstname: "",
-      phonenumber: "",
-      errorMessage: null
+      firstName: "",
+      phoneNumber: "",
     };
   }
 
-  updateUser = id => {
-    const { firstname, phonenumber, email } = this.state;
-    const firestore = firebase.firestore();
-    const settings = { timestampsInSnapshots: true };
-    firestore.settings(settings);
-    const originalSend = XMLHttpRequest.prototype.send;
-    XMLHttpRequest.prototype.send = function(body) {
-      if (body === "") {
-        originalSend.call(this);
-      } else {
-        originalSend.call(this, body);
-      }
-    };
-    const DocCol = firestore.collection("User");
-    DocCol.add({
-      Userid: id,
-      mail: email,
-      Name: firstname,
-      AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
-      phonenumber: phonenumber
-    })
-      .then(() => {
-        this.props.navigation.navigate("Profilee");
-      })
-      .catch(error => this.setState({ errorMessage: error.message }));
-  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { onFormSubmit } = this.props;
+    const navigate = this.props.navigation.navigate;
+    onFormSubmit(this.state)
+      .then(() => navigate("Login"))
+      .catch(e => console.log(`Error: ${e}`));
+  }
 
-  handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(response => {
-        return response;
-      })
-      .then(response => {
-        this.updateUser(response.user.uid);
-      })
-      .catch(error => this.setState({ errorMessage: error.message }));
-  };
+
   render() {
-    console.log(this.props);
     return (
       <View
         style={{
@@ -105,7 +72,7 @@ class Registre extends React.Component {
               returnKeyType="next"
               multiline={false}
               ref={input => (this.passwordInput = input)}
-              onSubmitEditing={() => this.firstname.focus()}
+              onSubmitEditing={() => this.firstName.focus()}
               underlineColorAndroid="transparent"
               onChangeText={password => this.setState({ password })}
               value={this.state.password}
@@ -116,15 +83,15 @@ class Registre extends React.Component {
             <TextInput
               placeholder="First name"
               placeholderTextColor="#393E46"
-              ref={input => (this.firstname = input)}
+              ref={input => (this.firstName = input)}
               returnKeyType="next"
-              onSubmitEditing={() => this.phonenumber.focus()}
+              onSubmitEditing={() => this.phoneNumber.focus()}
               style={styles.textInput}
               autoCorrect={false}
               multiline={false}
               autoCapitalize="none"
               underlineColorAndroid="transparent"
-              onChangeText={firstname => this.setState({ firstname })}
+              onChangeText={firstName => this.setState({ firstName })}
             />
           </Item>
           <Item style={styles.Iteminput}>
@@ -132,7 +99,7 @@ class Registre extends React.Component {
             <TextInput
               placeholder="Phone Number"
               placeholderTextColor="#393E46"
-              ref={input => (this.phonenumber = input)}
+              ref={input => (this.phoneNumber = input)}
               returnKeyType="go"
               keyboardType="numeric"
               style={styles.textInput}
@@ -140,11 +107,11 @@ class Registre extends React.Component {
               multiline={false}
               autoCapitalize="none"
               underlineColorAndroid="transparent"
-              onChangeText={phonenumber => this.setState({ phonenumber })}
+              onChangeText={phoneNumber => this.setState({ phoneNumber })}
             />
           </Item>
           <View style={{ width: "80%", paddingTop: 50 }}>
-            <Button block onPress={this.handleSignUp}>
+            <Button block onPress={this.handleSubmit}>
               <Text style={styles.buttonstyle}>Create Account</Text>
             </Button>
           </View>

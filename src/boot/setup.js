@@ -1,11 +1,11 @@
 import * as Expo from "expo";
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-
+import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "./configureStore";
 import App from "../App";
 
-const { store } = configureStore();
+const { persistor, store } = configureStore();
 
 export default class Setup extends Component {
   constructor(props) {
@@ -32,9 +32,11 @@ export default class Setup extends Component {
       return <Expo.AppLoading />;
     }
     return (
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <PersistGate persistor={persistor}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </PersistGate>
     );
   }
 }

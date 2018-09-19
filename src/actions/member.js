@@ -6,18 +6,15 @@ export function signUp(formData) {
     const {
         email,
         password,
-        password2,
         firstName,
-        lastName,
+        phoneNumber,
     } = formData;
 
     return dispatch => new Promise(async (resolve, reject) => {
         if (!firstName) { return reject({ message: ErrorMessages.missingFirstName }); }
-        if (!lastName) { return reject({ message: ErrorMessages.missingLastName }); }
+        if (!phoneNumber) { return reject({ message: ErrorMessages.missingFirstName }); }
         if (!email) { return reject({ message: ErrorMessages.missingEmail }); }
         if (!password) { return reject({ message: ErrorMessages.missingPassword }); }
-        if (!password2) { return reject({ message: ErrorMessages.missingPassword }); }
-        if (password !== password2) { return reject({ message: ErrorMessages.passwordsDontMatch }); }
 
         await status(dispatch, "signup", "loading", true);
 
@@ -27,12 +24,22 @@ export function signUp(formData) {
                 if (res && res.user.uid) {
                     FirebaseRef.child(`users/${res.user.uid}`).set({
                         firstName,
-                        lastName,
-                        signedUp: Firebase.database.ServerValue.TIMESTAMP,
-                        lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
-                        type: "free",
+                        phoneNumber,
+                        country: "",
                         avatar: "",
-                    }).then(() => status(dispatch, "signup", "loading", false).then(resolve));
+                        job: "",
+                        online: false,
+                        lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
+                        availability: "",
+                        skills: "",
+                        certificates: "",
+                        history: "",
+                        rating: 0,
+                        emailVerified: false
+                    }).then(() => {
+                        status(dispatch, "signup", "loading", false);
+                        resolve(true);
+                    });
                 }
             }).catch(reject);
 
@@ -87,8 +94,6 @@ export function login(formData) {
 
     return dispatch => new Promise(async (resolve, reject) => {
         await status(dispatch, "login", "loading", true);
-
-
 
         if (!email) { return reject({ message: ErrorMessages.missingEmail }); }
         if (!password) { return reject({ message: ErrorMessages.missingPassword }); }

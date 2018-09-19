@@ -25,8 +25,7 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "yarn jest && flow && eslint .",
-    "jest": "node node_modules/jest/bin/jest.js",
-    "precommit": "yarn test"
+    "jest": "node node_modules/jest/bin/jest.js"
   },
   "jest": {
     "preset": "jest-expo",
@@ -49,9 +48,9 @@
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "redux-form": "7.2.0",
+    "redux-logger": "^3.0.6",
     "redux-persist": "5.4.0",
     "redux-thunk": "2.2.0",
-    "remote-redux-devtools": "0.5.0",
     "remote-redux-devtools-on-debugger": "^0.8.0",
     "tcomb-form-native": "^0.6.16"
   }

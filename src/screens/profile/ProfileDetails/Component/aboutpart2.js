@@ -4,6 +4,15 @@ import { Avatar, Button } from "react-native-elements";
 
 class Aboutpart2 extends Component {
   state = {};
+
+  _signOutAsync = async () => {
+    const { onLogOut } = this.props;
+    const { navigate } = this.props.navigation;
+    navigate("Auth");
+    onLogOut(this.state)
+      .catch(e => console.log(`Error: ${e}`));
+  }
+
   render() {
     return (
       <View

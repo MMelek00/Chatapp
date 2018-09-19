@@ -1,26 +1,39 @@
 import React from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
-import * as firebase from "firebase";
+import { connect } from "react-redux";
+import {
+  ActivityIndicator,
+  AsyncStorage,
+  StatusBar,
+  StyleSheet,
+  View,
+} from "react-native";
 
-export default class Loading extends React.Component {
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.props.navigation.navigate(user ? "Main" : "Auth");
-    });
+
+class AuthLoading extends React.Component {
+  constructor(props) {
+    super(props);
+    this._bootstrapAsync();
   }
+
+  _bootstrapAsync = async () => {
+    const { uid } = this.props.member;
+    this.props.navigation.navigate(uid ? "App" : "Auth");
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
+      <View>
+        <ActivityIndicator />
+        <StatusBar barStyle="default" />
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
+
+const mapStateToProps = state => ({
+  member: state.member || {},
 });
+
+
+export default connect(mapStateToProps)(AuthLoading);
+

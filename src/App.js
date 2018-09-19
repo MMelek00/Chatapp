@@ -54,9 +54,6 @@ const AuthStack = createStackNavigator(
     Login: {
       screen: Login
     },
-    Profilee: {
-      screen: EditProfile
-    },
 
     Signup: {
       screen: Registre
@@ -66,24 +63,7 @@ const AuthStack = createStackNavigator(
     headerMode: "none"
   }
 );
-const ProfileStack = createStackNavigator(
-  {
-    Profile: {
-      screen: Profile
-    },
 
-    EditProfile: {
-      screen: EditProfile
-    },
-
-    Company: {
-      screen: Company
-    }
-  },
-  {
-    headerMode: "none"
-  }
-);
 const AppStack = createStackNavigator(
   {
     Profile: {
@@ -94,6 +74,15 @@ const AppStack = createStackNavigator(
     },
     Settings: {
       screen: Settings
+    },
+    EditProfile: {
+      screen: EditProfile
+    },
+    Profilee: {
+      screen: EditProfile
+    },
+    Company: {
+      screen: Company
     }
   },
   {
@@ -106,7 +95,6 @@ const App = createSwitchNavigator(
     Loading: Loading,
     Auth: AuthStack,
     Main: MainNav,
-    ProfileStack: ProfileStack,
     AppStack: AppStack
   },
   {
