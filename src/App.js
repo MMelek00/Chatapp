@@ -102,7 +102,7 @@ const App = createSwitchNavigator(
     AppStack: AppStack
   },
   {
-    initialRouteName: "Main"
+    initialRouteName: "Loading"
   }
 );
 export default App;
