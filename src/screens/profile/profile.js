@@ -13,11 +13,9 @@ import {
 import { Icon } from "react-native-elements";
 
 import About from "./ProfileDetails/about";
-import History from "./ProfileDetails/historyLine";
+import History from "./ProfileDetails/history";
 import Certificates from "./ProfileDetails/certificates";
 import Skills from "./ProfileDetails/skills";
-import Mywork from "./ProfileDetails/mywork";
-
 export default class Profile extends React.Component {
   render() {
     return (
@@ -54,9 +52,6 @@ export default class Profile extends React.Component {
           </Tab>
           <Tab heading="Skills">
             <Skills />
-          </Tab>
-          <Tab heading="Mywork">
-            <Mywork />
           </Tab>
         </Tabs>
       </Container>

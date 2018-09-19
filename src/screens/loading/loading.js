@@ -1,13 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  View,
-} from "react-native";
-
+import { ActivityIndicator, StatusBar, View } from "react-native";
 
 class AuthLoading extends React.Component {
   constructor(props) {
@@ -31,9 +24,7 @@ class AuthLoading extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member || {},
+  member: state.member || {}
 });
 
-
 export default connect(mapStateToProps)(AuthLoading);
-

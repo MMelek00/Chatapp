@@ -10,14 +10,14 @@ import {
   Label,
   Input,
   Card,
-  Form
+  Form,
+  Textarea
 } from "native-base";
 import {
   TouchableOpacity,
   Image,
   View,
   StyleSheet,
-  TextInput,
   Picker,
   Text,
   ScrollView
@@ -171,21 +171,17 @@ class EditProfile extends React.Component {
             </Card>
           </View>
 
-          <View style={{ paddingTop: 10 }}>
-            <TextInput
+          <View style={{ paddingTop: 5, paddingHorizontal: 14 }}>
+            <Textarea
+              rowSpan={5}
+              bordered
               placeholder="Description"
               placeholderTextColor="white"
               returnKeyType="go"
               style={{
-                padding: 5,
-                width: "90%",
-                backgroundColor: "gray",
-                borderRadius: 8,
-                height: 150,
-                alignSelf: "center"
+                padding: 10,
+                backgroundColor: "gray"
               }}
-              multiline={true}
-              underlineColorAndroid="transparent"
               onChangeText={Description => this.setState({ Description })}
             />
           </View>

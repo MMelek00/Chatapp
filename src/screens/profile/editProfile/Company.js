@@ -127,7 +127,7 @@ class Company extends React.Component {
             />
             <Button
               block
-              onPress={() => console.log(this.state.City)}
+              onPress={() => this.props.navigation.navigate("Skills")}
               title="Next"
               backgroundColor="#1C39A1"
             />

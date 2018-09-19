@@ -19,6 +19,7 @@ import NewGroupe from "./screens/newgroupe/newgroup";
 import Settings from "./screens/settings/settings";
 import EditProfile from "./screens/profile/editProfile/editProfile";
 import Company from "./screens/profile/editProfile/Company";
+import Skills from "./screens/profile/editProfile/skills";
 const MainNav = createBottomTabNavigator(
   {
     Home: Main,
@@ -81,6 +82,9 @@ const AppStack = createStackNavigator(
     Profilee: {
       screen: EditProfile
     },
+    Skills: {
+      screen: Skills
+    },
     Company: {
       screen: Company
     }
@@ -98,7 +102,7 @@ const App = createSwitchNavigator(
     AppStack: AppStack
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Main"
   }
 );
 export default App;
