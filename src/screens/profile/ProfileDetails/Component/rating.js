@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import { CheckBox, Rating } from "react-native-elements";
+import { connect } from "react-redux";
+
 class CheckRating extends Component {
-  state = { checked: true };
   render() {
     return (
       <View
@@ -17,12 +18,7 @@ class CheckRating extends Component {
             title="Online"
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
-            checked={this.state.checked}
-            onIconPress={() =>
-              this.setState({
-                checked: !this.state.checked
-              })
-            }
+            checked={this.props.member.online}
             textStyle={{ color: "pink" }}
             checkedColor="pink"
             containerStyle={{ backgroundColor: "white", borderWidth: 0 }}
@@ -32,7 +28,7 @@ class CheckRating extends Component {
           <Rating
             readonly
             fractions={1}
-            startingValue={3.3}
+            startingValue={this.props.member.rating}
             imageSize={30}
             showRating
             style={{
@@ -46,4 +42,8 @@ class CheckRating extends Component {
   }
 }
 
-export default CheckRating;
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+
+export default connect(mapStateToProps)(CheckRating);

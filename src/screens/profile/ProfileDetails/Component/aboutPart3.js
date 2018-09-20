@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { Item } from "native-base";
+import { connect } from "react-redux";
+
 class AboutPart3 extends Component {
   state = {};
   render() {
@@ -15,11 +17,15 @@ class AboutPart3 extends Component {
         >
           <Item style={{ paddingLeft: 40 }}>
             <Icon name="500px" type="entypo" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>3 years Experience</Text>
+            <Text style={{ paddingLeft: 10 }}>
+              {this.props.member.experience} years Experience
+            </Text>
           </Item>
           <Item style={{ paddingLeft: 50, width: "50%" }}>
             <Icon name="access-time" type="materialIcons" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>Part-Time Full-time</Text>
+            <Text style={{ paddingLeft: 10 }}>
+              {this.props.member.availability}
+            </Text>
           </Item>
         </View>
         <Text
@@ -29,16 +35,15 @@ class AboutPart3 extends Component {
             paddingLeft: 10
           }}
         >
-          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-          sdddddddddddddddddddddddddddddddddddddddddddddddddd
-          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccffffffffffffffffffff
-          ccccccccccccccccccccccccccccccccc
-          mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-          ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+          {this.props.member.description}
         </Text>
       </View>
     );
   }
 }
 
-export default AboutPart3;
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+
+export default connect(mapStateToProps)(AboutPart3);

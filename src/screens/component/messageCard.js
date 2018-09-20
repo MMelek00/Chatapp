@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Card, CardItem, Text, Right, Left } from "native-base";
-import { Avatar, Button } from "react-native-elements";
+import { Avatar } from "react-native-elements";
 import { StyleSheet } from "react-native";
 const MessageCard = () => {
   return (
