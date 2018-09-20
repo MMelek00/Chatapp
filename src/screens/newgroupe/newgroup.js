@@ -6,7 +6,6 @@ import {
   Right,
   Title,
   Content,
-  Item,
   Input,
   View
 } from "native-base";
