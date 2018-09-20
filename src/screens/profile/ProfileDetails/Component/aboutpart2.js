@@ -9,9 +9,8 @@ class Aboutpart2 extends Component {
     const { onLogOut } = this.props;
     const { navigate } = this.props.navigation;
     navigate("Auth");
-    onLogOut(this.state)
-      .catch(e => console.log(`Error: ${e}`));
-  }
+    onLogOut(this.state).catch(e => console.log(`Error: ${e}`));
+  };
 
   render() {
     return (
