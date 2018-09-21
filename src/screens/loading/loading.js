@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ActivityIndicator, StatusBar, ImageBackground } from "react-native";
+import { ActivityIndicator, StatusBar, View } from "react-native";
 
 class AuthLoading extends React.Component {
   constructor(props) {
@@ -15,13 +15,12 @@ class AuthLoading extends React.Component {
 
   render() {
     return (
-      <ImageBackground
-        source={(require = "./loadingImage.png")}
+      <View
         style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
       >
         <ActivityIndicator />
         <StatusBar barStyle="default" />
-      </ImageBackground>
+      </View>
     );
   }
 }

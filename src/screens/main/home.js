@@ -11,42 +11,47 @@ import {
   Picker,
   Content
 } from "native-base";
-import { Icon } from "react-native-elements";
+
+import { Feather } from "@expo/vector-icons";
 import UserCard from "../component/UserCard";
-export default class Main extends React.Component {
+
+
+export default class Home extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "BUSINESS APP",
+      headerRight: (<Picker
+        mode="dropdown"
+        iosHeader="Select"
+        iosIcon={<Feather name="more-vertical" color="white" style={{ paddingRight: 10 }} />}
+        textStyle={{ color: "white" }}
+        style={{ width: undefined }}
+        onValueChange={navigation.getParam("onValueChange")}
+      >
+        <Picker.Item label="New group" value="NewGroupe" />
+        <Picker.Item label="Account" value="Profile" />
+        <Picker.Item label="Setting" value="Settings" />
+      </Picker>)
+    };
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       selected: "Settings"
     };
   }
-  onValueChange(value: string) {
+  componentDidMount() {
+    this.props.navigation.setParams({ onValueChange: this.onValueChange, selected: this.state.selected });
+  }
+  onValueChange = (value: string) => {
     this.props.navigation.navigate(value);
   }
   render() {
     let deviceWidth = Dimensions.get("window").width;
     return (
       <Container>
-        <Header>
-          <Left />
-          <Body style={{ paddingLeft: deviceWidth / 4 - 10 }}>
-            <Title>BUSINESS APP</Title>
-          </Body>
-          <Right style={{ paddingRight: 8 }}>
-            <Picker
-              mode="dropdown"
-              iosHeader="Select"
-              iosIcon={<Icon name="ios-arrow-down-outline" />}
-              style={{ width: undefined }}
-              selectedValue={this.state.selected}
-              onValueChange={this.onValueChange.bind(this)}
-            >
-              <Picker.Item label="New group" value="NewGroupe" />
-              <Picker.Item label="Account" value="Profile" />
-              <Picker.Item label="Setting" value="Settings" />
-            </Picker>
-          </Right>
-        </Header>
         <Content>
           <View
             style={{
