@@ -25,20 +25,21 @@ import {
 import { Icon, Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import * as firebase from "firebase";
+import { connect } from "react-redux";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 1,
-      name: "User Name ",
-      Number: "",
+      name: this.props.member.firstName,
+      Number: this.props.member.phoneNumber,
       AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
       isloading: false,
-      Years: 1,
-      Country: "Tunisia",
-      City: "",
-      Description: ""
+      Years: this.props.member.experience,
+      Country: this.props.member.country,
+      City: this.props.member.city,
+      Description: this.props.member.description
     };
   }
   updateIndex = index => {
@@ -95,21 +96,33 @@ class EditProfile extends React.Component {
           <Form>
             <Item floatingLabel>
               <Label>Username</Label>
-              <Input onChangeText={name => this.setState({ name })} />
+              <Input
+                value={this.state.name}
+                onChangeText={name => this.setState({ name })}
+              />
             </Item>
 
             <Item floatingLabel>
               <Label>Phone Number</Label>
-              <Input onChangeText={Number => this.setState({ Number })} />
+              <Input
+                value={this.state.Number}
+                onChangeText={Number => this.setState({ Number })}
+              />
             </Item>
 
             <Item floatingLabel>
               <Label>Country</Label>
-              <Input onChangeText={Country => this.setState({ Country })} />
+              <Input
+                value={this.state.Country}
+                onChangeText={Country => this.setState({ Country })}
+              />
             </Item>
             <Item floatingLabel>
               <Label>City</Label>
-              <Input onChangeText={City => this.setState({ City })} />
+              <Input
+                value={this.state.City}
+                onChangeText={City => this.setState({ City })}
+              />
             </Item>
           </Form>
           <View style={{ paddingTop: 10 }}>
@@ -173,6 +186,7 @@ class EditProfile extends React.Component {
 
           <View style={{ paddingTop: 5, paddingHorizontal: 14 }}>
             <Textarea
+              value={this.state.Description}
               rowSpan={5}
               bordered
               placeholder="Description"
@@ -222,4 +236,8 @@ const styles = StyleSheet.create({
     padding: 12
   }
 });
-export default EditProfile;
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+
+export default connect(mapStateToProps)(EditProfile);

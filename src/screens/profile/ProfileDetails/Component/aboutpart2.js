@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { Avatar, Button } from "react-native-elements";
+import { connect } from "react-redux";
 
 class Aboutpart2 extends Component {
   state = {};
@@ -9,10 +10,8 @@ class Aboutpart2 extends Component {
     const { onLogOut } = this.props;
     const { navigate } = this.props.navigation;
     navigate("Auth");
-    onLogOut(this.state)
-      .catch(e => console.log(`Error: ${e}`));
-  }
-
+    onLogOut(this.state).catch(e => console.log(`Error: ${e}`));
+  };
   render() {
     return (
       <View
@@ -39,7 +38,7 @@ class Aboutpart2 extends Component {
             fontFamily: "Roboto_medium"
           }}
         >
-          Marwa M
+          {this.props.member.firstName}
         </Text>
         <Text
           style={{
@@ -48,7 +47,7 @@ class Aboutpart2 extends Component {
             color: "pink"
           }}
         >
-          MarwaM44@gmail.com
+          {this.props.member.email}
         </Text>
         <View style={{ width: 250, padding: 10 }}>
           <Button
@@ -67,5 +66,8 @@ class Aboutpart2 extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
 
-export default Aboutpart2;
+export default connect(mapStateToProps)(Aboutpart2);
