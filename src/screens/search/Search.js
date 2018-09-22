@@ -1,12 +1,11 @@
 import React from "react";
 import { StyleSheet, TextInput, View, Text, Picker } from "react-native";
-import { Item, Title, Body, Container, Card } from "native-base";
-import { Icon, ButtonGroup, Header, Button } from "react-native-elements";
+import { Item, Container, Card } from "native-base";
+import { Icon, ButtonGroup, Button } from "react-native-elements";
 
 export default class Search extends React.Component {
-
   static navigationOptions = {
-    title: "PROFILE",
+    title: "PROFILE"
   };
   state = {
     index: 0,

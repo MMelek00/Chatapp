@@ -183,13 +183,14 @@ export function resetPassword(formData) {
 
 export function updateProfile(formData) {
   const {
-    email,
-    password,
-    password2,
     firstName,
-    lastName,
-    changeEmail,
-    changePassword
+    Number,
+    avatar,
+    experience,
+    Country,
+    City,
+    availability,
+    Description
   } = formData;
 
   return dispatch =>
@@ -200,52 +201,44 @@ export function updateProfile(formData) {
       }
 
       if (!firstName) {
-        return reject({ message: ErrorMessages.missingFirstName });
+        return reject({ message: ErrorMessages.missingname });
       }
-      if (!lastName) {
-        return reject({ message: ErrorMessages.missingLastName });
-      }
-      if (changeEmail) {
-        if (!email) {
-          return reject({ message: ErrorMessages.missingEmail });
-        }
-      }
-      if (changePassword) {
-        if (!password) {
-          return reject({ message: ErrorMessages.missingPassword });
-        }
-        if (!password2) {
-          return reject({ message: ErrorMessages.missingPassword });
-        }
-        if (password !== password2) {
-          return reject({ message: ErrorMessages.passwordsDontMatch });
-        }
+      if (!Number) {
+        return reject({ message: ErrorMessages.missingNumber });
       }
 
-      await status(dispatch, "updateprofile", "loading", true);
+      if (!Country) {
+        return reject({ message: ErrorMessages.missingCountry });
+      }
+
+      if (!City) {
+        return reject({ message: ErrorMessages.missingCity });
+      }
+      if (!Description) {
+        return reject({ message: ErrorMessages.missingDescription });
+      }
+
+      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
 
       return FirebaseRef.child(`users/${UID}`)
-        .update({ firstName, lastName })
+        .update({
+          firstName,
+          Number,
+          avatar,
+          experience,
+          Country,
+          City,
+          availability,
+          Description
+        })
         .then(async () => {
-          if (changeEmail) {
-            await Firebase.auth()
-              .currentUser.updateEmail(email)
-              .catch(reject);
-          }
-
-          if (changePassword) {
-            await Firebase.auth()
-              .currentUser.updatePassword(password)
-              .catch(reject);
-          }
-
           await getUserData(dispatch);
-          await status(dispatch, "updateprofile", "loading", false);
+          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
           resolve();
         })
         .catch(reject);
     }).catch(async err => {
-      await status(dispatch, "updateprofile", "error", err.message);
+      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
       throw err.message;
     });
 }

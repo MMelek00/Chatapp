@@ -1,38 +1,35 @@
 import React from "react";
-import { View, Dimensions } from "react-native";
-//import * as firebase from "firebase";
-import {
-  Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
-  Picker,
-  Content
-} from "native-base";
+import { View } from "react-native";
+import { Container, Picker, Content } from "native-base";
 
 import { Feather } from "@expo/vector-icons";
 import UsersList from "../../components/UsersList";
 import { getUsers } from "../../utils/firebase-fns";
 
 export default class Home extends React.Component {
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: "BUSINESS APP",
-      headerRight: (<Picker
-        mode="dropdown"
-        iosHeader="Select"
-        iosIcon={<Feather name="more-vertical" color="white" style={{ paddingRight: 10 }} />}
-        textStyle={{ color: "white" }}
-        style={{ width: undefined }}
-        onValueChange={navigation.getParam("onValueChange")}
-      >
-        <Picker.Item label="New group" value="NewGroupe" />
-        <Picker.Item label="Account" value="Profile" />
-        <Picker.Item label="Setting" value="Settings" />
-      </Picker>)
+      headerRight: (
+        <Picker
+          mode="dropdown"
+          iosHeader="Select"
+          iosIcon={
+            <Feather
+              name="more-vertical"
+              color="white"
+              style={{ paddingRight: 10 }}
+            />
+          }
+          textStyle={{ color: "white" }}
+          style={{ width: undefined }}
+          onValueChange={navigation.getParam("onValueChange")}
+        >
+          <Picker.Item label="New group" value="NewGroupe" />
+          <Picker.Item label="Account" value="Profile" />
+          <Picker.Item label="Setting" value="Settings" />
+        </Picker>
+      )
     };
   };
 
@@ -42,18 +39,22 @@ export default class Home extends React.Component {
   };
 
   componentWillMount = () => {
-    getUsers().then(data => {
-      this.setState({ data });
-    }).catch(err => console.log(err));
-  }
+    getUsers()
+      .then(data => {
+        this.setState({ data });
+      })
+      .catch(err => console.log(err));
+  };
   componentDidMount() {
-    this.props.navigation.setParams({ onValueChange: this.onValueChange, selected: this.state.selected });
+    this.props.navigation.setParams({
+      onValueChange: this.onValueChange,
+      selected: this.state.selected
+    });
   }
   onValueChange = (value: string) => {
     this.props.navigation.navigate(value);
-  }
+  };
   render() {
-    let deviceWidth = Dimensions.get("window").width;
     return (
       <Container>
         <Content>

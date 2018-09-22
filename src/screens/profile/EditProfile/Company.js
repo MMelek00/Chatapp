@@ -1,11 +1,6 @@
 import React from "react";
 import {
   Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
   Item,
   Label,
   Input,
@@ -14,6 +9,7 @@ import {
   DatePicker
 } from "native-base";
 import { Button } from "react-native-elements";
+import * as firebase from "firebase";
 
 import { View, Text } from "react-native";
 class Company extends React.Component {
@@ -22,7 +18,7 @@ class Company extends React.Component {
     this.state = {
       chosenDate: new Date(),
       name: "",
-      Years: 1,
+      Year: 1,
       JobName: "",
       Link: ""
     };
@@ -31,17 +27,20 @@ class Company extends React.Component {
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
   }
-
+  _pressHandler = () => {
+    const user = firebase.auth().currentUser;
+    const { name, chosenDate, Year, JobName, Link } = this.state;
+    firebase
+      .database()
+      .ref(`users/${user.uid}`)
+      .push({
+        history: [name, chosenDate, Year, JobName, Link]
+      })
+      .then(console.log("emchi"));
+  };
   render() {
     return (
       <Container>
-        <Header>
-          <Left />
-          <Body>
-            <Title>EditProfile</Title>
-          </Body>
-          <Right />
-        </Header>
         <Content style={{ backgroundColor: "#ecf0f1" }}>
           <View
             style={{
@@ -121,7 +120,7 @@ class Company extends React.Component {
           >
             <Button
               block
-              onPress={() => console.log(this.state.chosenDate)}
+              onPress={() => this._pressHandler()}
               title="ADD"
               backgroundColor="#1C39A1"
             />

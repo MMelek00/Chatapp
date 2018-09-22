@@ -1,4 +1,3 @@
-import React from "react";
 import {
   createSwitchNavigator,
   createStackNavigator,
@@ -24,16 +23,16 @@ import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 
 const HomeStack = createStackNavigator(
   {
-    Home: Home,
+    EditProfile: {
+      screen: EditProfile
+    },
     Settings: Settings,
     Profile: {
       screen: Profile
     },
+    Home: Home,
     NewGroupe: {
       screen: NewGroupe
-    },
-    EditProfile: {
-      screen: EditProfile
     },
     Profilee: {
       screen: EditProfile
@@ -46,7 +45,7 @@ const HomeStack = createStackNavigator(
     }
   },
   {
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
@@ -55,16 +54,16 @@ const SearchStack = createStackNavigator(
     Search: Search
   },
   {
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
 const ConversationsStack = createStackNavigator(
   {
-    Conversations: Conversations,
+    Conversations: Conversations
   },
   {
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
@@ -80,31 +79,29 @@ const MainStack = createBottomTabNavigator(
   }
 );
 
-const AuthStack = createStackNavigator(
-  {
-    Login: {
-      screen: Login
-    },
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: Login
+  },
 
-    Signup: {
-      screen: SignUp
-    }
+  Signup: {
+    screen: SignUp
   }
-);
+});
 
 const AppStack = createStackNavigator(
   {
     Main: {
       screen: MainStack,
       navigationOptions: {
-        header: null,
-      },
+        header: null
+      }
     },
     Messages: Messages
   },
   {
     initialRouteName: "Main",
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
@@ -115,7 +112,7 @@ const Router = createSwitchNavigator(
     App: AppStack
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "App"
   }
 );
 export default Router;
