@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { Avatar, Button } from "react-native-elements";
 import { connect } from "react-redux";
 
-class Aboutpart2 extends Component {
+class AboutHeader extends Component {
   state = {};
 
   _signOutAsync = async () => {
@@ -70,4 +70,4 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 
-export default connect(mapStateToProps)(Aboutpart2);
+export default connect(mapStateToProps)(AboutHeader);

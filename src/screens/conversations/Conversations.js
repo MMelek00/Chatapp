@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { NavigationEvents } from "react-navigation";
 
 
-import MessageCard from "../component/messageCard";
-import { getConversations } from "../../lib/firebase-fn";
+import ConversationCard from "./ConversationCard";
+import { getConversations } from "../../utils/firebase-fns";
 
 class ConversationsScreen extends Component {
     static navigationOptions = {
@@ -32,7 +32,7 @@ class ConversationsScreen extends Component {
     _keyExtractor = (item, index) => item.conversationId;
 
     _renderItem = ({ item, key }) => (
-        <MessageCard
+        <ConversationCard
             data={item}
             key={key}
         />

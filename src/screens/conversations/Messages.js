@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
 
-import { sendMessage, loadMessages, getConversationId } from "../../lib/firebase-fn";
+import { sendMessage, loadMessages, getConversationId } from "../../utils/firebase-fns";
 
 class Messages extends React.Component {
   static navigationOptions = ({ navigation }) => {

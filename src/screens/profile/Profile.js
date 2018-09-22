@@ -12,10 +12,10 @@ import {
 } from "native-base";
 import { Icon } from "react-native-elements";
 
-import About from "./ProfileDetails/about";
-import History from "./ProfileDetails/history";
-import Certificates from "./ProfileDetails/certificates";
-import Skills from "./ProfileDetails/skills";
+import About from "./ProfileDetails/About";
+import History from "./ProfileDetails/History";
+import Certificates from "./ProfileDetails/Certificates";
+import Skills from "./ProfileDetails/Skills";
 export default class Profile extends React.Component {
   static navigationOptions = {
     title: "PROFILE"

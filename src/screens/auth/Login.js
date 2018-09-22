@@ -1,9 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import { connect } from "react-redux";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
 import { login } from "../../actions/member";
+
+import styles from "../../styles/login";
+
 
 class Login extends React.Component {
   state = { email: "", password: "", errorMessage: null };
@@ -93,48 +96,7 @@ class Login extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column"
-  },
-  textInput: {
-    height: 45,
-    width: "80%",
-    borderRadius: 8,
-    color: "black",
-    padding: 15
-  },
-  Iteminput: {
-    height: 50,
-    width: "85%",
-    backgroundColor: "#eae3e3",
-    borderColor: "#a39e9e",
-    marginTop: 12,
-    borderRadius: 8,
-    padding: 12
-  },
-  textStyle: {
-    color: "#003399",
-    fontFamily: "Roboto_medium",
-    fontSize: 45,
-    alignSelf: "flex-start",
-    paddingLeft: 35,
-    paddingBottom: 10
-  },
-  buttonstyle: {
-    color: "white",
-    fontFamily: "Roboto_medium",
-    fontSize: 25
-  },
-  forgettext: {
-    color: "blue",
-    fontFamily: "Roboto",
-    fontSize: 18,
-    paddingLeft: 30,
-    paddingRight: 10
-  }
-});
+
 
 const mapStateToProps = state => ({
   member: state.member || {},

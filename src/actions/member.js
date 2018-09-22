@@ -1,6 +1,6 @@
-import ErrorMessages from "../utilities/errors";
+import ErrorMessages from "../utils/errors";
 import { status } from "./status";
-import { Firebase, FirebaseRef } from "../lib/firebase";
+import { Firebase, FirebaseRef } from "../utils/firebase";
 
 export function signUp(formData) {
   const { email, password, firstName, phoneNumber } = formData;
