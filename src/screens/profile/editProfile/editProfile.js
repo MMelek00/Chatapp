@@ -1,11 +1,6 @@
 import React from "react";
 import {
   Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
   Item,
   Label,
   Input,
@@ -20,18 +15,22 @@ import {
   StyleSheet,
   Picker,
   Text,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
-import { Icon, Button, ButtonGroup } from "react-native-elements";
+import { Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import * as firebase from "firebase";
 import { connect } from "react-redux";
-
+import CategoryOption from "../../component/category";
 class EditProfile extends React.Component {
+  static navigationOptions = {
+    title: "PROFILE"
+  };
   constructor(props) {
     super(props);
     this.state = {
-      index: 1,
+      index: this.props.member.availability,
       name: this.props.member.firstName,
       Number: this.props.member.phoneNumber,
       AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
@@ -42,47 +41,63 @@ class EditProfile extends React.Component {
       Description: this.props.member.description
     };
   }
+  onChooseImagePress = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true
+    });
+
+    if (!result.cancelled) {
+      this.uploadImage(result.uri, this.state.name)
+        .then(() => {
+          this.setState({ AvatarLink: result.uri });
+        })
+        .catch(error => {
+          Alert.alert(error);
+        });
+    }
+  };
   updateIndex = index => {
     this.setState({ index });
   };
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      base64: true
-    });
-    if (!result.cancelled) {
-      this.setState({ AvatarLink: result.uri });
-      const sessionId = new Date().getTime();
-      const snapshot = await firebase
-        .storage()
-        .ref()
-        .child("images")
-        .child(`${sessionId}`)
-        .putString(result.base64, "base64");
+  uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
 
-      console.log(snapshot);
-    }
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("images/" + imageName);
+    return ref.put(blob);
+  };
+  _pressHandler = () => {
+    const {
+      name,
+      Number,
+      AvatarLink,
+      Years,
+      Country,
+      City,
+      index,
+      Description
+    } = this.state;
+    this.props.editmemberProp({
+      name,
+      Number,
+      AvatarLink,
+      Years,
+      Country,
+      City,
+      index,
+      Description
+    });
+    this.props.navigation.navigate("Company");
   };
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Icon
-              name="arrow-back"
-              color="white"
-              onPress={() => this.props.navigation.navigate("Main")}
-            />
-          </Left>
-          <Body>
-            <Title>EditProfile</Title>
-          </Body>
-          <Right />
-        </Header>
         <ScrollView style={styles.container}>
           <TouchableOpacity
-            onPress={() => this._pickImage()}
+            onPress={() => this.onChooseImagePress()}
             style={{ alignSelf: "center" }}
           >
             <Image
@@ -236,6 +251,7 @@ const styles = StyleSheet.create({
     padding: 12
   }
 });
+
 const mapStateToProps = state => ({
   member: state.member || {}
 });

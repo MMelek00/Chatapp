@@ -1,6 +1,6 @@
 {
   "expo": {
-    "sdkVersion": "24.0.0",
+    "sdkVersion": "26.0.0",
     "slug": "Chatapp",
     "loading": {
       "hideExponentText": false,
