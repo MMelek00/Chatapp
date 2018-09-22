@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -8,7 +7,7 @@ import {
   StatusBar,
   Spinner
 } from "react-native";
-import * as firebase from "firebase";
+import styles from "../../styles/forget-password";
 
 export default class ForgetPassword extends Component {
   constructor() {
@@ -29,22 +28,7 @@ export default class ForgetPassword extends Component {
 
   onForgetPress() {
     this.setState({ errorMessage: null, loading: true });
-    const { email } = this.state;
-    firebase
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        this.setState({ loading: false });
-        this.props.navigation.navigate("Login");
-      })
-      .catch(error => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        this.setState({
-          errorMessage,
-          loading: false
-        });
-      });
+
   }
 
   renderErrorMessage = () => {
@@ -80,28 +64,4 @@ export default class ForgetPassword extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1.2,
-    justifyContent: "flex-start",
-    backgroundColor: "#16a085",
-    padding: 20,
-    paddingTop: 100
-  },
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    color: "#fff",
-    paddingHorizontal: 10
-  },
-  buttonContainer: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    paddingVertical: 15
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "#FFF",
-    fontWeight: "700"
-  }
-});
+

@@ -3,8 +3,8 @@ import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
 import { Icon, Avatar, Button } from "react-native-elements";
 import { withNavigation } from "react-navigation";
 
-import fonts from "../../utilities/fonts";
-import styles from "../../styles/usercard";
+import fonts from "../utils/fonts";
+import styles from "../styles/user-card";
 
 const UserCard = ({ data, navigation }) => {
   return (

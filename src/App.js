@@ -4,37 +4,24 @@ import {
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
-import { Ionicons } from "@expo/vector-icons";
-import { Icon } from "react-native-elements";
 
 //navigation file
-import Login from "./screens/authentification/login";
-import Registre from "./screens/authentification/registre";
-import Loading from "./screens/loading/loading";
-import Home from "./screens/main/home";
-import Profile from "./screens/profile/profile";
-import Search from "./screens/search/search";
-import Messages from "./screens/messages/messages";
-import Conversations from "./screens/messages/conversations";
-import NewGroupe from "./screens/newgroupe/newgroup";
-import Settings from "./screens/settings/settings";
-import EditProfile from "./screens/profile/editProfile/editProfile";
-import Company from "./screens/profile/editProfile/Company";
-import Skills from "./screens/profile/editProfile/skills";
+import Login from "./screens/auth/Login";
+import SignUp from "./screens/auth/SignUp";
+import Loading from "./components/Loading";
+import Home from "./screens/home/Home";
+import Profile from "./screens/profile/Profile";
+import Search from "./screens/search/Search";
+import Messages from "./screens/conversations/Messages";
+import Conversations from "./screens/conversations/Conversations";
+import NewGroupe from "./screens/groups/NewGroup";
+import Settings from "./screens/settings/Settings";
+import EditProfile from "./screens/profile/EditProfile/EditProfile";
+import Company from "./screens/profile/EditProfile/Company";
+import Skills from "./screens/profile/EditProfile/Skills";
 
-//utils
-import colors from "./utilities/colors";
+import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 
-const headerStyle = {
-  headerStyle: {
-    backgroundColor: colors.base
-  },
-  headerTintColor: "#fff",
-  headerTitleStyle: {
-    fontSize: 18
-  },
-  headerBackTitle: null
-};
 const HomeStack = createStackNavigator(
   {
     EditProfile: {
@@ -88,41 +75,8 @@ const MainStack = createBottomTabNavigator(
     ConversationsStack: ConversationsStack
   },
   {
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
-        const { routeName } = navigation.state;
-        let iconName;
-        if (routeName === "HomeStack") {
-          iconName = `ios-home${focused ? "" : "-outline"}`;
-        } else if (routeName === "SearchStack") {
-          iconName = `ios-search${focused ? "" : "-outline"}`;
-          const style = {
-            position: "absolute",
-            top: -22
-          };
-          return (
-            <Icon
-              reverse
-              type="ionicon"
-              color="#517fa4"
-              name={iconName}
-              size={30}
-              containerStyle={style}
-            />
-          );
-        } else if (routeName === "ConversationsStack") {
-          iconName = `ios-chatbubbles${focused ? "" : "-outline"}`;
-        }
-        return <Ionicons name={iconName} size={30} color={tintColor} />;
-      }
-    }),
-    tabBarOptions: {
-      activeTintColor: "white",
-      inactiveTintColor: "white",
-      inactiveBackgroundColor: "#191F58",
-      activeBackgroundColor: "#7D82B0",
-      showLabel: false
-    }
+    navigationOptions: tabBarNavOptions,
+    tabBarOptions: tabBarStyle
   }
 );
 
@@ -131,8 +85,9 @@ const AuthStack = createStackNavigator({
     screen: Login
   },
 
-  Signup: {
-    screen: Registre
+    Signup: {
+      screen: SignUp
+    }
   }
 });
 

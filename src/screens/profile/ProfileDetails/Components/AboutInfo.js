@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements";
 import { Item } from "native-base";
 import { connect } from "react-redux";
 
-class AboutPart3 extends Component {
+class AboutInfo extends Component {
   state = {};
   render() {
     return (
@@ -46,4 +46,4 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 
-export default connect(mapStateToProps)(AboutPart3);
+export default connect(mapStateToProps)(AboutInfo);

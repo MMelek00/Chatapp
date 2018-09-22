@@ -4,8 +4,8 @@ import { View, Dimensions } from "react-native";
 import { Container, Picker, Content } from "native-base";
 
 import { Feather } from "@expo/vector-icons";
-import UsersList from "../component/UsersList";
-import { getUsers } from "../../lib/firebase-fn";
+import UsersList from "../../components/UsersList";
+import { getUsers } from "../../utils/firebase-fns";
 
 export default class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {

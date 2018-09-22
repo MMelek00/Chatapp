@@ -129,6 +129,3 @@ export function sendMessage(message, conversationId, uid, sendToId) {
         }
     });
 }
-
-
-

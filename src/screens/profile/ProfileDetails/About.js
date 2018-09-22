@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import CheckRating from "./Component/rating";
-import Aboutpart2 from "./Component/aboutpart2";
-import AboutPart3 from "./Component/aboutPart3";
+import CheckRating from "./Components/Rating";
+import AboutHeader from "./Components/AboutHeader";
+import AboutInfo from "./Components/AboutInfo";
 class About extends Component {
   state = {};
   render() {
@@ -14,8 +14,8 @@ class About extends Component {
         }}
       >
         <CheckRating />
-        <Aboutpart2 />
-        <AboutPart3 />
+        <AboutHeader />
+        <AboutInfo />
       </View>
     );
   }
