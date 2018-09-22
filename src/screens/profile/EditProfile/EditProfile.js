@@ -20,27 +20,34 @@ import {
 } from "react-native";
 import { Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
-import * as firebase from "firebase";
 import { connect } from "react-redux";
 import CategoryOption from "../../../components/category";
+import { updateProfile } from "../../../actions/member";
+import * as firebase from "firebase";
 class EditProfile extends React.Component {
   static navigationOptions = {
     title: "PROFILE"
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      availability: this.props.member.availability,
-      name: this.props.member.firstName,
-      Number: this.props.member.phoneNumber,
-      AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
-      isloading: false,
-      Years: this.props.member.experience,
-      Country: this.props.member.country,
-      City: this.props.member.city,
-      Description: this.props.member.description
-    };
-  }
+  state = {
+    availability: this.props.member.availability,
+    name: this.props.member.firstName,
+    Number: this.props.member.phoneNumber,
+    avatar: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+    isloading: false,
+    experience: this.props.member.experience,
+    Country: this.props.member.country,
+    City: this.props.member.city,
+    Description: this.props.member.description
+  };
+  handleSubmit = async () => {
+    const { onFormSubmit } = this.props;
+    const { navigate } = this.props.navigation;
+    onFormSubmit(this.state)
+      .then(resp => {
+        navigate("Company");
+      })
+      .catch(e => console.log(`Error: ${e}`));
+  };
   onChooseImagePress = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true
@@ -49,7 +56,7 @@ class EditProfile extends React.Component {
     if (!result.cancelled) {
       this.uploadImage(result.uri, this.state.name)
         .then(() => {
-          this.setState({ AvatarLink: result.uri });
+          this.setState({ avatar: result.uri });
         })
         .catch(error => {
           Alert.alert(error);
@@ -68,33 +75,6 @@ class EditProfile extends React.Component {
       .ref()
       .child("images/" + imageName);
     return ref.put(blob);
-  };
-  _pressHandler = () => {
-    const user = firebase.auth().currentUser;
-    const {
-      name,
-      Number,
-      AvatarLink,
-      Years,
-      Country,
-      City,
-      availability,
-      Description
-    } = this.state;
-    firebase
-      .database()
-      .ref(`users/${user.uid}`)
-      .update({
-        name,
-        Number,
-        AvatarLink,
-        Years,
-        Country,
-        City,
-        availability,
-        Description
-      })
-      .then(this.props.navigation.navigate("Company"));
   };
 
   render() {
@@ -223,7 +203,7 @@ class EditProfile extends React.Component {
         <View style={{ width: "30%", alignSelf: "flex-end" }}>
           <Button
             block
-            onPress={() => this._pressHandler()}
+            onPress={this.handleSubmit}
             title="Next"
             backgroundColor="#1C39A1"
           />
@@ -260,5 +240,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   member: state.member || {}
 });
+const mapDispatchToProps = {
+  onFormSubmit: updateProfile
+};
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditProfile);

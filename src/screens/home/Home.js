@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Dimensions } from "react-native";
-//import * as firebase from "firebase";
+import { View } from "react-native";
 import { Container, Picker, Content } from "native-base";
 
 import { Feather } from "@expo/vector-icons";
@@ -56,7 +55,6 @@ export default class Home extends React.Component {
     this.props.navigation.navigate(value);
   };
   render() {
-    let deviceWidth = Dimensions.get("window").width;
     return (
       <Container>
         <Content>

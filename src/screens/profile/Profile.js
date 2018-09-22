@@ -1,16 +1,6 @@
 import React from "react";
-import {
-  Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
-  Tab,
-  Tabs,
-  ScrollableTab
-} from "native-base";
-import { Icon } from "react-native-elements";
+import { Container, Tab, Tabs, ScrollableTab } from "native-base";
+import { Button } from "react-native-elements";
 
 import About from "./ProfileDetails/About";
 import History from "./ProfileDetails/History";

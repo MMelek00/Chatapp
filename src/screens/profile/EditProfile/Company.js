@@ -34,7 +34,7 @@ class Company extends React.Component {
       .database()
       .ref(`users/${user.uid}`)
       .push({
-        company: [name, chosenDate, Year, JobName, Link]
+        history: [name, chosenDate, Year, JobName, Link]
       })
       .then(console.log("emchi"));
   };

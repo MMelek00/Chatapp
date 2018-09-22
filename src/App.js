@@ -1,4 +1,3 @@
-import React from "react";
 import {
   createSwitchNavigator,
   createStackNavigator,
@@ -27,11 +26,11 @@ const HomeStack = createStackNavigator(
     EditProfile: {
       screen: EditProfile
     },
+    Settings: Settings,
     Profile: {
       screen: Profile
     },
     Home: Home,
-    Settings: Settings,
     NewGroupe: {
       screen: NewGroupe
     },
@@ -85,9 +84,8 @@ const AuthStack = createStackNavigator({
     screen: Login
   },
 
-    Signup: {
-      screen: SignUp
-    }
+  Signup: {
+    screen: SignUp
   }
 });
 
@@ -114,7 +112,7 @@ const Router = createSwitchNavigator(
     App: AppStack
   },
   {
-    initialRouteName: "Auth"
+    initialRouteName: "App"
   }
 );
 export default Router;
