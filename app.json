@@ -1,10 +1,6 @@
 {
   "expo": {
-<<<<<<< HEAD
     "sdkVersion": "30.0.0",
-=======
-    "sdkVersion": "26.0.0",
->>>>>>> 927545c0f2c9b876b324ef54f210c4e30314e701
     "slug": "Chatapp",
     "loading": {
       "hideExponentText": false,
