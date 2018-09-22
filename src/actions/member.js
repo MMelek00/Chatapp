@@ -61,10 +61,10 @@ export function signUp(formData) {
 function getUserData(dispatch) {
   const UID =
     FirebaseRef &&
-    Firebase &&
-    Firebase.auth() &&
-    Firebase.auth().currentUser &&
-    Firebase.auth().currentUser.uid
+      Firebase &&
+      Firebase.auth() &&
+      Firebase.auth().currentUser &&
+      Firebase.auth().currentUser.uid
       ? Firebase.auth().currentUser.uid
       : null;
 
@@ -182,7 +182,9 @@ export function resetPassword(formData) {
 }
 
 export function updateProfile(formData) {
+  console.log(formData);
   const {
+    uid,
     firstName,
     Number,
     avatar,
@@ -195,32 +197,10 @@ export function updateProfile(formData) {
 
   return dispatch =>
     new Promise(async (resolve, reject) => {
-      const UID = Firebase.auth().currentUser.uid;
-      if (!UID) {
-        return reject({ message: ErrorMessages.missingFirstName });
-      }
-
-      if (!firstName) {
-        return reject({ message: ErrorMessages.missingname });
-      }
-      if (!Number) {
-        return reject({ message: ErrorMessages.missingNumber });
-      }
-
-      if (!Country) {
-        return reject({ message: ErrorMessages.missingCountry });
-      }
-
-      if (!City) {
-        return reject({ message: ErrorMessages.missingCity });
-      }
-      if (!Description) {
-        return reject({ message: ErrorMessages.missingDescription });
-      }
 
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
 
-      return FirebaseRef.child(`users/${UID}`)
+      return FirebaseRef.child(`users/${uid}`)
         .update({
           firstName,
           Number,

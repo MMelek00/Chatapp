@@ -29,15 +29,16 @@ class EditProfile extends React.Component {
     title: "PROFILE"
   };
   state = {
-    availability: this.props.member.availability,
-    name: this.props.member.firstName,
-    Number: this.props.member.phoneNumber,
+    uid: this.props.member.uid,
+    availability: this.props.member.availability || "",
+    firstName: this.props.member.firstName || "",
+    Number: this.props.member.phoneNumber || "",
     avatar: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
     isloading: false,
-    experience: this.props.member.experience,
-    Country: this.props.member.country,
-    City: this.props.member.city,
-    Description: this.props.member.description
+    experience: this.props.member.experience || "",
+    Country: this.props.member.country || "",
+    City: this.props.member.city || "",
+    Description: this.props.member.description || ""
   };
   handleSubmit = async () => {
     const { onFormSubmit } = this.props;
