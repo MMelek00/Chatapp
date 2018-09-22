@@ -1,25 +1,30 @@
 import React from "react";
 import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
 import { Icon, Avatar, Button } from "react-native-elements";
-import { StyleSheet } from "react-native";
-const UserCard = () => {
+import { withNavigation } from "react-navigation";
+
+import fonts from "../../utilities/fonts";
+import styles from "../../styles/usercard";
+
+const UserCard = ({ data, navigation }) => {
   return (
-    <Card>
+    <Card style={styles.cardStyle}>
       <CardItem style={styles.Citem}>
         <Left>
           <Avatar
             large
             rounded
-            source={{
-              uri:
-                "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-            }}
+            // source={{
+            //   uri:
+            //     "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
+            // }}
+            title={data.firstName.slice(0, 2).toUpperCase()}
             activeOpacity={0.7}
           />
           <View>
-            <Text style={styles.text2}>Marwa M</Text>
-            <Text style={styles.text}>Marwam44@gmail.com</Text>
-            <Text style={styles.text2}>Graphic design</Text>
+            <Text style={styles.text2}>{data.firstName}</Text>
+            <Text style={styles.text}>{data.email}</Text>
+            <Text style={styles.text2}>{data.job}</Text>
           </View>
         </Left>
         <Right>
@@ -31,10 +36,17 @@ const UserCard = () => {
                 name: "send",
                 type: "materialIcons"
               }}
+              titleStyle={{ fontSize: 10 }}
               backgroundColor="#1C39A1"
               buttonStyle={{ height: 25, width: 130 }}
+              onPress={() => {
+                navigation.navigate("Messages", {
+                  sendToId: data.id,
+                  sendToName: data.firstName
+                });
+              }}
             />
-            <Text style={styles.Onligne}>Onligne</Text>
+            <Text style={styles.Onligne}>{data.online ? "online" : "offline"}</Text>
           </View>
         </Right>
       </CardItem>
@@ -52,7 +64,7 @@ const UserCard = () => {
             }}
           >
             <Icon name="500px" type="entypo" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>3 years Experience</Text>
+            <Text style={{ paddingLeft: 10 }}>{data.experience} Experience</Text>
           </Item>
           <Item
             style={{
@@ -69,32 +81,6 @@ const UserCard = () => {
     </Card>
   );
 };
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 12,
-    fontFamily: "Roboto_medium",
-    color: "pink",
-    paddingLeft: 5
-  },
-  text2: {
-    fontSize: 15,
-    fontFamily: "Roboto_medium",
-    paddingLeft: 5
-  },
-  Onligne: {
-    fontSize: 18,
-    fontFamily: "Roboto_medium",
-    color: "pink",
-    paddingTop: 10,
-    paddingLeft: 18
-  },
-  Citem: {
-    borderRadius: 0,
-    paddingLeft: 8,
-    paddingBottom: 5,
-    paddingRight: 5,
-    paddingTop: 5
-  }
-});
 
-export default UserCard;
+
+export default withNavigation(UserCard);
