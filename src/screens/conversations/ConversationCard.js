@@ -7,6 +7,15 @@ import { withNavigation } from "react-navigation";
 import styles from "../../styles/conversations-card";
 
 const ConversationCard = ({ data, navigation }) => {
+  if (data.sendTo === null) {
+    return (
+      <Card>
+        <CardItem style={styles.Citem}>
+          <Text style={styles.text2}>this conversation is deleted</Text>
+        </CardItem>
+      </Card>
+    );
+  }
   return (
     <TouchableOpacity
       onPress={() => {
@@ -16,7 +25,6 @@ const ConversationCard = ({ data, navigation }) => {
         });
       }}
     >
-
       <Card>
         <CardItem style={styles.Citem}>
           <Left>

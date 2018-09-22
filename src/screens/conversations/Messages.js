@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
 
-import { sendMessage, loadMessages, getConversationId } from "../../utils/firebase-fns";
+import { sendMessage, loadMessages, getConversationId, closeChat } from "../../utils/firebase-fns";
 
 class Messages extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -14,6 +14,10 @@ class Messages extends React.Component {
 
   componentDidMount() {
     this._fetchConversation();
+  }
+
+  componentWillUnmount() {
+    closeChat();
   }
 
   _fetchConversation = () => {

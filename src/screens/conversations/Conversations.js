@@ -24,8 +24,8 @@ class ConversationsScreen extends Component {
     _fetchConversations = () => {
         this.setState({ loading: true });
         getConversations(this.props.member.uid).then(data => {
+            console.log(data);
             this.setState({ data, loading: false });
-            console.log(this.state);
         }).catch(err => console.log(err));
     }
 

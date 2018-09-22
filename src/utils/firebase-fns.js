@@ -125,7 +125,13 @@ export function sendMessage(message, conversationId, uid, sendToId) {
                     pushMessages(message, conversation.key);
                     resolve(conversation.key);
                 });
-
         }
     });
 }
+
+export function closeChat() {
+    if (FirebaseRef) {
+        FirebaseRef.off();
+    }
+}
+
