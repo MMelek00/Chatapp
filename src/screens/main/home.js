@@ -13,8 +13,8 @@ import {
 } from "native-base";
 
 import { Feather } from "@expo/vector-icons";
-import UserCard from "../component/UserCard";
-
+import UsersList from "../component/UsersList";
+import { getUsers } from "../../lib/firebase-fn";
 
 export default class Home extends React.Component {
 
@@ -36,11 +36,15 @@ export default class Home extends React.Component {
     };
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: "Settings"
-    };
+  state = {
+    selected: "Settings",
+    data: []
+  };
+
+  componentWillMount = () => {
+    getUsers().then(data => {
+      this.setState({ data });
+    }).catch(err => console.log(err));
   }
   componentDidMount() {
     this.props.navigation.setParams({ onValueChange: this.onValueChange, selected: this.state.selected });
@@ -112,9 +116,7 @@ export default class Home extends React.Component {
               </Picker>
             </View>
           </View>
-          <UserCard />
-          <UserCard />
-          <UserCard />
+          <UsersList data={this.state.data} />
         </Content>
       </Container>
     );

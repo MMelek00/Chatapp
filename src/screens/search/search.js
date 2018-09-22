@@ -4,6 +4,10 @@ import { Item, Title, Body, Container, Card } from "native-base";
 import { Icon, ButtonGroup, Header, Button } from "react-native-elements";
 
 export default class Search extends React.Component {
+
+  static navigationOptions = {
+    title: "PROFILE",
+  };
   state = {
     index: 0,
     Years: 1,
@@ -19,11 +23,6 @@ export default class Search extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>SEARCH</Title>
-          </Body>
-        </Header>
         <View style={styles.container}>
           <Item style={styles.Iteminput}>
             <Icon name="user" type="font-awesome" color="white" />

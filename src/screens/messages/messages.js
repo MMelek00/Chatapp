@@ -1,32 +1,70 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import MessageCard from "../component/messageCard";
-import { Icon, Header } from "react-native-elements";
-import { Container, Left, Body, Right, Title } from "native-base";
-export default class Messages extends React.Component {
-  state = { currentUser: null };
+import { connect } from "react-redux";
+import { GiftedChat } from "react-native-gifted-chat";
 
-  componentDidMount() {}
+import { sendMessage, loadMessages, getConversationId } from "../../lib/firebase-fn";
+
+class Messages extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam("sendToName", "MESSAGES")
+    };
+  };
+  state = { messages: [], conversationId: "" };
+
+  componentDidMount() {
+    this._fetchConversation();
+  }
+
+  _fetchConversation = () => {
+    const { navigation, member } = this.props;
+    const sendToId = navigation.getParam("sendToId");
+    getConversationId(member.uid, sendToId).then((conversationId) => {
+      loadMessages(conversationId, (message) => {
+        this.setState(previousState => ({
+          messages: GiftedChat.append(previousState.messages, message),
+          conversationId
+        }));
+      });
+    });
+  }
+
+  _sendMessage = (message) => {
+    const { navigation, member } = this.props;
+    const sendToId = navigation.getParam("sendToId");
+    sendMessage(
+      message,
+      this.state.conversationId,
+      member.uid,
+      sendToId
+    ).then(res => {
+      if (res) {
+        this.setState({ conversationId: res });
+        this._fetchConversation();
+      }
+    });
+  }
+
+
   render() {
+    const { member } = this.props;
     return (
-      <Container>
-        <Header>
-          <Left />
-          <Body>
-            <Title>Messages</Title>
-          </Body>
-          <Right />
-        </Header>
-        <MessageCard />
-      </Container>
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={messages => this._sendMessage(messages)}
+        user={{
+          _id: member.uid,
+          name: member.firstName,
+        }}
+        showUserAvatar
+        loadEarlier
+        showAvatarForEveryMessage
+      />
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    padding: 5
-  }
-});
+
+
+export default connect(state => ({
+  member: state.member || {},
+}))(Messages);

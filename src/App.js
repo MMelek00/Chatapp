@@ -34,10 +34,31 @@ const headerStyle = {
   headerTitleStyle: {
     fontSize: 18,
   },
+  headerBackTitle: null
+
 };
 const HomeStack = createStackNavigator(
   {
-    Home: Home
+    Home: Home,
+    Settings: Settings,
+    Profile: {
+      screen: Profile
+    },
+    NewGroupe: {
+      screen: NewGroupe
+    },
+    EditProfile: {
+      screen: EditProfile
+    },
+    Profilee: {
+      screen: EditProfile
+    },
+    Skills: {
+      screen: Skills
+    },
+    Company: {
+      screen: Company
+    }
   },
   {
     navigationOptions: headerStyle,
@@ -56,7 +77,6 @@ const SearchStack = createStackNavigator(
 const ConversationsStack = createStackNavigator(
   {
     Conversations: Conversations,
-    Messages: Messages
   },
   {
     navigationOptions: headerStyle,
@@ -125,27 +145,7 @@ const AppStack = createStackNavigator(
         header: null,
       },
     },
-    Profile: {
-      screen: Profile
-    },
-    NewGroupe: {
-      screen: NewGroupe
-    },
-    Settings: {
-      screen: Settings
-    },
-    EditProfile: {
-      screen: EditProfile
-    },
-    Profilee: {
-      screen: EditProfile
-    },
-    Skills: {
-      screen: Skills
-    },
-    Company: {
-      screen: Company
-    }
+    Messages: Messages
   },
   {
     initialRouteName: "Main",
