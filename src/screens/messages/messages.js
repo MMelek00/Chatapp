@@ -1,13 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import { StyleSheet } from "react-native";
-import MessageCard from "../component/messageCard";
-import { Container } from "native-base";
-export default class Messages extends React.Component {
-  static navigationOptions = {
-    title: "MESSAGES"
-  };
-=======
 import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
 
@@ -55,15 +46,9 @@ class Messages extends React.Component {
   }
 
 
->>>>>>> 86c3727044463662a1ab82d19177668965f45c42
   render() {
     const { member } = this.props;
     return (
-<<<<<<< HEAD
-      <Container>
-        <MessageCard />
-      </Container>
-=======
       <GiftedChat
         messages={this.state.messages}
         onSend={messages => this._sendMessage(messages)}
@@ -75,7 +60,6 @@ class Messages extends React.Component {
         loadEarlier
         showAvatarForEveryMessage
       />
->>>>>>> 86c3727044463662a1ab82d19177668965f45c42
     );
   }
 }

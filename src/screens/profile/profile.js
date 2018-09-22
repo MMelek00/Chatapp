@@ -1,24 +1,20 @@
 import React from "react";
-import {
-  Container,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
-  Tab,
-  Tabs,
-  ScrollableTab
-} from "native-base";
-import { Icon } from "react-native-elements";
-
+import { Container, Tab, Tabs, ScrollableTab } from "native-base";
+import { Button } from "react-native-elements";
 import About from "./ProfileDetails/about";
 import History from "./ProfileDetails/history";
 import Certificates from "./ProfileDetails/certificates";
 import Skills from "./ProfileDetails/skills";
 export default class Profile extends React.Component {
   static navigationOptions = {
-    title: "PROFILE"
+    title: "PROFILE",
+    headerRight: (
+      <Button
+        onPress={() => alert("This is a button!")}
+        title="Info"
+        color="#fff"
+      />
+    )
   };
   render() {
     return (

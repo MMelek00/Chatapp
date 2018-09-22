@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import {
   createSwitchNavigator,
   createStackNavigator,
@@ -32,23 +31,22 @@ const headerStyle = {
   },
   headerTintColor: "#fff",
   headerTitleStyle: {
-    fontSize: 18,
+    fontSize: 18
   },
   headerBackTitle: null
-
 };
 const HomeStack = createStackNavigator(
   {
-    Home: Home,
-    Settings: Settings,
+    EditProfile: {
+      screen: EditProfile
+    },
     Profile: {
       screen: Profile
     },
+    Home: Home,
+    Settings: Settings,
     NewGroupe: {
       screen: NewGroupe
-    },
-    EditProfile: {
-      screen: EditProfile
     },
     Profilee: {
       screen: EditProfile
@@ -61,7 +59,7 @@ const HomeStack = createStackNavigator(
     }
   },
   {
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
@@ -70,16 +68,16 @@ const SearchStack = createStackNavigator(
     Search: Search
   },
   {
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
 const ConversationsStack = createStackNavigator(
   {
-    Conversations: Conversations,
+    Conversations: Conversations
   },
   {
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
@@ -99,16 +97,19 @@ const MainStack = createBottomTabNavigator(
         } else if (routeName === "SearchStack") {
           iconName = `ios-search${focused ? "" : "-outline"}`;
           const style = {
-            position: "absolute", top: -22
+            position: "absolute",
+            top: -22
           };
-          return <Icon
-            reverse
-            type="ionicon"
-            color="#517fa4"
-            name={iconName}
-            size={30}
-            containerStyle={style}
-          />;
+          return (
+            <Icon
+              reverse
+              type="ionicon"
+              color="#517fa4"
+              name={iconName}
+              size={30}
+              containerStyle={style}
+            />
+          );
         } else if (routeName === "ConversationsStack") {
           iconName = `ios-chatbubbles${focused ? "" : "-outline"}`;
         }
@@ -125,31 +126,29 @@ const MainStack = createBottomTabNavigator(
   }
 );
 
-const AuthStack = createStackNavigator(
-  {
-    Login: {
-      screen: Login
-    },
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: Login
+  },
 
-    Signup: {
-      screen: Registre
-    }
+  Signup: {
+    screen: Registre
   }
-);
+});
 
 const AppStack = createStackNavigator(
   {
     Main: {
       screen: MainStack,
       navigationOptions: {
-        header: null,
-      },
+        header: null
+      }
     },
     Messages: Messages
   },
   {
     initialRouteName: "Main",
-    navigationOptions: headerStyle,
+    navigationOptions: headerStyle
   }
 );
 
@@ -160,7 +159,7 @@ const Router = createSwitchNavigator(
     App: AppStack
   },
   {
-    initialRouteName: "Loading"
+    initialRouteName: "Auth"
   }
 );
 export default Router;

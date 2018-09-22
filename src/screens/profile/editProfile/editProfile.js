@@ -23,6 +23,7 @@ import { ImagePicker } from "expo";
 import * as firebase from "firebase";
 import { connect } from "react-redux";
 import CategoryOption from "../../component/category";
+
 class EditProfile extends React.Component {
   static navigationOptions = {
     title: "PROFILE"
@@ -30,7 +31,7 @@ class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: this.props.member.availability,
+      availability: this.props.member.availability,
       name: this.props.member.firstName,
       Number: this.props.member.phoneNumber,
       AvatarLink: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
@@ -56,8 +57,8 @@ class EditProfile extends React.Component {
         });
     }
   };
-  updateIndex = index => {
-    this.setState({ index });
+  updateIndex = availability => {
+    this.setState({ availability });
   };
   uploadImage = async (uri, imageName) => {
     const response = await fetch(uri);
@@ -70,6 +71,7 @@ class EditProfile extends React.Component {
     return ref.put(blob);
   };
   _pressHandler = () => {
+    const user = firebase.auth().currentUser;
     const {
       name,
       Number,
@@ -77,21 +79,25 @@ class EditProfile extends React.Component {
       Years,
       Country,
       City,
-      index,
+      availability,
       Description
     } = this.state;
-    this.props.editmemberProp({
-      name,
-      Number,
-      AvatarLink,
-      Years,
-      Country,
-      City,
-      index,
-      Description
-    });
-    this.props.navigation.navigate("Company");
+    firebase
+      .database()
+      .ref(`users/${user.uid}`)
+      .update({
+        name,
+        Number,
+        AvatarLink,
+        Years,
+        Country,
+        City,
+        availability,
+        Description
+      })
+      .then(this.props.navigation.navigate("Company"));
   };
+
   render() {
     return (
       <Container>
@@ -144,7 +150,7 @@ class EditProfile extends React.Component {
             <ButtonGroup
               selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
               onPress={this.updateIndex}
-              selectedIndex={this.state.index}
+              selectedIndex={this.state.availability}
               buttons={["Freelancer", "Part Time", "Full Time"]}
               containerStyle={{ height: 45, width: "90%" }}
             />
@@ -218,7 +224,7 @@ class EditProfile extends React.Component {
         <View style={{ width: "30%", alignSelf: "flex-end" }}>
           <Button
             block
-            onPress={() => this.props.navigation.navigate("Company")}
+            onPress={() => this._pressHandler()}
             title="Next"
             backgroundColor="#1C39A1"
           />
