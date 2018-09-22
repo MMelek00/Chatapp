@@ -22,7 +22,7 @@ import { Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import * as firebase from "firebase";
 import { connect } from "react-redux";
-import CategoryOption from "../../component/category";
+import CategoryOption from "../../../components/category";
 class EditProfile extends React.Component {
   static navigationOptions = {
     title: "PROFILE"

@@ -53,7 +53,7 @@ export async function getConversations(uid) {
 }
 
 export function loadMessages(conversationId, callback) {
-    const messagesRef = FirebaseRef.child("/conversations/" + conversationId + "/conversations");
+    const messagesRef = FirebaseRef.child("/conversations/" + conversationId + "/messages");
     messagesRef.off();
     const onReceive = (data) => {
         const message = data.val();
@@ -83,7 +83,7 @@ export function getConversationId(uid, sendToId) {
 }
 
 const pushMessages = (message, conversationId) => {
-    const messagesRef = FirebaseRef.child("/conversations/" + conversationId + "/conversations");
+    const messagesRef = FirebaseRef.child("/conversations/" + conversationId + "/messages");
     const conversationRef = FirebaseRef.child("/conversations/" + conversationId);
     for (let i = 0; i < message.length; i++) {
         messagesRef.push({
@@ -129,6 +129,3 @@ export function sendMessage(message, conversationId, uid, sendToId) {
         }
     });
 }
-
-
-
