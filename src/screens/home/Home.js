@@ -104,7 +104,6 @@ export default class Home extends React.Component {
             >
               <Picker
                 selectedValue={this.state.Job}
-                style={{ height: 20, width: "90%" }}
                 itemStyle={{ color: "blue" }}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ Job: itemValue })

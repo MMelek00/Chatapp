@@ -53,16 +53,16 @@ export function getSimpleConversations(uid) {
 
 export async function getConversations(uid) {
     return getSimpleConversations(uid)
-        .then(async simpleConversations => {
-            const usersPromises = simpleConversations
+        .then(async conversations => {
+            const usersPromises = conversations
                 .map(i => getSingleUser(i.sendToId));
             const conversationsUsers = await Promise.all(usersPromises);
 
-            const detailsPromises = simpleConversations
+            const detailsPromises = conversations
                 .map(i => getSingleConversation(i.conversationId));
             const conversationsDetails = await Promise.all(detailsPromises);
 
-            return simpleConversations.map((v, i) => ({ ...v, sendTo: conversationsUsers[i], conversation: conversationsDetails[i] }));
+            return conversations.map((v, i) => ({ ...v, sendTo: conversationsUsers[i], conversation: conversationsDetails[i] }));
         })
         .catch(err => err);
 }
