@@ -30,15 +30,17 @@ class EditProfile extends React.Component {
   };
   state = {
     uid: this.props.member.uid,
-    availability: this.props.member.availability || "",
     firstName: this.props.member.firstName || "",
-    Number: this.props.member.phoneNumber || "",
-    avatar: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
-    isloading: false,
+    phoneNumber: this.props.member.phoneNumber || "",
+    avatar:
+      this.props.member.avatar ||
+      "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+    availability: this.props.member.availability || "",
     experience: this.props.member.experience || "",
-    Country: this.props.member.country || "",
-    City: this.props.member.city || "",
-    Description: this.props.member.description || ""
+    country: this.props.member.country || "",
+    city: this.props.member.city || "",
+    description: this.props.member.description || "",
+    isloading: false
   };
   handleSubmit = async () => {
     const { onFormSubmit } = this.props;
@@ -55,7 +57,7 @@ class EditProfile extends React.Component {
     });
 
     if (!result.cancelled) {
-      this.uploadImage(result.uri, this.state.name)
+      this.uploadImage(result.uri, this.state.firstName)
         .then(() => {
           this.setState({ avatar: result.uri });
         })
@@ -89,7 +91,7 @@ class EditProfile extends React.Component {
             <Image
               style={{ width: 150, height: 150, borderRadius: 100 }}
               source={{
-                uri: this.state.AvatarLink
+                uri: this.state.avatar
               }}
             />
           </TouchableOpacity>
@@ -98,31 +100,31 @@ class EditProfile extends React.Component {
             <Item floatingLabel>
               <Label>Username</Label>
               <Input
-                value={this.state.name}
-                onChangeText={name => this.setState({ name })}
+                value={this.state.firstName}
+                onChangeText={firstName => this.setState({ firstName })}
               />
             </Item>
 
             <Item floatingLabel>
               <Label>Phone Number</Label>
               <Input
-                value={this.state.Number}
-                onChangeText={Number => this.setState({ Number })}
+                value={this.state.phoneNumber}
+                onChangeText={phoneNumber => this.setState({ phoneNumber })}
               />
             </Item>
 
             <Item floatingLabel>
               <Label>Country</Label>
               <Input
-                value={this.state.Country}
-                onChangeText={Country => this.setState({ Country })}
+                value={this.state.country}
+                onChangeText={country => this.setState({ country })}
               />
             </Item>
             <Item floatingLabel>
               <Label>City</Label>
               <Input
-                value={this.state.City}
-                onChangeText={City => this.setState({ City })}
+                value={this.state.city}
+                onChangeText={city => this.setState({ city })}
               />
             </Item>
           </Form>
@@ -149,11 +151,11 @@ class EditProfile extends React.Component {
               </View>
               <View style={{ paddingLeft: 10 }}>
                 <Picker
-                  selectedValue={this.state.Category}
+                  selectedValue={this.state.category}
                   style={{ height: 50, width: "100%" }}
                   itemStyle={{ color: "blue" }}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ Category: itemValue })
+                    this.setState({ category: itemValue })
                   }
                 >
                   <Picker.Item label="Mobile" value="Mobile" />
@@ -169,11 +171,11 @@ class EditProfile extends React.Component {
               </View>
               <View style={{ paddingLeft: 10 }}>
                 <Picker
-                  selectedValue={this.state.Job}
+                  selectedValue={this.state.job}
                   style={{ height: 50, width: "100%" }}
                   itemStyle={{ color: "blue" }}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ Job: itemValue })
+                    this.setState({ job: itemValue })
                   }
                 >
                   <Picker.Item label="Design" value="Design" />
@@ -187,7 +189,7 @@ class EditProfile extends React.Component {
 
           <View style={{ paddingTop: 5, paddingHorizontal: 14 }}>
             <Textarea
-              value={this.state.Description}
+              value={this.state.description}
               rowSpan={5}
               bordered
               placeholder="Description"
@@ -197,7 +199,7 @@ class EditProfile extends React.Component {
                 padding: 10,
                 backgroundColor: "gray"
               }}
-              onChangeText={Description => this.setState({ Description })}
+              onChangeText={description => this.setState({ description })}
             />
           </View>
         </ScrollView>

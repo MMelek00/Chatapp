@@ -32,7 +32,8 @@ export function signUp(formData) {
                 phoneNumber,
                 country: "",
                 city: "",
-                avatar: "",
+                avatar:
+                  "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
                 description: "",
                 experience: 1,
                 job: "",
@@ -61,10 +62,10 @@ export function signUp(formData) {
 function getUserData(dispatch) {
   const UID =
     FirebaseRef &&
-      Firebase &&
-      Firebase.auth() &&
-      Firebase.auth().currentUser &&
-      Firebase.auth().currentUser.uid
+    Firebase &&
+    Firebase.auth() &&
+    Firebase.auth().currentUser &&
+    Firebase.auth().currentUser.uid
       ? Firebase.auth().currentUser.uid
       : null;
 
@@ -182,34 +183,32 @@ export function resetPassword(formData) {
 }
 
 export function updateProfile(formData) {
-  console.log(formData);
   const {
     uid,
     firstName,
-    Number,
+    phoneNumber,
     avatar,
     experience,
-    Country,
-    City,
+    country,
+    city,
     availability,
-    Description
+    description
   } = formData;
 
   return dispatch =>
     new Promise(async (resolve, reject) => {
-
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
 
       return FirebaseRef.child(`users/${uid}`)
         .update({
           firstName,
-          Number,
+          phoneNumber,
           avatar,
           experience,
-          Country,
-          City,
+          country,
+          city,
           availability,
-          Description
+          description
         })
         .then(async () => {
           await getUserData(dispatch);

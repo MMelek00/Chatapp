@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  Container,
-  Left,
-  Body,
-  Right,
-  Title,
-  Item,
-  Content
-} from "native-base";
-import { Header, Icon } from "react-native-elements";
+import { Container, Item, Content } from "native-base";
+import { Icon } from "react-native-elements";
 
 import { View, TextInput, StyleSheet } from "react-native";
 class Skills extends React.Component {
@@ -36,21 +28,6 @@ class Skills extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left />
-          <Body>
-            <Title>Add five Skills</Title>
-          </Body>
-          <Right>
-            <Icon
-              revese
-              name="check"
-              type="entypo"
-              color="white"
-              onPress={() => this.props.navigation.navigate("Main")}
-            />
-          </Right>
-        </Header>
         <Content style={{ backgroundColor: "#ecf0f1" }}>
           <View style={styles.container}>
             <Item regular style={styles.Iteminput}>
