@@ -1,4 +1,5 @@
 import { Firebase, FirebaseRef } from "./firebase";
+const R = require("ramda");
 
 export function getUsers() {
     const usersRef = FirebaseRef.child("/users");
@@ -35,7 +36,7 @@ export function getSingleConversation(id) {
     });
 }
 
-export async function getConversations(uid) {
+export function getSimpleConversations(uid) {
     const conversationsRef = FirebaseRef.child(`/users/${uid}/conversations`);
     const conversations = [];
     return new Promise((resolve, reject) => {
@@ -43,14 +44,29 @@ export async function getConversations(uid) {
             snapshot.forEach((child) => {
                 const conversationToAdd = child.val();
                 const sendToId = child.key;
-                Promise.all([getSingleUser(sendToId), getSingleConversation(conversationToAdd.conversationId)]).then(function (values) {
-                    conversations.push({ ...conversationToAdd, sendTo: values[0], conversation: values[1], sendToId });
-                });
+                conversations.push({ ...conversationToAdd, sendToId });
             });
             resolve(conversations);
         }).catch(reject);
     });
 }
+
+export async function getConversations(uid) {
+    return getSimpleConversations(uid)
+        .then(async simpleConversations => {
+            const usersPromises = simpleConversations
+                .map(i => getSingleUser(i.sendToId));
+            const conversationsUsers = await Promise.all(usersPromises);
+
+            const detailsPromises = simpleConversations
+                .map(i => getSingleConversation(i.conversationId));
+            const conversationsDetails = await Promise.all(detailsPromises);
+
+            return simpleConversations.map((v, i) => ({ ...v, sendTo: conversationsUsers[i], conversation: conversationsDetails[i] }));
+        })
+        .catch(err => err);
+}
+
 
 export function loadMessages(conversationId, callback) {
     const messagesRef = FirebaseRef.child("/conversations/" + conversationId + "/messages");
