@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { FlatList, View, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
-import { NavigationEvents } from "react-navigation";
 
 
-import ConversationCard from "./ConversationCard";
-import { getConversations } from "../../utils/firebase-fns";
+import ConversationsList from "./ConversationsList";
+import { getConversations, test } from "../../utils/firebase-fns";
 
 class ConversationsScreen extends Component {
     static navigationOptions = {
@@ -29,25 +28,13 @@ class ConversationsScreen extends Component {
         }).catch(err => console.log(err));
     }
 
-    _keyExtractor = (item, index) => item.conversationId;
-
-    _renderItem = ({ item, key }) => (
-        <ConversationCard
-            data={item}
-            key={key}
-        />
-    );
-
     render() {
         if (this.state.loading) {
             return (<ActivityIndicator />);
         }
         return (
-            <FlatList
-                extraData={this.state}
+            <ConversationsList
                 data={this.state.data}
-                keyExtractor={this._keyExtractor}
-                renderItem={this._renderItem}
             />
         );
     }
