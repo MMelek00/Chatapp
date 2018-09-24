@@ -1,11 +1,32 @@
 import React, { Component } from "react";
+import firebase from "firebase";
 import { View, Text } from "react-native";
 import { Avatar, Button } from "react-native-elements";
 import { connect } from "react-redux";
 
-class AboutHeader extends Component {
-  state = {};
+const storage = firebase.storage().ref();
 
+class AboutHeader extends Component {
+  constructor() {
+    super();
+    this.state = {
+      firstname: ""
+    };
+    this.getImage("mmelek");
+  }
+  getImage(image) {
+    let { state } = this;
+    storage
+      .child(`${image}.jpeg`)
+      .getDownloadURL()
+      .then(url => {
+        state[image] = url;
+        this.setState(state);
+      })
+      .catch(error => {
+        // Handle any errors
+      });
+  }
   _signOutAsync = async () => {
     const { onLogOut } = this.props;
     const { navigate } = this.props.navigation;
@@ -25,8 +46,7 @@ class AboutHeader extends Component {
             height={190}
             rounded
             source={{
-              uri:
-                "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
+              uri: this.avatar
             }}
             onPress={() => console.log("Works!")}
             activeOpacity={0.7}

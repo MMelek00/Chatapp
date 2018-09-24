@@ -21,7 +21,6 @@ import {
 import { Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import { connect } from "react-redux";
-import CategoryOption from "../../../components/category";
 import { updateProfile } from "../../../actions/member";
 import * as firebase from "firebase";
 class EditProfile extends React.Component {
@@ -57,7 +56,7 @@ class EditProfile extends React.Component {
     });
 
     if (!result.cancelled) {
-      this.uploadImage(result.uri, this.state.firstName)
+      this.uploadImage(result.uri, this.state.uid)
         .then(() => {
           this.setState({ avatar: result.uri });
         })

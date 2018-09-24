@@ -9,8 +9,8 @@ import {
   DatePicker
 } from "native-base";
 import { Button } from "react-native-elements";
-import * as firebase from "firebase";
-
+import { connect } from "react-redux";
+import { updateProfile } from "../../../actions/member";
 import { View, Text } from "react-native";
 class Company extends React.Component {
   constructor(props) {
@@ -27,16 +27,14 @@ class Company extends React.Component {
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
   }
-  _pressHandler = () => {
-    const user = firebase.auth().currentUser;
-    const { name, chosenDate, Year, JobName, Link } = this.state;
-    firebase
-      .database()
-      .ref(`users/${user.uid}`)
-      .push({
-        history: [name, chosenDate, Year, JobName, Link]
+  handleSubmit = async () => {
+    const { onFormSubmit } = this.props;
+    const { navigate } = this.props.navigation;
+    onFormSubmit(this.state)
+      .then(resp => {
+        console.log("fuck");
       })
-      .then(console.log("emchi"));
+      .catch(e => console.log(`Error: ${e}`));
   };
   render() {
     return (
@@ -120,7 +118,7 @@ class Company extends React.Component {
           >
             <Button
               block
-              onPress={() => this._pressHandler()}
+              onPress={() => this.handleSubmit}
               title="ADD"
               backgroundColor="#1C39A1"
             />
@@ -137,4 +135,14 @@ class Company extends React.Component {
   }
 }
 
-export default Company;
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+const mapDispatchToProps = {
+  onFormSubmit: updateProfile
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Company);

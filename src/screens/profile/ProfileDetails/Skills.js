@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import SkillCard from "./Components/skillCard";
 class Skills extends Component {
   state = {};
   render() {
     return (
-      <View>
-        <Text>cccc</Text>
+      <View style={{ padding: 10 }}>
+        <SkillCard />
       </View>
     );
   }

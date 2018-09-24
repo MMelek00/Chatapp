@@ -18,28 +18,27 @@ import Settings from "./screens/settings/Settings";
 import EditProfile from "./screens/profile/EditProfile/EditProfile";
 import Company from "./screens/profile/EditProfile/Company";
 import Skills from "./screens/profile/EditProfile/Skills";
-
+import Certificates from "./screens/profile/EditProfile/Certificates";
 import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 
 const HomeStack = createStackNavigator(
   {
     Home: Home,
-    EditProfile: {
-      screen: EditProfile
-    },
-    Home: Home,
-    Settings: Settings,
     Profile: {
       screen: Profile
     },
+    EditProfile: {
+      screen: EditProfile
+    },
+    Settings: Settings,
     NewGroupe: {
       screen: NewGroupe
     },
-    Profilee: {
-      screen: EditProfile
-    },
     Skills: {
       screen: Skills
+    },
+    Certificates: {
+      screen: Certificates
     },
     Company: {
       screen: Company

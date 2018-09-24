@@ -5,7 +5,7 @@ import { Container, Picker, Content } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import UsersList from "../../components/UsersList";
 import { getUsers } from "../../utils/firebase-fns";
-
+import { CategoryOption } from "../../components/category";
 export default class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -35,6 +35,8 @@ export default class Home extends React.Component {
 
   state = {
     selected: "Settings",
+    category: "EGYPT",
+    job: "DESIGN",
     data: []
   };
 
@@ -43,6 +45,7 @@ export default class Home extends React.Component {
       .then(data => {
         this.setState({ data });
       })
+
       .catch(err => console.log(err));
   };
   componentDidMount() {
@@ -78,11 +81,11 @@ export default class Home extends React.Component {
               }}
             >
               <Picker
-                selectedValue={this.state.Category}
+                selectedValue={this.state.country}
                 style={{ height: 20, width: "90%" }}
                 itemStyle={{ color: "blue" }}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Category: itemValue })
+                  this.setState({ country: itemValue })
                 }
               >
                 <Picker.Item label="EGYPT" value="EGYPT" />
@@ -103,10 +106,10 @@ export default class Home extends React.Component {
               }}
             >
               <Picker
-                selectedValue={this.state.Job}
+                selectedValue={this.state.job}
                 itemStyle={{ color: "blue" }}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Job: itemValue })
+                  this.setState({ job: itemValue })
                 }
               >
                 <Picker.Item label="DESIGN" value="DESIGN" />
