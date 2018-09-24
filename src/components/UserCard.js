@@ -1,15 +1,15 @@
 import React from "react";
-import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
-import { Icon, Avatar, Button } from "react-native-elements";
+import { View, Item, Card, CardItem, Text, Right, Left, Button, Icon } from "native-base";
+import { Avatar } from "react-native-elements";
 import { withNavigation } from "react-navigation";
+import Availability from "./Availability";
 
-import fonts from "../utils/fonts";
 import styles from "../styles/user-card";
 
 const UserCard = ({ data, navigation }) => {
   return (
-    <Card style={styles.cardStyle}>
-      <CardItem style={styles.Citem}>
+    <Card style={styles.card}>
+      <CardItem style={styles.item}>
         <Left>
           <Avatar
             large
@@ -28,57 +28,52 @@ const UserCard = ({ data, navigation }) => {
           </View>
         </Left>
         <Right>
-          <View>
-            <Button
-              rounded
-              title="Send message"
-              rightIcon={{
-                name: "send",
-                type: "materialIcons"
-              }}
-              titleStyle={{ fontSize: 10 }}
-              backgroundColor="#1C39A1"
-              buttonStyle={{ height: 25, width: 130 }}
-              onPress={() => {
-                navigation.navigate("Messages", {
-                  sendToId: data.id,
-                  sendToName: data.firstName
-                });
-              }}
-            />
-            <Text style={styles.Onligne}>{data.online ? "online" : "offline"}</Text>
-          </View>
+          <Button
+            iconRight
+            rounded
+            small
+            onPress={() => {
+              navigation.navigate("Messages", {
+                sendToId: data.id,
+                sendToName: data.firstName
+              });
+            }}
+          >
+            <Text>Home</Text>
+            <Icon name="arrow-back" />
+          </Button>
+          {/* <Button
+            rounded
+            title="Send message"
+            rightIcon={{
+              name: "send",
+              type: "materialIcons"
+            }}
+            titleStyle={{ fontSize: 5 }}
+            backgroundColor="#1C39A1"
+            onPress={() => {
+              navigation.navigate("Messages", {
+                sendToId: data.id,
+                sendToName: data.firstName
+              });
+            }}
+          /> */}
         </Right>
       </CardItem>
-      <CardItem footer style={styles.Citem}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center"
-          }}
-        >
-          <Item
-            style={{
-              paddingLeft: 10,
-              borderColor: "white"
-            }}
-          >
-            <Icon name="500px" type="entypo" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>{data.experience} Experience</Text>
-          </Item>
-          <Item
-            style={{
-              paddingLeft: 10,
-              width: "50%",
-              borderColor: "white"
-            }}
-          >
-            <Icon name="access-time" type="materialIcons" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>Part-Time Full-time</Text>
-          </Item>
-        </View>
+      <CardItem
+        footer
+        style={styles.footer}
+      >
+        <Item>
+          <Icon name="500px" type="entypo" color="pink" />
+          <Text >{data.experience} Experience</Text>
+        </Item>
+        <Item>
+          <Icon name="access-time" type="materialIcons" color="pink" />
+          <Availability availability={data.availability} />
+        </Item>
       </CardItem>
-    </Card>
+    </Card >
   );
 };
 

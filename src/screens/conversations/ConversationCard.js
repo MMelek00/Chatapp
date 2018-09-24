@@ -9,11 +9,9 @@ import styles from "../../styles/conversations-card";
 const ConversationCard = ({ data, navigation }) => {
   if (data.sendTo === null) {
     return (
-      <Card>
-        <CardItem style={styles.Citem}>
-          <Text style={styles.text2}>this conversation is deleted</Text>
-        </CardItem>
-      </Card>
+      <CardItem style={styles.Citem}>
+        <Text style={styles.text2}>this conversation is deleted</Text>
+      </CardItem>
     );
   }
   return (
@@ -25,31 +23,30 @@ const ConversationCard = ({ data, navigation }) => {
         });
       }}
     >
-      <Card>
-        <CardItem style={styles.Citem}>
-          <Left>
-            <Avatar
-              large
-              rounded
-              // source={{
-              //   uri:
-              //     "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-              // }}
-              activeOpacity={0.7}
-            />
-            <View>
-              <Text style={styles.text2}>{data.sendTo.firstName}</Text>
-              <Text style={styles.text2}>{data.conversation.displayMessage}</Text>
-            </View>
-          </Left>
-          <Right>
-            <View>
-              <Text>{data.conversation.lastMessageTime}</Text>
-              <Text style={styles.Onligne}>Onligne</Text>
-            </View>
-          </Right>
-        </CardItem>
-      </Card>
+      <CardItem style={styles.Citem}>
+        <Left>
+          <Avatar
+            medium
+            rounded
+            // source={{
+            //   uri:
+            //     "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
+            // }}
+            title={data.sendTo.firstName.slice(0, 2).toUpperCase()}
+            activeOpacity={0.7}
+          />
+          <View>
+            <Text style={styles.text2}>{data.sendTo.firstName}</Text>
+            <Text style={styles.text2}>{data.conversation.displayMessage}</Text>
+          </View>
+        </Left>
+        <Right>
+          <View>
+            <Text>{data.conversation.lastMessageTime}</Text>
+            <Text style={styles.Onligne}>Onligne</Text>
+          </View>
+        </Right>
+      </CardItem>
     </TouchableOpacity>
   );
 };

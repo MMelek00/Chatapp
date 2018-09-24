@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 18
     },
-    Citem: {
+    footer: {
+        paddingTop: 0,
         borderRadius: 10,
-        paddingLeft: 20,
-        paddingBottom: 10,
-        paddingRight: 5,
-        paddingTop: 10,
     },
-    cardStyle: {
+    item: {
+        borderRadius: 10,
+    },
+    card: {
         borderRadius: 10,
         marginLeft: 10,
         marginRight: 10

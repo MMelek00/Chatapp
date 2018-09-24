@@ -5,7 +5,7 @@ import { Icon, ButtonGroup, Button } from "react-native-elements";
 
 export default class Search extends React.Component {
   static navigationOptions = {
-    title: "PROFILE"
+    title: "SEARCH"
   };
   state = {
     index: 0,
@@ -53,6 +53,7 @@ export default class Search extends React.Component {
             <Picker
               selectedValue={this.state.Years}
               itemStyle={{ color: "blue" }}
+              iosIcon={<Icon name="ios-arrow-down-outline" />}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({ Years: itemValue })
               }
@@ -76,7 +77,6 @@ export default class Search extends React.Component {
             <View style={{ paddingLeft: 10 }}>
               <Picker
                 selectedValue={this.state.Category}
-                style={{ height: 50, width: "100%" }}
                 itemStyle={{ color: "blue" }}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ Category: itemValue })

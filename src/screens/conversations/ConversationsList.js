@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import ConversationCard from "./ConversationCard";
 
 export default class ConversationsList extends Component {
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.conversationId;
 
     _onPressItem = (id: string) => {
         console.log("user card clicked");

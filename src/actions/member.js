@@ -38,7 +38,7 @@ export function signUp(formData) {
                 job: "",
                 online: true,
                 lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
-                availability: 1,
+                availability: "",
                 skills: "",
                 certificates: "",
                 history: "",
