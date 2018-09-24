@@ -13,26 +13,22 @@ import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
 import { View, Text } from "react-native";
 class Company extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chosenDate: new Date(),
-      name: "",
-      Year: 1,
-      JobName: "",
-      Link: ""
-    };
-    this.setDate = this.setDate.bind(this);
-  }
+  state = {
+    chosenDate: new Date(),
+    name: "",
+    year: 1,
+    jobName: "",
+    link: ""
+  };
+
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
   }
   handleSubmit = async () => {
     const { onFormSubmit } = this.props;
-    const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
       .then(resp => {
-        console.log("fuck");
+        console.log("fuck me");
       })
       .catch(e => console.log(`Error: ${e}`));
   };
@@ -87,10 +83,10 @@ class Company extends React.Component {
                 Years on Company
               </Text>
               <Picker
-                selectedValue={this.state.Years}
+                selectedValue={this.state.years}
                 style={{ height: 20, width: "100%", paddingLeft: 5 }}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Years: itemValue })
+                  this.setState({ years: itemValue })
                 }
               >
                 <Picker.Item label="1 year" value="1" />
@@ -101,7 +97,7 @@ class Company extends React.Component {
             </View>
             <Item floatingLabel>
               <Label>Job Titre</Label>
-              <Input onChangeText={JobName => this.setState({ JobName })} />
+              <Input onChangeText={jobName => this.setState({ jobName })} />
             </Item>
             <Item floatingLabel>
               <Label>Company Link</Label>

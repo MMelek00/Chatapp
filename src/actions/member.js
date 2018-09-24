@@ -40,21 +40,9 @@ export function signUp(formData) {
                 online: true,
                 lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
                 availability: "Full-Time",
-                skills: [
-                  { skill1: "", rate1: "" },
-                  { skill2: "", rate2: "" },
-                  { skill3: "", rate3: "" },
-                  { skill4: "", rate4: "" },
-                  { skill5: "", rate5: "" }
-                ],
-                certificates: [],
-                history: {
-                  copanyname: "",
-                  date: "",
-                  years: 0,
-                  jobTitre: "",
-                  companyLink: ""
-                },
+                skills: "",
+                certificates: "",
+                history: "",
                 rating: 0,
                 emailVerified: false
               })
@@ -234,20 +222,12 @@ export function updateProfile(formData) {
     });
 }
 export function updatehistory(formData) {
-  const { uid, date, name, Year, JobName, Link } = formData;
-
+  const { uid, name, year, jobName, link } = formData;
   return dispatch =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
-
       return FirebaseRef.child(`users/${uid}/history`)
-        .update({
-          name,
-          date,
-          Year,
-          JobName,
-          Link
-        })
+        .push({ name, year, jobName, link })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
