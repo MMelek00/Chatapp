@@ -1,20 +1,15 @@
 import React from "react";
 import { View, Card, CardItem, Text, Right, Left } from "native-base";
-import { Avatar } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-
+import format from "date-fns/format";
+import Avatar from "../../components/Avatar";
+import ActiveStatus from "../../components/ActiveStatus";
 import styles from "../../styles/conversations-card";
 
 const ConversationCard = ({ data, navigation }) => {
   if (data.sendTo === null) {
-    return (
-      <Card>
-        <CardItem style={styles.Citem}>
-          <Text style={styles.text2}>this conversation is deleted</Text>
-        </CardItem>
-      </Card>
-    );
+    return null;
   }
   return (
     <TouchableOpacity
@@ -25,28 +20,18 @@ const ConversationCard = ({ data, navigation }) => {
         });
       }}
     >
-      <Card>
-        <CardItem style={styles.Citem}>
+      <Card style={styles.card}>
+        <CardItem style={styles.item}>
           <Left>
-            <Avatar
-              large
-              rounded
-              // source={{
-              //   uri:
-              //     "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-              // }}
-              activeOpacity={0.7}
-            />
+            <Avatar user={data.sendTo} unseen={data.unseenCount} />
             <View>
               <Text style={styles.text2}>{data.sendTo.firstName}</Text>
               <Text style={styles.text2}>{data.conversation.displayMessage}</Text>
             </View>
           </Left>
-          <Right>
-            <View>
-              <Text>{data.conversation.lastMessageTime}</Text>
-              <Text style={styles.Onligne}>Onligne</Text>
-            </View>
+          <Right >
+            <Text>{format(data.conversation.lastMessageTime, "YYYY-MM-DD")}</Text>
+            <ActiveStatus style={styles.online} online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />
           </Right>
         </CardItem>
       </Card>

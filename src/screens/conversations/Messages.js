@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
+import { Icon } from "native-base";
+import MessageBubble from "./MessageBubble";
 
 import { sendMessage, loadMessages, getConversationId, closeChat } from "../../utils/firebase-fns";
 
@@ -49,12 +51,32 @@ class Messages extends React.Component {
     });
   }
 
+  renderBubble(props) {
+    return (
+      <MessageBubble
+        {...props}
+      />
+    );
+  }
+
+  renderSend(props) {
+    return (
+      <Send
+        {...props}
+      >
+        <Icon name="send" type="MaterialIcons" />
+      </Send>
+    );
+  }
+
 
   render() {
     const { member } = this.props;
     return (
       <GiftedChat
         messages={this.state.messages}
+        renderBubble={this.renderBubble}
+        renderSend={this.renderSend}
         onSend={messages => this._sendMessage(messages)}
         user={{
           _id: member.uid,

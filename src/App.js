@@ -7,7 +7,7 @@ import {
 //navigation file
 import Login from "./screens/auth/Login";
 import SignUp from "./screens/auth/SignUp";
-import Loading from "./components/Loading";
+import AuthLoading from "./components/Loading";
 import Home from "./screens/home/Home";
 import Profile from "./screens/profile/Profile";
 import Search from "./screens/search/Search";
@@ -15,6 +15,7 @@ import Messages from "./screens/conversations/Messages";
 import Conversations from "./screens/conversations/Conversations";
 import NewGroupe from "./screens/groups/NewGroup";
 import Settings from "./screens/settings/Settings";
+import PersonalInfo from "./screens/settings/PersonalInfo";
 import EditProfile from "./screens/profile/EditProfile/EditProfile";
 import Company from "./screens/profile/EditProfile/Company";
 import Skills from "./screens/profile/EditProfile/Skills";
@@ -24,13 +25,14 @@ import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 const HomeStack = createStackNavigator(
   {
     Home: Home,
-    Profile: {
-      screen: Profile
-    },
     EditProfile: {
       screen: EditProfile
     },
+    Profile: {
+      screen: Profile
+    },
     Settings: Settings,
+    PersonalInfo: PersonalInfo,
     NewGroupe: {
       screen: NewGroupe
     },
@@ -79,15 +81,20 @@ const MainStack = createBottomTabNavigator(
   }
 );
 
-const AuthStack = createStackNavigator({
-  Login: {
-    screen: Login
-  },
+const AuthStack = createStackNavigator(
+  {
+    Login: {
+      screen: Login
+    },
 
-  Signup: {
-    screen: SignUp
+    Signup: {
+      screen: SignUp
+    }
+  },
+  {
+    headerMode: "none"
   }
-});
+);
 
 const AppStack = createStackNavigator(
   {
@@ -107,12 +114,12 @@ const AppStack = createStackNavigator(
 
 const Router = createSwitchNavigator(
   {
-    Loading: Loading,
+    AuthLoading: AuthLoading,
     Auth: AuthStack,
     App: AppStack
   },
   {
-    initialRouteName: "App"
+    initialRouteName: "AuthLoading"
   }
 );
 export default Router;

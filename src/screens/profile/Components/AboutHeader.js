@@ -3,9 +3,7 @@ import { View, Text } from "react-native";
 import { Avatar, Button } from "react-native-elements";
 
 const AboutHeader = data => {
-  console.log("fuck");
-  console.log(data);
-  console.log("works");
+  const _data = data.data;
   return (
     <View
       style={{
@@ -18,7 +16,7 @@ const AboutHeader = data => {
           height={190}
           rounded
           source={{
-            uri: data.Avatar
+            uri: _data.avatar
           }}
           activeOpacity={0.7}
         />
@@ -29,7 +27,7 @@ const AboutHeader = data => {
           fontFamily: "Roboto_medium"
         }}
       >
-        {data.firstName}
+        {_data.firstName}
       </Text>
       <Text
         style={{
@@ -38,7 +36,7 @@ const AboutHeader = data => {
           color: "pink"
         }}
       >
-        {data.email}
+        {_data.email}
       </Text>
       <View style={{ width: 250, padding: 10 }}>
         <Button

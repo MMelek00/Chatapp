@@ -22,8 +22,9 @@ import { Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
+import { categories, WebOption } from "../../../utils/properties";
 import * as firebase from "firebase";
-import LoadingG from "../../../components/LoadingG";
+import Loader from "../../../components/Loader";
 class EditProfile extends React.Component {
   static navigationOptions = {
     title: "PROFILE"
@@ -41,7 +42,9 @@ class EditProfile extends React.Component {
     country: this.props.member.country || "",
     city: this.props.member.city || "",
     description: this.props.member.description || "",
-    isloading: false
+    isloading: false,
+    category: "Design & Creative",
+    job: this.props.member.job || "Mobile Development"
   };
   handleSubmit = async () => {
     this.setState({ isloading: true });
@@ -92,7 +95,7 @@ class EditProfile extends React.Component {
 
   render() {
     if (this.state.isloading) {
-      return <LoadingG />;
+      return <Loader />;
     }
     return (
       <Container>
@@ -171,10 +174,9 @@ class EditProfile extends React.Component {
                     this.setState({ category: itemValue })
                   }
                 >
-                  <Picker.Item label="Mobile" value="Mobile" />
-                  <Picker.Item label="2 years" value="2" />
-                  <Picker.Item label="+3 years" value="3" />
-                  <Picker.Item label="+5 years" value="5" />
+                  {categories.map((value, i) => (
+                    <Picker.Item label={value} value={value} key={i} />
+                  ))}
                 </Picker>
               </View>
             </Card>
@@ -191,10 +193,9 @@ class EditProfile extends React.Component {
                     this.setState({ job: itemValue })
                   }
                 >
-                  <Picker.Item label="Design" value="Design" />
-                  <Picker.Item label="2 years" value="2" />
-                  <Picker.Item label="+3 years" value="3" />
-                  <Picker.Item label="+5 years" value="5" />
+                  {WebOption.map((value, i) => (
+                    <Picker.Item label={value} value={value} key={i} />
+                  ))}
                 </Picker>
               </View>
             </Card>

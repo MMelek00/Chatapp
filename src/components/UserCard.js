@@ -1,86 +1,70 @@
 import React from "react";
-import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
-import { Icon, Avatar, Button } from "react-native-elements";
+import {
+  View,
+  Item,
+  Card,
+  CardItem,
+  Text,
+  Right,
+  Left,
+  Button,
+  Icon
+} from "native-base";
 import { withNavigation } from "react-navigation";
+import { TouchableHighlight } from "react-native";
+import Avatar from "./Avatar";
+import Availability from "./Availability";
 
 import styles from "../styles/user-card";
+import { truncate } from "../utils/helpers";
 
 const UserCard = ({ data, navigation }) => {
   return (
-    <Card style={styles.cardStyle}>
-      <CardItem style={styles.Citem}>
+    <Card style={styles.card}>
+      <CardItem style={styles.item}>
         <Left>
-          <Avatar
-            large
-            rounded
-            // source={{
-            //   uri:
-            //     "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-            // }}
-            title={data.firstName.slice(0, 2).toUpperCase()}
+          <TouchableHighlight
             onPress={() => navigation.navigate("Profile", { data })}
-            activeOpacity={0.7}
-          />
+          >
+            <Avatar user={data} />
+          </TouchableHighlight>
           <View>
-            <Text style={styles.text2}>{data.firstName}</Text>
-            <Text style={styles.text}>{data.email}</Text>
-            <Text style={styles.text2}>{data.job}</Text>
+            <Text style={styles.text2}>{truncate(data.firstName, 15)}</Text>
+            <Text style={styles.text}>{truncate(data.email, 18)}</Text>
+            <Text style={styles.text2}>{truncate(data.job, 15)}</Text>
           </View>
         </Left>
         <Right>
-          <View>
-            <Button
-              rounded
-              title="Send message"
-              rightIcon={{
-                name: "send",
-                type: "materialIcons"
-              }}
-              titleStyle={{ fontSize: 10 }}
-              backgroundColor="#1C39A1"
-              buttonStyle={{ height: 25, width: 130 }}
-              onPress={() => {
-                navigation.navigate("Messages", {
-                  sendToId: data.id,
-                  sendToName: data.firstName
-                });
-              }}
-            />
-            <Text style={styles.Onligne}>
-              {data.online ? "online" : "offline"}
-            </Text>
-          </View>
+          <Button
+            iconRight
+            rounded
+            small
+            style={styles.sendButton}
+            onPress={() => {
+              navigation.navigate("Messages", {
+                sendToId: data.id,
+                sendToName: data.firstName
+              });
+            }}
+          >
+            <Text>Send message</Text>
+            <Icon name="send" type="MaterialIcons" />
+          </Button>
         </Right>
       </CardItem>
-      <CardItem footer style={styles.Citem}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center"
-          }}
-        >
-          <Item
-            style={{
-              paddingLeft: 10,
-              borderColor: "white"
-            }}
-          >
-            <Icon name="500px" type="entypo" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>
-              {data.experience} year Experience
-            </Text>
-          </Item>
-          <Item
-            style={{
-              paddingLeft: 10,
-              width: "50%",
-              borderColor: "white"
-            }}
-          >
-            <Icon name="access-time" type="materialIcons" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>Part-Time Full-time</Text>
-          </Item>
-        </View>
+      <CardItem footer style={styles.footer}>
+        <Item style={styles.span}>
+          <Icon name="500px" type="Entypo" style={{ color: "pink" }} />
+          <Text>{data.experience} Years Experience</Text>
+        </Item>
+        <Item style={styles.span}>
+          <Icon
+            name="access-time"
+            type="MaterialIcons"
+            style={{ color: "pink" }}
+          />
+          <Availability availability={data.availability} />
+        </Item>
       </CardItem>
     </Card>
   );

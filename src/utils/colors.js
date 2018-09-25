@@ -7,7 +7,7 @@ export default {
     disabled: "#acacac",
     negative: "#cc0000",
     positive: "#00cc00",
-    primary: "#f9f9f9",
-    secondary: "#0056b3",
+    primary: "#76AAE4",
+    secondary: "#F4879E",
     loader: "#0056b3",
 };

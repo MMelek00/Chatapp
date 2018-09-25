@@ -44,8 +44,8 @@ const tabBarNavOptions = ({ navigation }) => ({
 const tabBarStyle = {
     activeTintColor: "white",
     inactiveTintColor: "white",
-    inactiveBackgroundColor: "#191F58",
-    activeBackgroundColor: "#7D82B0",
+    inactiveBackgroundColor: colors.base,
+    activeBackgroundColor: colors.base,
     showLabel: false
 };
 

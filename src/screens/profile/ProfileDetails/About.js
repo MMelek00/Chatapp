@@ -4,7 +4,8 @@ import CheckRating from "../Components/Rating";
 import AboutHeader from "../Components/AboutHeader";
 import AboutInfo from "../Components/AboutInfo";
 const About = data => {
-  const _data = data;
+  const _data = data.data;
+  console.log(_data);
   return (
     <View
       style={{
@@ -12,9 +13,9 @@ const About = data => {
         flexDirection: "column"
       }}
     >
-      <CheckRating />
+      <CheckRating data={_data} />
       <AboutHeader data={_data} />
-      <AboutInfo />
+      <AboutInfo data={_data} />
     </View>
   );
 };

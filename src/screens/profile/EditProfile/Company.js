@@ -11,7 +11,7 @@ import {
 import { Button, ButtonGroup } from "react-native-elements";
 import { connect } from "react-redux";
 import { updatehistory } from "../../../actions/member";
-import LoadingG from "../../../components/LoadingG";
+import Loader from "../../../components/Loader";
 import { View, Text } from "react-native";
 class Company extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class Company extends React.Component {
   };
   render() {
     if (this.state.isloading) {
-      return <LoadingG />;
+      return <Loader />;
     }
     return (
       <Container>

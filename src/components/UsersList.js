@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Text, RefreshControl } from "react-native";
+
 import UserCard from "./UserCard";
+import Loader from "./Loader";
 
 export default class UsersList extends Component {
     _keyExtractor = (item, index) => item.id;
@@ -17,12 +19,26 @@ export default class UsersList extends Component {
     );
 
     render() {
+        const { isLoading, error, data, isRefreshing, _fetchUsers } = this.props;
+        if (error) {
+            return (<Text>{error}</Text>);
+        }
+        if (isLoading) {
+            return (<Loader />);
+        }
         return (
             <FlatList
-                data={this.props.data}
-                extraData={this.state}
+                data={data}
+                extraData={this.props}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={isRefreshing}
+                        onRefresh={_fetchUsers}
+                        enabled
+                    />
+                }
             />
         );
     }
