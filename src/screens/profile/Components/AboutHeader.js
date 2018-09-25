@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Avatar, Button } from "react-native-elements";
-
+import { Avatar } from "react-native-elements";
+import ButtonsPro from "./Button";
 const AboutHeader = data => {
   const _data = data.data;
   return (
@@ -39,17 +39,7 @@ const AboutHeader = data => {
         {_data.email}
       </Text>
       <View style={{ width: 250, padding: 10 }}>
-        <Button
-          rounded
-          title="Send message"
-          rightIcon={{
-            name: "send",
-            type: "materialIcons",
-            size: 20,
-            style: { paddingLeft: 10 }
-          }}
-          backgroundColor="#1C39A1"
-        />
+        <ButtonsPro profile={_data.id} />
       </View>
     </View>
   );

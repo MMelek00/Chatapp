@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Tab, Tabs, ScrollableTab } from "native-base";
 import { Icon } from "react-native-elements";
-import { Firebase } from "../../utils/firebase";
 import About from "./ProfileDetails/About";
 import History from "./ProfileDetails/History";
 import Certificates from "./ProfileDetails/Certificates";
@@ -29,12 +28,6 @@ export default class Profile extends React.Component {
   componentDidMount() {
     const { navigation } = this.props;
     this.state.data = navigation.getParam("data");
-    const user = Firebase.auth().currentUser;
-    console.log("id");
-    console.log(user.uid);
-    console.log("membre id");
-    console.log(this.state.data.id);
-    //console.log(Object.keys(this.state.data).length === 0);
   }
   render() {
     return (
