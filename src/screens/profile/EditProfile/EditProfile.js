@@ -28,6 +28,7 @@ class EditProfile extends React.Component {
     title: "PROFILE"
   };
   state = {
+    index: 2,
     uid: this.props.member.uid,
     firstName: this.props.member.firstName || "",
     phoneNumber: this.props.member.phoneNumber || "",
@@ -65,8 +66,15 @@ class EditProfile extends React.Component {
         });
     }
   };
-  updateIndex = availability => {
-    this.setState({ availability });
+  updateIndex = index => {
+    this.setState({ index });
+    if (index === 0) {
+      this.state.availability = "Freelancer";
+    } else if (index === 1) {
+      this.state.availability = "Part Time";
+    } else {
+      this.state.availability = "Full Time";
+    }
   };
   uploadImage = async (uri, imageName) => {
     const response = await fetch(uri);
@@ -131,7 +139,7 @@ class EditProfile extends React.Component {
             <ButtonGroup
               selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
               onPress={this.updateIndex}
-              selectedIndex={this.state.availability}
+              selectedIndex={this.state.index}
               buttons={["Freelancer", "Part Time", "Full Time"]}
               containerStyle={{ height: 45, width: "90%" }}
             />
