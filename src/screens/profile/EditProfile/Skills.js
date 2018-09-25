@@ -1,21 +1,12 @@
 import React from "react";
-import {
-  Container,
-  Left,
-  Body,
-  Right,
-  Title,
-  Item,
-  Content
-} from "native-base";
-import { Header, Icon } from "react-native-elements";
+import { Container, Item, Content } from "native-base";
+import { Button } from "react-native-elements";
 
 import { View, TextInput, StyleSheet } from "react-native";
 class Skills extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chosenDate: new Date(),
       skill1: "",
       rate1: 0,
       skill2: "",
@@ -27,30 +18,10 @@ class Skills extends React.Component {
       skill5: "",
       rate5: 0
     };
-    this.setDate = this.setDate.bind(this);
   }
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
-  }
-
   render() {
     return (
       <Container>
-        <Header>
-          <Left />
-          <Body>
-            <Title>Add five Skills</Title>
-          </Body>
-          <Right>
-            <Icon
-              revese
-              name="check"
-              type="entypo"
-              color="white"
-              onPress={() => this.props.navigation.navigate("Main")}
-            />
-          </Right>
-        </Header>
         <Content style={{ backgroundColor: "#ecf0f1" }}>
           <View style={styles.container}>
             <Item regular style={styles.Iteminput}>
@@ -166,6 +137,14 @@ class Skills extends React.Component {
                 onChangeText={rate5 => this.setState({ rate5 })}
               />
             </Item>
+          </View>
+          <View style={{ width: "30%", alignSelf: "flex-end" }}>
+            <Button
+              block
+              onPress={() => this.props.navigation.navigate("Certificates")}
+              title="Next"
+              backgroundColor="#1C39A1"
+            />
           </View>
         </Content>
       </Container>

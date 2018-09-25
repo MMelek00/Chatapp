@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { FlatList, View, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 
+import { getConversations } from "../../utils/firebase-fns";
 
+import Loader from "../../components/Loader";
 import ConversationsList from "./ConversationsList";
-import { getConversations, test } from "../../utils/firebase-fns";
 
 class ConversationsScreen extends Component {
     static navigationOptions = {
@@ -12,7 +12,8 @@ class ConversationsScreen extends Component {
     }
     state = {
         data: [],
-        loading: true
+        isLoading: true,
+        isRefreshing: false,
     };
 
     componentDidMount() {
@@ -21,21 +22,19 @@ class ConversationsScreen extends Component {
     }
 
     _fetchConversations = () => {
-        this.setState({ loading: true });
+        this.setState({ isRefreshing: true });
         getConversations(this.props.member.uid).then(data => {
-            console.log(data);
-            this.setState({ data, loading: false });
+            this.setState({ data, isLoading: false, isRefreshing: false, });
         }).catch(err => console.log(err));
     }
 
     render() {
-        if (this.state.loading) {
-            return (<ActivityIndicator />);
+        const { isLoading } = this.state;
+        if (isLoading) {
+            return (<Loader />);
         }
         return (
-            <ConversationsList
-                data={this.state.data}
-            />
+            <ConversationsList {...this.state} onRefresh={this._fetchConversations} />
         );
     }
 }

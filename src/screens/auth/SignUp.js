@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signUp } from "../../actions/member";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, KeyboardAvoidingView } from "react-native";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
 
@@ -14,27 +14,27 @@ class SignUp extends React.Component {
       email: "",
       password: "",
       firstName: "",
-      phoneNumber: "",
+      phoneNumber: ""
     };
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const { onFormSubmit } = this.props;
     const navigate = this.props.navigation.navigate;
     onFormSubmit(this.state)
       .then(() => navigate("Login"))
       .catch(e => console.log(`Error: ${e}`));
-  }
-
+  };
 
   render() {
     return (
-      <View
+      <KeyboardAvoidingView
         style={{
           flex: 1,
           flexDirection: "column"
         }}
+        behavior="padding"
       >
         {this.state.errorMessage && (
           <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
@@ -45,6 +45,7 @@ class SignUp extends React.Component {
             alignItems: "center",
             paddingTop: 130
           }}
+          behavior="padding"
         >
           <Text style={styles.textStyle}>Registre</Text>
           <Item style={styles.Iteminput}>
@@ -118,11 +119,10 @@ class SignUp extends React.Component {
             </Button>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   member: state.member || {},

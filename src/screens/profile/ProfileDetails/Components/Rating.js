@@ -29,8 +29,7 @@ class CheckRating extends Component {
             readonly
             fractions={1}
             startingValue={this.props.member.rating}
-            imageSize={30}
-            showRating
+            imageSize={35}
             style={{
               flexDirection: "row-reverse",
               paddingTop: 10

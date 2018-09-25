@@ -1,6 +1,14 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    card: {
+        borderRadius: 10,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    item: {
+        borderRadius: 10,
+    },
     text: {
         fontSize: 12,
         fontFamily: "Roboto_medium",
@@ -19,13 +27,6 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         paddingLeft: 0
     },
-    Citem: {
-        borderRadius: 0,
-        paddingLeft: 8,
-        paddingBottom: 5,
-        paddingRight: 5,
-        paddingTop: 5
-    }
 });
 
 export default styles;

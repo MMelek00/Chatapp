@@ -10,6 +10,7 @@ class AuthLoading extends React.Component {
 
   _bootstrapAsync = async () => {
     const { uid } = this.props.member;
+    console.log(this.props.member.uid);
     this.props.navigation.navigate(uid ? "App" : "Auth");
   };
 

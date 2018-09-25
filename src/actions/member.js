@@ -32,22 +32,35 @@ export function signUp(formData) {
                 phoneNumber,
                 country: "",
                 city: "",
-                avatar: "",
+                avatar:
+                  "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
                 description: "",
                 experience: 1,
                 job: "",
                 online: true,
                 lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
-                availability: "",
-                skills: "",
-                certificates: "",
-                history: "",
+                availability: "Full-Time",
+                skills: [
+                  { skill1: "", rate1: "" },
+                  { skill2: "", rate2: "" },
+                  { skill3: "", rate3: "" },
+                  { skill4: "", rate4: "" },
+                  { skill5: "", rate5: "" }
+                ],
+                certificates: [],
+                history: {
+                  copanyname: "",
+                  date: "",
+                  years: 0,
+                  jobTitre: "",
+                  companyLink: ""
+                },
                 rating: 0,
                 emailVerified: false
               })
               .then(() => {
                 status(dispatch, "signup", "loading", false);
-                resolve(true);
+                resolve();
               });
           }
         })
@@ -182,34 +195,58 @@ export function resetPassword(formData) {
 }
 
 export function updateProfile(formData) {
-  console.log(formData);
   const {
     uid,
     firstName,
-    Number,
+    phoneNumber,
     avatar,
     experience,
-    Country,
-    City,
+    country,
+    city,
     availability,
-    Description
+    description
   } = formData;
 
   return dispatch =>
     new Promise(async (resolve, reject) => {
-
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
 
       return FirebaseRef.child(`users/${uid}`)
         .update({
           firstName,
-          Number,
+          phoneNumber,
           avatar,
           experience,
-          Country,
-          City,
+          country,
+          city,
           availability,
-          Description
+          description
+        })
+        .then(async () => {
+          await getUserData(dispatch);
+          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
+          resolve();
+        })
+        .catch(reject);
+    }).catch(async err => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
+      throw err.message;
+    });
+}
+export function updatehistory(formData) {
+  const { uid, date, name, Year, JobName, Link } = formData;
+
+  return dispatch =>
+    new Promise(async (resolve, reject) => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
+
+      return FirebaseRef.child(`users/${uid}/history`)
+        .update({
+          name,
+          date,
+          Year,
+          JobName,
+          Link
         })
         .then(async () => {
           await getUserData(dispatch);

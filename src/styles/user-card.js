@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+import colors from "../utils/colors";
+
 const styles = StyleSheet.create({
     text: {
         fontSize: 12,
@@ -12,16 +14,13 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto_medium",
         paddingLeft: 5
     },
-    Onligne: {
-        fontSize: 18,
-        fontFamily: "Roboto_medium",
-        color: "pink",
-        paddingTop: 10,
-        paddingLeft: 18
-    },
     footer: {
         paddingTop: 0,
         borderRadius: 10,
+    },
+    span: {
+        flex: 1,
+        borderBottomWidth: 0
     },
     item: {
         borderRadius: 10,
@@ -30,6 +29,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginLeft: 10,
         marginRight: 10
+    },
+    sendButton: {
+        backgroundColor: colors.base
     }
 });
 

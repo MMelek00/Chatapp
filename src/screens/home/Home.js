@@ -5,6 +5,9 @@ import { Container, Picker, Content } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import UsersList from "../../components/UsersList";
 import { getUsers } from "../../utils/firebase-fns";
+import { CategoryOption } from "../../components/category";
+
+import styles from "../../styles/home";
 
 export default class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -35,90 +38,93 @@ export default class Home extends React.Component {
 
   state = {
     selected: "Settings",
-    data: []
+    category: "EGYPT",
+    job: "DESIGN",
+    data: [],
+    isLoading: true,
+    isRefreshing: false,
+    error: ""
   };
 
-  componentWillMount = () => {
-    getUsers()
-      .then(data => {
-        this.setState({ data });
-      })
-      .catch(err => console.log(err));
-  };
+
   componentDidMount() {
-    this.props.navigation.setParams({
+    const { navigation } = this.props;
+    navigation.addListener("didFocus", () => { this._fetchUsers(); });
+    navigation.setParams({
       onValueChange: this.onValueChange,
       selected: this.state.selected
     });
   }
+
+  _fetchUsers = () => {
+    this.setState({ isRefreshing: true });
+    getUsers()
+      .then(data => {
+        this.setState({ data, isLoading: false, isRefreshing: false });
+      })
+      .catch(error => {
+        this.setState({ isLoading: false, isRefreshing: false, error });
+        console.error(error);
+      });
+  }
+
   onValueChange = (value: string) => {
     this.props.navigation.navigate(value);
   };
+
   render() {
     return (
-      <Container>
-        <Content>
+      <View style={styles.homeContainer}>
+        <View style={styles.pickersContainer} >
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
+              flex: 1,
+              backgroundColor: "gray",
+              borderRadius: 20,
+              justifyContent: "center",
               alignItems: "center",
-              padding: 5
+              paddingHorizontal: 5
             }}
           >
-            <View
-              style={{
-                width: "40%",
-                backgroundColor: "gray",
-                height: 40,
-                borderRadius: 20,
-                justifyContent: "center",
-                alignItems: "center",
-                paddingHorizontal: 10
-              }}
+            <Picker
+              selectedValue={this.state.country}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ country: itemValue })
+              }
             >
-              <Picker
-                selectedValue={this.state.Category}
-                style={{ height: 20, width: "90%" }}
-                itemStyle={{ color: "blue" }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Category: itemValue })
-                }
-              >
-                <Picker.Item label="EGYPT" value="EGYPT" />
-                <Picker.Item label="2 years" value="2" />
-                <Picker.Item label="+3 years" value="3" />
-                <Picker.Item label="+5 years" value="5" />
-              </Picker>
-            </View>
-            <View
-              style={{
-                width: "50%",
-                backgroundColor: "#57A0FD",
-                height: 40,
-                borderRadius: 20,
-                justifyContent: "center",
-                alignItems: "center",
-                paddingHorizontal: 10
-              }}
-            >
-              <Picker
-                selectedValue={this.state.Job}
-                itemStyle={{ color: "blue" }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Job: itemValue })
-                }
-              >
-                <Picker.Item label="DESIGN" value="DESIGN" />
-                <Picker.Item label="2 years" value="2" />
-                <Picker.Item label="+3 years" value="3" />
-                <Picker.Item label="+5 years" value="5" />
-              </Picker>
-            </View>
+              <Picker.Item label="EGYPT" value="EGYPT" />
+              <Picker.Item label="2 years" value="2" />
+              <Picker.Item label="+3 years" value="3" />
+              <Picker.Item label="+5 years" value="5" />
+            </Picker>
           </View>
-          <UsersList data={this.state.data} />
-        </Content>
-      </Container>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#57A0FD",
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              paddingHorizontal: 10
+            }}
+          >
+            <Picker
+              selectedValue={this.state.job}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ job: itemValue })
+              }
+            >
+              <Picker.Item label="DESIGN" value="DESIGN" />
+              <Picker.Item label="2 years" value="2" />
+              <Picker.Item label="+3 years" value="3" />
+              <Picker.Item label="+5 years" value="5" />
+            </Picker>
+          </View>
+        </View>
+        <View style={styles.usersContainer}>
+          <UsersList {...this.state} _fetchUsers={this._fetchUsers} />
+        </View>
+      </View>
     );
   }
 }
