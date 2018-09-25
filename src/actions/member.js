@@ -240,6 +240,51 @@ export function updatehistory(formData) {
     });
 }
 
+
+export function updatePersonalInfo(formData) {
+  const {
+    email,
+    password,
+    password2,
+    firstName,
+    changeEmail,
+    changePassword,
+  } = formData;
+
+  return dispatch => new Promise(async (resolve, reject) => {
+    const UID = Firebase.auth().currentUser.uid;
+    if (!UID) { return reject({ message: ErrorMessages.missingFirstName }); }
+
+
+    if (!firstName) { return reject({ message: ErrorMessages.missingFirstName }); }
+    if (changeEmail) {
+      if (!email) { return reject({ message: ErrorMessages.missingEmail }); }
+    }
+    if (changePassword) {
+      if (!password) { return reject({ message: ErrorMessages.missingPassword }); }
+      if (!password2) { return reject({ message: ErrorMessages.missingPassword }); }
+      if (password !== password2) { return reject({ message: ErrorMessages.passwordsDontMatch }); }
+    }
+
+
+    return FirebaseRef.child(`users/${UID}`).update({ firstName })
+      .then(async () => {
+        if (changeEmail) {
+          await Firebase.auth().currentUser.updateEmail(email).catch(reject);
+        }
+
+
+        if (changePassword) {
+          await Firebase.auth().currentUser.updatePassword(password).catch(reject);
+        }
+
+
+        await getUserData(dispatch);
+        resolve();
+      }).catch(reject);
+  }).catch(async (err) => { throw err.message; });
+}
+
 export function logout() {
   return dispatch =>
     new Promise((resolve, reject) => {

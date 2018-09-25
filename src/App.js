@@ -15,6 +15,7 @@ import Messages from "./screens/conversations/Messages";
 import Conversations from "./screens/conversations/Conversations";
 import NewGroupe from "./screens/groups/NewGroup";
 import Settings from "./screens/settings/Settings";
+import PersonalInfo from "./screens/settings/PersonalInfo";
 import EditProfile from "./screens/profile/EditProfile/EditProfile";
 import Company from "./screens/profile/EditProfile/Company";
 import Skills from "./screens/profile/EditProfile/Skills";
@@ -31,6 +32,7 @@ const HomeStack = createStackNavigator(
       screen: Profile
     },
     Settings: Settings,
+    PersonalInfo: PersonalInfo,
     NewGroupe: {
       screen: NewGroupe
     },

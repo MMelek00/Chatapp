@@ -38,8 +38,8 @@ export default class Home extends React.Component {
 
   state = {
     selected: "Settings",
-    country: "All",
-    job: "All",
+    country: "Egypt",
+    job: "Design & Creative",
     data: [],
     isLoading: true,
     isRefreshing: false,
