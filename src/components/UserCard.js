@@ -3,7 +3,6 @@ import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
 import { Icon, Avatar, Button } from "react-native-elements";
 import { withNavigation } from "react-navigation";
 
-import fonts from "../utils/fonts";
 import styles from "../styles/user-card";
 
 const UserCard = ({ data, navigation }) => {
@@ -19,6 +18,7 @@ const UserCard = ({ data, navigation }) => {
             //     "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
             // }}
             title={data.firstName.slice(0, 2).toUpperCase()}
+            onPress={() => navigation.navigate("Profile", { data })}
             activeOpacity={0.7}
           />
           <View>
@@ -46,7 +46,9 @@ const UserCard = ({ data, navigation }) => {
                 });
               }}
             />
-            <Text style={styles.Onligne}>{data.online ? "online" : "offline"}</Text>
+            <Text style={styles.Onligne}>
+              {data.online ? "online" : "offline"}
+            </Text>
           </View>
         </Right>
       </CardItem>
@@ -64,7 +66,9 @@ const UserCard = ({ data, navigation }) => {
             }}
           >
             <Icon name="500px" type="entypo" color="pink" />
-            <Text style={{ paddingLeft: 10 }}>{data.experience} Experience</Text>
+            <Text style={{ paddingLeft: 10 }}>
+              {data.experience} year Experience
+            </Text>
           </Item>
           <Item
             style={{
@@ -81,6 +85,5 @@ const UserCard = ({ data, navigation }) => {
     </Card>
   );
 };
-
 
 export default withNavigation(UserCard);

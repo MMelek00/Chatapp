@@ -1,16 +1,14 @@
 export const CategoryOption = [
-  {
-    "1": "Web, Mobile & Software Dev",
-    "2": "Design & Creative",
-    "3": "Admin Support",
-    "4": "IT & Networking",
-    "5": "Writing",
-    "6": "Data Science & Analytics",
-    "7": "Sales & Marketing",
-    "8": "Translation",
-    "9": "Engineering & Architecture",
-    "10": "Legal"
-  }
+  "Web, Mobile & Software Dev",
+  "Design & Creative",
+  "Admin Support",
+  "IT & Networking",
+  "Writing",
+  "Data Science & Analytics",
+  "Sales & Marketing",
+  "Translation",
+  "Engineering & Architecture",
+  "Legal"
 ];
 export const WebOption = [
   "All Web, Mobile & Software Dev",

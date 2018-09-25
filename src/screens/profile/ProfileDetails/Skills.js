@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import SkillCard from "./Components/skillCard";
+import SkillCard from "../Components/skillCard";
 class Skills extends Component {
   state = {};
   render() {

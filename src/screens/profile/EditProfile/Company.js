@@ -8,31 +8,55 @@ import {
   Picker,
   DatePicker
 } from "native-base";
-import { Button } from "react-native-elements";
+import { Button, ButtonGroup } from "react-native-elements";
 import { connect } from "react-redux";
-import { updateProfile } from "../../../actions/member";
+import { updatehistory } from "../../../actions/member";
+import LoadingG from "../../../components/LoadingG";
 import { View, Text } from "react-native";
 class Company extends React.Component {
-  state = {
-    chosenDate: new Date(),
-    name: "",
-    year: 1,
-    jobName: "",
-    link: ""
-  };
-
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: this.props.member.uid,
+      name: "",
+      startDate: new Date(),
+      year: 1,
+      jobName: "",
+      link: "",
+      availability: "",
+      index: 2,
+      isloading: false
+    };
+    this.setDate = this.setDate.bind(this);
   }
   handleSubmit = async () => {
+    this.setState({ isloading: true });
     const { onFormSubmit } = this.props;
+    const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
       .then(resp => {
-        console.log("fuck me");
+        this.setState({ isloading: false });
+        navigate("Skills");
       })
       .catch(e => console.log(`Error: ${e}`));
   };
+  setDate(newDate) {
+    this.setState({ startDate: newDate });
+  }
+  updateIndex = index => {
+    this.setState({ index });
+    if (index === 0) {
+      this.state.availability = "Freelancer";
+    } else if (index === 1) {
+      this.state.availability = "Part Time";
+    } else {
+      this.state.availability = "Full Time";
+    }
+  };
   render() {
+    if (this.state.isloading) {
+      return <LoadingG />;
+    }
     return (
       <Container>
         <Content style={{ backgroundColor: "#ecf0f1" }}>
@@ -58,7 +82,7 @@ class Company extends React.Component {
                 Add your start Date
               </Text>
               <DatePicker
-                defaultDate={new Date(2018, 4, 4)}
+                defaultDate={new Date()}
                 minimumDate={new Date(2014, 1, 1)}
                 maximumDate={new Date(2018, 12, 31)}
                 locale={"en"}
@@ -70,6 +94,15 @@ class Company extends React.Component {
                 textStyle={{ color: "green", fontFamily: "Roboto_medium" }}
                 placeHolderTextStyle={{ color: "gray" }}
                 onDateChange={this.setDate}
+              />
+            </View>
+            <View style={{ paddingTop: 10 }}>
+              <ButtonGroup
+                selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
+                onPress={this.updateIndex}
+                selectedIndex={this.state.index}
+                buttons={["Freelancer", "Part Time", "Full Time"]}
+                containerStyle={{ height: 45, width: "90%" }}
               />
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -114,7 +147,7 @@ class Company extends React.Component {
           >
             <Button
               block
-              onPress={() => this.handleSubmit}
+              onPress={this.handleSubmit}
               title="ADD"
               backgroundColor="#1C39A1"
             />
@@ -135,7 +168,7 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 const mapDispatchToProps = {
-  onFormSubmit: updateProfile
+  onFormSubmit: updatehistory
 };
 
 export default connect(

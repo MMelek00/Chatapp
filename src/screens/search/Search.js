@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, TextInput, View, Text, } from "react-native";
-import { Item, Container, CardItem, Card, Picker } from "native-base";
+import { StyleSheet, TextInput, View, Text } from "react-native";
+import { Item, Card, Picker } from "native-base";
 import { Icon, ButtonGroup, Button } from "react-native-elements";
 
 export default class Search extends React.Component {

@@ -23,6 +23,7 @@ import { ImagePicker } from "expo";
 import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
 import * as firebase from "firebase";
+import LoadingG from "../../../components/LoadingG";
 class EditProfile extends React.Component {
   static navigationOptions = {
     title: "PROFILE"
@@ -43,10 +44,12 @@ class EditProfile extends React.Component {
     isloading: false
   };
   handleSubmit = async () => {
+    this.setState({ isloading: true });
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
       .then(resp => {
+        this.setState({ isloading: false });
         navigate("Company");
       })
       .catch(e => console.log(`Error: ${e}`));
@@ -88,6 +91,9 @@ class EditProfile extends React.Component {
   };
 
   render() {
+    if (this.state.isloading) {
+      return <LoadingG />;
+    }
     return (
       <Container>
         <ScrollView style={styles.container}>

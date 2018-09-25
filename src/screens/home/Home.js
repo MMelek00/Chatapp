@@ -5,7 +5,6 @@ import { Container, Picker, Content } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import UsersList from "../../components/UsersList";
 import { getUsers } from "../../utils/firebase-fns";
-import { CategoryOption } from "../../components/category";
 export default class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {

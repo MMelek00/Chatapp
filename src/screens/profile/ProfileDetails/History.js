@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Content } from "native-base";
-import HistoryCard from "./Components/HistoryCard";
+import HistoryCard from "../Components/HistoryCard";
 class History extends React.Component {
   state = {};
   render() {

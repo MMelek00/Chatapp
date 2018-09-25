@@ -1,28 +1,43 @@
 import React from "react";
 import { Container, Tab, Tabs, ScrollableTab } from "native-base";
-import { Button } from "react-native-elements";
+import { Icon } from "react-native-elements";
 
 import About from "./ProfileDetails/About";
 import History from "./ProfileDetails/History";
 import Certificates from "./ProfileDetails/Certificates";
 import Skills from "./ProfileDetails/Skills";
 export default class Profile extends React.Component {
-  static navigationOptions = {
-    title: "PROFILE",
-    headerRight: (
-      <Button
-        onPress={() => alert("This is a button!")}
-        title="Info"
-        color="#fff"
-      />
-    )
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "PROFILE",
+      headerRight: (
+        <Icon
+          name="edit"
+          type="entypo"
+          color="white"
+          containerStyle={{ paddingRight: 10 }}
+          onPress={() => {
+            navigation.navigate("EditProfile");
+          }}
+        />
+      )
+    };
   };
+  state = {
+    data: {}
+  };
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.state.data = navigation.getParam("data");
+    console.log(this.state.data.firstName);
+    console.log(Object.keys(this.state.data).length === 0);
+  }
   render() {
     return (
       <Container>
         <Tabs renderTabBar={() => <ScrollableTab />}>
           <Tab heading="About">
-            <About />
+            <About data={this.state.data} />
           </Tab>
           <Tab heading="History">
             <History />
