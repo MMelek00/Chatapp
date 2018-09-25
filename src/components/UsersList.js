@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, Text, View, RefreshControl } from "react-native";
+import { FlatList, Text, RefreshControl } from "react-native";
 
 import UserCard from "./UserCard";
 import Loader from "./Loader";

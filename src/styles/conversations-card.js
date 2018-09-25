@@ -20,12 +20,8 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto_medium",
         paddingLeft: 5
     },
-    Onligne: {
-        fontSize: 15,
-        fontFamily: "Roboto_medium",
-        color: "pink",
-        paddingTop: 40,
-        paddingLeft: 0
+    online: {
+        marginTop: 20
     },
 });
 

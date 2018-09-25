@@ -16,6 +16,21 @@ const styles = StyleSheet.create({
     usersContainer: {
         flex: 10
     },
+    picker: {
+        borderRadius: 50,
+        height: 30,
+    },
+    jobPicker: {
+        backgroundColor: colors.primary,
+        flex: 4,
+    },
+    countryPicker: {
+        backgroundColor: "gray",
+        flex: 1,
+    },
+    pickerText: {
+        color: "#fff"
+    }
 });
 
 export default styles;

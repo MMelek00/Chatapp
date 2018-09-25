@@ -2,7 +2,7 @@ import React from "react";
 import { View, Card, CardItem, Text, Right, Left } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-
+import format from "date-fns/format";
 import Avatar from "../../components/Avatar";
 import ActiveStatus from "../../components/ActiveStatus";
 import styles from "../../styles/conversations-card";
@@ -29,11 +29,9 @@ const ConversationCard = ({ data, navigation }) => {
               <Text style={styles.text2}>{data.conversation.displayMessage}</Text>
             </View>
           </Left>
-          <Right>
-            <View>
-              <Text>{data.conversation.lastMessageTime}</Text>
-              <ActiveStatus online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />
-            </View>
+          <Right >
+            <Text>{format(data.conversation.lastMessageTime, "YYYY-MM-DD")}</Text>
+            <ActiveStatus style={styles.online} online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />
           </Right>
         </CardItem>
       </Card>
