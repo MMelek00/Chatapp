@@ -3,9 +3,7 @@ import { View } from "react-native";
 import CheckRating from "../Components/Rating";
 import AboutHeader from "../Components/AboutHeader";
 import AboutInfo from "../Components/AboutInfo";
-const About = data => {
-  const _data = data.data;
-  console.log(_data);
+const About = ({ data }) => {
   return (
     <View
       style={{
@@ -13,9 +11,9 @@ const About = data => {
         flexDirection: "column"
       }}
     >
-      <CheckRating data={_data} />
-      <AboutHeader data={_data} />
-      <AboutInfo data={_data} />
+      <CheckRating data={data} />
+      <AboutHeader data={data} />
+      <AboutInfo data={data} />
     </View>
   );
 };

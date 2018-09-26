@@ -22,19 +22,15 @@ export default class Profile extends React.Component {
       )
     };
   };
-  state = {
-    data: {}
-  };
-  componentDidMount() {
-    const { navigation } = this.props;
-    this.state.data = navigation.getParam("data");
-  }
+
   render() {
+    const { navigation } = this.props;
+    const data = navigation.getParam("data");
     return (
       <Container>
         <Tabs renderTabBar={() => <ScrollableTab />}>
           <Tab heading="About">
-            <About data={this.state.data} />
+            <About data={data} />
           </Tab>
           <Tab heading="History">
             <History />

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import compareAsc from "date-fns/compare_asc";
 import { getConversations } from "../../utils/firebase-fns";
 import { Text, View } from "react-native";
 import Loader from "../../components/Loader";
@@ -26,7 +26,10 @@ class ConversationsScreen extends Component {
   _fetchConversations = () => {
     this.setState({ isRefreshing: true });
     getConversations(this.props.member.uid)
-      .then(data => {
+      .then(res => {
+        const data = res.sort((a, b) => {
+          return compareAsc(a.lastMessageTime, b.lastMessageTime);
+        });
         this.setState({ data, isLoading: false, isRefreshing: false });
       })
       .catch(err => console.log(err));

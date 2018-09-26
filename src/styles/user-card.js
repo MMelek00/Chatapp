@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     span: {
         flex: 1,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
     },
     item: {
         borderRadius: 10,
