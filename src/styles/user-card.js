@@ -1,16 +1,17 @@
 import { StyleSheet } from "react-native";
 
 import colors from "../utils/colors";
+import { normalize } from "../utils/fonts";
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 12,
+        fontSize: normalize(10),
         fontFamily: "Roboto_medium",
         color: "pink",
         paddingLeft: 5
     },
     text2: {
-        fontSize: 15,
+        fontSize: normalize(13),
         fontFamily: "Roboto_medium",
         paddingLeft: 5
     },

@@ -2,8 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { CheckBox, Rating } from "react-native-elements";
 
-const CheckRating = data => {
-  const _data = data.data;
+const CheckRating = ({ data }) => {
   return (
     <View
       style={{
@@ -17,7 +16,7 @@ const CheckRating = data => {
           title="Online"
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={_data.online}
+          checked={data.online}
           textStyle={{ color: "pink" }}
           checkedColor="pink"
           containerStyle={{ backgroundColor: "white", borderWidth: 0 }}
@@ -27,7 +26,7 @@ const CheckRating = data => {
         <Rating
           readonly
           fractions={1}
-          startingValue={_data.rating}
+          startingValue={data.rating}
           imageSize={35}
           style={{
             flexDirection: "row-reverse",

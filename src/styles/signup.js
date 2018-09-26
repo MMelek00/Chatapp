@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+import { normalize } from "../utils/fonts";
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "#003399",
         fontFamily: "Roboto_medium",
-        fontSize: 45,
+        fontSize: normalize(45),
         alignSelf: "flex-start",
         paddingLeft: 35,
         paddingBottom: 10
@@ -32,12 +34,12 @@ const styles = StyleSheet.create({
     buttonstyle: {
         color: "white",
         fontFamily: "Roboto_medium",
-        fontSize: 25
+        fontSize: normalize(25)
     },
     forgettext: {
         color: "blue",
         fontFamily: "Roboto",
-        fontSize: 18,
+        fontSize: normalize(18),
         paddingLeft: 30,
         paddingRight: 10
     }

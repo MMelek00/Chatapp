@@ -3,8 +3,7 @@ import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { Item } from "native-base";
 
-const AboutInfo = data => {
-  const _data = data.data;
+const AboutInfo = ({ data }) => {
   return (
     <View>
       <View
@@ -16,12 +15,12 @@ const AboutInfo = data => {
         <Item style={{ paddingLeft: 40 }}>
           <Icon name="500px" type="entypo" color="pink" />
           <Text style={{ paddingLeft: 10 }}>
-            {_data.experience} years Experience
+            {data.experience} years Experience
           </Text>
         </Item>
         <Item style={{ paddingLeft: 50, width: "50%" }}>
           <Icon name="access-time" type="materialIcons" color="pink" />
-          <Text style={{ paddingLeft: 10 }}>{_data.availability}</Text>
+          <Text style={{ paddingLeft: 10 }}>{data.availability}</Text>
         </Item>
       </View>
       <Text
@@ -31,7 +30,7 @@ const AboutInfo = data => {
           paddingLeft: 10
         }}
       >
-        {_data.description}
+        {data.description}
       </Text>
     </View>
   );

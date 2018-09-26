@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+import { normalize } from "../utils/fonts";
+
 const styles = StyleSheet.create({
     card: {
         borderRadius: 10,
@@ -10,13 +12,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     text: {
-        fontSize: 12,
+        fontSize: normalize(12),
         fontFamily: "Roboto_medium",
         color: "pink",
         paddingLeft: 5
     },
     text2: {
-        fontSize: 15,
+        fontSize: normalize(15),
         fontFamily: "Roboto_medium",
         paddingLeft: 5
     },
