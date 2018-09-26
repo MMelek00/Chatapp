@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { updatehistory } from "../../../actions/member";
 import Loader from "../../../components/Loader";
 import { View, Text } from "react-native";
-class Company extends React.Component {
+class history extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,7 +82,7 @@ class Company extends React.Component {
                 Add your start Date
               </Text>
               <DatePicker
-                defaultDate={new Date(2018, 12, 31)}
+                defaultDate={new Date()}
                 minimumDate={new Date(2014, 1, 1)}
                 maximumDate={new Date(2018, 12, 31)}
                 locale={"en"}
@@ -174,4 +174,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Company);
+)(history);

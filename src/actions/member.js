@@ -226,11 +226,12 @@ export function updateProfile(formData) {
 }
 export function updatehistory(formData) {
   const { uid, name, year, startDate, availability, jobName, link } = formData;
+  const date = startDate.toString().substr(4, 12);
   return dispatch =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
       return FirebaseRef.child(`users/${uid}/history`)
-        .push({ name, year, startDate, availability, jobName, link })
+        .push({ name, year, date, availability, jobName, link })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);

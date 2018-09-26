@@ -25,13 +25,13 @@ import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 const HomeStack = createStackNavigator(
   {
     Home: Home,
+    Settings: Settings,
     EditProfile: {
       screen: EditProfile
     },
     Profile: {
       screen: Profile
     },
-    Settings: Settings,
     PersonalInfo: PersonalInfo,
     NewGroupe: {
       screen: NewGroupe
