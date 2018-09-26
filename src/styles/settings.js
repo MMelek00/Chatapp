@@ -1,6 +1,8 @@
 import { StyleSheet } from "react-native";
 import colors from "../utils/colors";
 
+import { normalize } from "../utils/fonts";
+
 const styles = StyleSheet.create({
     container: {
         marginTop: 25,
@@ -21,11 +23,11 @@ const styles = StyleSheet.create({
 
     text: {
         color: colors.body,
-        fontSize: 16,
+        fontSize: normalize(16),
     },
     logout: {
         color: colors.negative,
-        fontSize: 16,
+        fontSize: normalize(16),
     },
     controlTitle: {
         flex: 1,

@@ -1,6 +1,8 @@
 import { StyleSheet } from "react-native";
 import colors from "../utils/colors";
 
+import { normalize } from "../utils/fonts";
+
 const styles = StyleSheet.create({
     badge: {
         position: "absolute",
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#fff",
         fontWeight: "bold",
-        fontSize: 17
+        fontSize: normalize(17)
     }
 });
 

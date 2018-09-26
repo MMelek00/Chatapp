@@ -1,16 +1,46 @@
-import { Platform, Dimensions } from "react-native";
+import { Platform, Dimensions, PixelRatio } from "react-native";
 
-const DEVICE_SCALE = Dimensions.get("window").width / 375;
+export const DEFAULT_FONT = "helvetica";
+export const SECONDARY_FONT = Platform.OS === "android" ? "basis" : "helvetica";
 
-const DEFAULT_FONT = "helvetica";
-const SECONDARY_FONT = Platform.OS === "android" ? "basis" : "helvetica";
+const pixelRatio = PixelRatio.get();
+const deviceHeight = Dimensions.get("window").height;
+const deviceWidth = Dimensions.get("window").width;
 
-function normalize(size: number): number {
-  return Math.round(DEVICE_SCALE * size);
+export function normalize(size) {
+  if (pixelRatio >= 2 && pixelRatio < 3) {
+    if (deviceWidth < 360) {
+      return size * 0.95;
+    }
+    if (deviceHeight < 667) {
+      return size;
+    } else if (deviceHeight >= 667 && deviceHeight <= 735) {
+      return size * 1.15;
+    }
+    return size * 1.25;
+  } else if (pixelRatio >= 3 && pixelRatio < 3.5) {
+    if (deviceWidth <= 360) {
+      return size;
+    }
+    if (deviceHeight < 667) {
+      return size * 1.15;
+    }
+    if (deviceHeight >= 667 && deviceHeight <= 735) {
+      return size * 1.2;
+    }
+    return size * 1.27;
+  } else if (pixelRatio >= 3.5) {
+    if (deviceWidth <= 360) {
+      return size;
+    }
+    if (deviceHeight < 667) {
+      return size * 1.2;
+    }
+    if (deviceHeight >= 667 && deviceHeight <= 735) {
+      return size * 1.25;
+    }
+    return size * 1.4;
+  } else {
+    return size;
+  }
 }
-
-export default {
-  cairo: DEFAULT_FONT,
-  secondary: SECONDARY_FONT,
-  normalize
-};

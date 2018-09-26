@@ -4,13 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { Icon } from "react-native-elements";
 import colors from "../utils/colors";
 
+import { normalize } from "../utils/fonts";
+
 const headerStyle = {
     headerStyle: {
         backgroundColor: colors.base
     },
     headerTintColor: "#fff",
     headerTitleStyle: {
-        fontSize: 18,
+        fontSize: normalize(18),
     },
     headerBackTitle: null
 };
