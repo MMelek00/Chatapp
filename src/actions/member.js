@@ -30,6 +30,7 @@ export function signUp(formData) {
               .set({
                 firstName,
                 phoneNumber,
+                email,
                 country: "",
                 city: "",
                 avatar:

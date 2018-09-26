@@ -1,14 +1,16 @@
 import React from "react";
 import { Button } from "react-native-elements";
 import { Firebase } from "../../../utils/firebase";
+import { withNavigation } from "react-navigation";
 
-const ButtonsPro = profile => {
+const Buttons = ({ data, navigation }) => {
   const user = Firebase.auth().currentUser;
-  if (profile.profile === user.uid) {
+  if (data.id === user.uid) {
     return (
       <Button
         rounded
         title="edit Profile"
+        onPress={() => navigation.navigate("EditProfile")}
         rightIcon={{
           name: "edit",
           type: "entypo",
@@ -23,6 +25,12 @@ const ButtonsPro = profile => {
       <Button
         rounded
         title="Send message"
+        onPress={() => {
+          navigation.navigate("Messages", {
+            sendToId: data.id,
+            sendToName: data.firstName
+          });
+        }}
         rightIcon={{
           name: "send",
           type: "materialIcons",
@@ -35,4 +43,4 @@ const ButtonsPro = profile => {
   }
 };
 
-export default ButtonsPro;
+export default withNavigation(Buttons);

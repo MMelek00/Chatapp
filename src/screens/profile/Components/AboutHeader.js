@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Avatar } from "react-native-elements";
-import ButtonsPro from "./Button";
-const AboutHeader = data => {
-  const _data = data.data;
+import Buttons from "./Button";
+import fonts from "../../../utils/fonts";
+const AboutHeader = ({ data }) => {
   return (
     <View
       style={{
@@ -16,30 +16,30 @@ const AboutHeader = data => {
           height={190}
           rounded
           source={{
-            uri: _data.avatar
+            uri: data.avatar
           }}
           activeOpacity={0.7}
         />
       </View>
       <Text
         style={{
-          fontSize: 25,
-          fontFamily: "Roboto_medium"
+          fontSize: fonts.normalize(25),
+          fontFamily: fonts.SECONDARY_FONT
         }}
       >
-        {_data.firstName}
+        {data.firstName}
       </Text>
       <Text
         style={{
-          fontSize: 20,
-          fontFamily: "Roboto_medium",
+          fontSize: fonts.normalize(20),
+          fontFamily: fonts.SECONDARY_FONT,
           color: "pink"
         }}
       >
-        {_data.email}
+        {data.email}
       </Text>
       <View style={{ width: 250, padding: 10 }}>
-        <ButtonsPro profile={_data.id} />
+        <Buttons data={data} />
       </View>
     </View>
   );

@@ -173,6 +173,8 @@ class EditProfile extends React.Component {
                   onValueChange={(itemValue, itemIndex) =>
                     this.setState({ category: itemValue })
                   }
+                  mode="dialog"
+                  iosHeader="Select"
                 >
                   {categories.map((value, i) => (
                     <Picker.Item label={value} value={value} key={i} />
@@ -192,6 +194,8 @@ class EditProfile extends React.Component {
                   onValueChange={(itemValue, itemIndex) =>
                     this.setState({ job: itemValue })
                   }
+                  mode="dialog"
+                  iosHeader="Select"
                 >
                   {WebOption.map((value, i) => (
                     <Picker.Item label={value} value={value} key={i} />

@@ -10,15 +10,12 @@ class AuthLoading extends React.Component {
 
   _bootstrapAsync = async () => {
     const { uid } = this.props.member;
-    console.log(this.props.member.uid);
     this.props.navigation.navigate(uid ? "App" : "Auth");
   };
 
   render() {
     return (
-      <View
-        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      >
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <ActivityIndicator />
         <StatusBar barStyle="default" />
       </View>

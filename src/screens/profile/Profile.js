@@ -1,31 +1,26 @@
 import React from "react";
 import { Container, Tab, Tabs, ScrollableTab } from "native-base";
 import { Icon } from "react-native-elements";
+import { withNavigation } from "react-navigation";
+import { connect } from "react-redux";
 import About from "./ProfileDetails/About";
 import History from "./ProfileDetails/History";
 import Certificates from "./ProfileDetails/Certificates";
 import Skills from "./ProfileDetails/Skills";
-export default class Profile extends React.Component {
+class Profile extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "PROFILE",
-      headerRight: (
-        <Icon
-          name="edit"
-          type="entypo"
-          color="white"
-          containerStyle={{ paddingRight: 10 }}
-          onPress={() => {
-            navigation.navigate("EditProfile");
-          }}
-        />
-      )
+      title: "PROFILE"
     };
   };
 
   render() {
     const { navigation } = this.props;
     const data = navigation.getParam("data");
+    const { uid } = this.props.member;
+    if (uid === data.id) {
+      this.data = this.props.member;
+    }
     return (
       <Container>
         <Tabs renderTabBar={() => <ScrollableTab />}>
@@ -46,3 +41,8 @@ export default class Profile extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+
+export default connect(mapStateToProps)(withNavigation(Profile));

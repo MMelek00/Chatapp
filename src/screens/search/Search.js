@@ -1,7 +1,9 @@
 import React from "react";
-import { StyleSheet, TextInput, View, Text } from "react-native";
+import { TextInput, View, Text } from "react-native";
 import { Item, Card, Picker } from "native-base";
 import { Icon, ButtonGroup, Button } from "react-native-elements";
+import styles from "../../styles/search";
+import { categories, WebOption, countries } from "../../utils/properties";
 
 export default class Search extends React.Component {
   static navigationOptions = {
@@ -10,9 +12,9 @@ export default class Search extends React.Component {
   state = {
     index: 0,
     Years: 1,
-    Category: "Mobile",
-    Job: "Design",
-    Country: "Country",
+    category: "Design & Creative",
+    job: "Mobile Development",
+    country: "Tunisia",
     name: ""
   };
   updateIndex = index => {
@@ -76,16 +78,15 @@ export default class Search extends React.Component {
             </View>
             <View style={{ paddingLeft: 10 }}>
               <Picker
-                selectedValue={this.state.Category}
+                selectedValue={this.state.category}
                 itemStyle={{ color: "blue" }}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Category: itemValue })
+                  this.setState({ category: itemValue })
                 }
               >
-                <Picker.Item label="Mobile" value="Mobile" />
-                <Picker.Item label="2 years" value="2" />
-                <Picker.Item label="+3 years" value="3" />
-                <Picker.Item label="+5 years" value="5" />
+                {categories.map((value, i) => (
+                  <Picker.Item label={value} value={value} key={i} />
+                ))}
               </Picker>
             </View>
           </Card>
@@ -95,34 +96,32 @@ export default class Search extends React.Component {
             </View>
             <View style={{ paddingLeft: 10 }}>
               <Picker
-                selectedValue={this.state.Job}
+                selectedValue={this.state.job}
                 style={{ height: 50, width: "100%" }}
                 itemStyle={{ color: "blue" }}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ Job: itemValue })
+                  this.setState({ job: itemValue })
                 }
               >
-                <Picker.Item label="Design" value="Design" />
-                <Picker.Item label="2 years" value="2" />
-                <Picker.Item label="+3 years" value="3" />
-                <Picker.Item label="+5 years" value="5" />
+                {WebOption.map((value, i) => (
+                  <Picker.Item label={value} value={value} key={i} />
+                ))}
               </Picker>
             </View>
           </Card>
         </View>
         <Card style={{ width: "90%", height: 50 }}>
           <Picker
-            selectedValue={this.state.Country}
+            selectedValue={this.state.country}
             style={{ height: 50, width: "100%" }}
             itemStyle={{ color: "blue" }}
             onValueChange={(itemValue, itemIndex) =>
-              this.setState({ Country: itemValue })
+              this.setState({ country: itemValue })
             }
           >
-            <Picker.Item label="Country" value="Country" />
-            <Picker.Item label="2 years" value="2" />
-            <Picker.Item label="+3 years" value="3" />
-            <Picker.Item label="+5 years" value="5" />
+            {countries.map((value, i) => (
+              <Picker.Item label={value} value={value} key={i} />
+            ))}
           </Picker>
         </Card>
         <View style={{ width: "95%", paddingTop: 30 }}>
@@ -137,26 +136,3 @@ export default class Search extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    //justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ecf0f1"
-  },
-  textInput: {
-    height: 45,
-    width: "80%",
-    borderRadius: 8,
-    color: "black",
-    padding: 15
-  },
-  Iteminput: {
-    height: 50,
-    width: "90%",
-    backgroundColor: "#57A0FD",
-    borderColor: "#a39e9e",
-    marginTop: 12,
-    borderRadius: 8,
-    padding: 12
-  }
-});
