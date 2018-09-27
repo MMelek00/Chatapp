@@ -11,6 +11,21 @@ export const categories = [
     "Legal"
 ];
 
+export const cats = [
+    { label: "Web, Mobile & Software Dev", value: "web" },
+    { label: "Design & Creative", value: "design" },
+    { label: "Admin Support", value: "admin" },
+    { label: "IT & Networking", value: "it" },
+    { label: "Writing", value: "writing" },
+    { label: "Data Science & Analytics", value: "data" },
+    { label: "Sales & Marketing", value: "sales" },
+    { label: "Translation", value: "translation" },
+    { label: "Engineering & Architecture", value: "engineering" },
+    { label: "Legal", value: "legal" },
+];
+
+
+
 export const WebOption = [
     "All Web, Mobile & Software Dev",
     "Desktop Software Development",

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { Item } from "native-base";
-import fonts from "../../../utils/fonts";
+import { DEFAULT_FONT, normalize } from "../../../utils/fonts";
 const AboutInfo = ({ data }) => {
   return (
     <View>
@@ -14,13 +14,13 @@ const AboutInfo = ({ data }) => {
       >
         <Item style={{ paddingLeft: 40 }}>
           <Icon name="500px" type="entypo" color="pink" />
-          <Text style={{ paddingLeft: 10, fontFamily: fonts.SECONDARY_FONT }}>
+          <Text style={{ paddingLeft: 10, fontFamily: DEFAULT_FONT }}>
             {data.experience} years Experience
           </Text>
         </Item>
         <Item style={{ paddingLeft: 50, width: "50%" }}>
           <Icon name="access-time" type="materialIcons" color="pink" />
-          <Text style={{ paddingLeft: 10, fontFamily: fonts.SECONDARY_FONT }}>
+          <Text style={{ paddingLeft: 10, fontFamily: DEFAULT_FONT }}>
             {data.availability}
           </Text>
         </Item>
@@ -30,8 +30,8 @@ const AboutInfo = ({ data }) => {
           padding: 5,
           color: "#535353",
           paddingLeft: 10,
-          fontSize: fonts.normalize(16),
-          fontFamily: fonts.SECONDARY_FONT
+          fontSize: normalize(16),
+          fontFamily: DEFAULT_FONT
         }}
       >
         {data.description}

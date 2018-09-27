@@ -15,12 +15,9 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { navigation } = this.props;
-    const data = navigation.getParam("data");
-    const { uid } = this.props.member;
-    if (uid === data.id) {
-      this.data = this.props.member;
-    }
+    const { navigation, member } = this.props;
+    const userProp = navigation.getParam("data");
+    const data = userProp || member;
     return (
       <Container>
         <Tabs renderTabBar={() => <ScrollableTab />}>
