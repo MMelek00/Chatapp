@@ -23,12 +23,24 @@ import { ImagePicker } from "expo";
 import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
 import { categories, WebOption } from "../../../utils/properties";
+import colors from "../../../utils/colors";
 import * as firebase from "firebase";
 import Loader from "../../../components/Loader";
 class EditProfile extends React.Component {
-  static navigationOptions = {
-    title: "PROFILE"
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "PROFILE",
+      headerRight: (
+        <Button
+          block
+          onPress={() => navigation.navigate("Company")}
+          title="Skip"
+          backgroundColor={colors.base}
+        />
+      )
+    };
   };
+
   state = {
     index: 2,
     uid: this.props.member.uid,
@@ -220,15 +232,15 @@ class EditProfile extends React.Component {
               onChangeText={description => this.setState({ description })}
             />
           </View>
+          <View style={{ width: "30%", alignSelf: "flex-end" }}>
+            <Button
+              block
+              onPress={this.handleSubmit}
+              title="Next"
+              backgroundColor={colors.base}
+            />
+          </View>
         </ScrollView>
-        <View style={{ width: "30%", alignSelf: "flex-end" }}>
-          <Button
-            block
-            onPress={this.handleSubmit}
-            title="Next"
-            backgroundColor="#1C39A1"
-          />
-        </View>
       </Container>
     );
   }

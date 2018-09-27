@@ -1,14 +1,31 @@
 import React from "react";
 import { Container, Item, Content } from "native-base";
 import { Button } from "react-native-elements";
-
+import { connect } from "react-redux";
+import { updateskills } from "../../../actions/member";
 import { View, TextInput, StyleSheet } from "react-native";
+import colors from "../../../utils/colors";
+
 class Skills extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Add your Skills ",
+      headerRight: (
+        <Button
+          block
+          onPress={() => navigation.navigate("Certificates")}
+          title="Skip"
+          backgroundColor={colors.base}
+        />
+      )
+    };
+  };
   constructor(props) {
     super(props);
     this.state = {
-      skill1: "",
-      rate1: 0,
+      uid: this.props.member.uid,
+      skill: "",
+      rate: 0,
       skill2: "",
       rate2: 0,
       skill3: "",
@@ -19,6 +36,17 @@ class Skills extends React.Component {
       rate5: 0
     };
   }
+  handleSubmit = async () => {
+    this.setState({ isloading: true });
+    const { onFormSubmit } = this.props;
+    const { navigate } = this.props.navigation;
+    onFormSubmit(this.state)
+      .then(resp => {
+        this.setState({ isloading: false });
+        navigate("Certificates");
+      })
+      .catch(e => console.log(`Error: ${e}`));
+  };
   render() {
     return (
       <Container>
@@ -141,9 +169,9 @@ class Skills extends React.Component {
           <View style={{ width: "30%", alignSelf: "flex-end" }}>
             <Button
               block
-              onPress={() => this.props.navigation.navigate("Certificates")}
+              onPress={this.handleSubmit}
               title="Next"
-              backgroundColor="#1C39A1"
+              backgroundColor={colors.base}
             />
           </View>
         </Content>
@@ -189,4 +217,14 @@ const styles = StyleSheet.create({
     padding: 12
   }
 });
-export default Skills;
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+const mapDispatchToProps = {
+  onFormSubmit: updateskills
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Skills);

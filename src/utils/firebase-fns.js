@@ -179,7 +179,7 @@ export function gethistory(uid) {
         snapshot.forEach(child => {
           const history = child.val();
           const id = child.key;
-          histories.push({ ...history, id });
+          histories.push({ ...history, id, uid });
         });
         resolve(histories);
       })

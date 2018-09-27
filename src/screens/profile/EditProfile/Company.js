@@ -12,8 +12,22 @@ import { Button, ButtonGroup } from "react-native-elements";
 import { connect } from "react-redux";
 import { updatehistory } from "../../../actions/member";
 import Loader from "../../../components/Loader";
+import colors from "../../../utils/colors";
 import { View, Text } from "react-native";
 class Company extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Job History",
+      headerRight: (
+        <Button
+          block
+          onPress={() => navigation.navigate("Skills")}
+          title="Skip"
+          backgroundColor={colors.base}
+        />
+      )
+    };
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -149,13 +163,13 @@ class Company extends React.Component {
               block
               onPress={this.handleSubmit}
               title="ADD"
-              backgroundColor="#1C39A1"
+              backgroundColor={colors.base}
             />
             <Button
               block
-              onPress={() => this.props.navigation.navigate("Skills")}
-              title="Next"
-              backgroundColor="#1C39A1"
+              onPress={{}}
+              title="Edit"
+              backgroundColor={colors.base}
             />
           </View>
         </Content>
