@@ -16,7 +16,6 @@ import { normalize } from "../utils/fonts";
 
 const ButtonGroup = props => {
     const {
-        component: Component,
         buttons,
         onPress,
         selectedIndex,
@@ -38,7 +37,7 @@ const ButtonGroup = props => {
         disableSelected,
         ...attributes
     } = props;
-
+    const Component = Platform.OS === "ios" ? TouchableOpacity : TouchableNativeFeedback;
     return (
         <View
             {...attributes}
@@ -77,13 +76,13 @@ const ButtonGroup = props => {
                                         ? 0
                                         : (innerBorderStyle && innerBorderStyle.width) || 1,
                                 borderRightColor:
-                                    (innerBorderStyle && innerBorderStyle.color) || colors.grey4,
+                                    (innerBorderStyle && innerBorderStyle.color) || colors.primary,
                             },
                             i === 1 && {
                                 borderLeftWidth:
                                     (innerBorderStyle && innerBorderStyle.width) || 1,
                                 borderLeftColor:
-                                    (innerBorderStyle && innerBorderStyle.color) || colors.grey4,
+                                    (innerBorderStyle && innerBorderStyle.color) || colors.primary,
                             },
                             i === buttons.length - 1 && {
                                 ...lastBorderStyle,
@@ -138,21 +137,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     container: {
-        marginLeft: 10,
-        marginRight: 10,
         marginBottom: 5,
         marginTop: 5,
-        borderColor: "#e3e3e3",
-        borderWidth: 1,
+        borderWidth: 0,
         flexDirection: "row",
-        borderRadius: 3,
+        borderRadius: 10,
         overflow: "hidden",
         backgroundColor: "#fff",
         height: 40,
     },
     buttonText: {
         fontSize: normalize(13),
-        color: colors.grey2,
+        color: colors.grey,
         ...Platform.select({
             ios: {
                 fontWeight: "500",

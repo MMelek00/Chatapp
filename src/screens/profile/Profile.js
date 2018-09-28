@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Tab, Tabs, ScrollableTab } from "native-base";
-import { Icon } from "react-native-elements";
 import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 import About from "./ProfileDetails/About";
@@ -25,7 +24,7 @@ class Profile extends React.Component {
             <About data={data} />
           </Tab>
           <Tab heading="History">
-            <History />
+            <History id={data.id} />
           </Tab>
           <Tab heading="Certificates">
             <Certificates />

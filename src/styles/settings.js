@@ -43,10 +43,13 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingBottom: 15,
         borderRadius: 10,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
+        shadowColor: "rgba(223, 223, 223, 1)",
+        shadowOffset: {
+            width: -2,
+            height: 2
+        },
+        shadowOpacity: 99,
+        shadowRadius: 8
     },
     button: {
         backgroundColor: colors.base,

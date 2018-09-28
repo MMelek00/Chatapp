@@ -28,10 +28,10 @@ const HomeStack = createStackNavigator(
     EditProfile: {
       screen: EditProfile
     },
+    Settings: Settings,
     Profile: {
       screen: Profile
     },
-    Settings: Settings,
     PersonalInfo: PersonalInfo,
     NewGroupe: {
       screen: NewGroupe

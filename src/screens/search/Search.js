@@ -6,19 +6,10 @@ import RNPickerSelect from "react-native-picker-select";
 //components
 import ButtonGroup from "../../components/ButtonGroup";
 //utils
-import styles from "../../styles/search";
+import styles, { pickerSelectStyles, pickerHalfStyles } from "../../styles/search";
 import { categories, cats, WebOption, countries } from "../../utils/properties";
 
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    padding: 13,
-    borderWidth: 0,
-    borderRadius: 4,
-    backgroundColor: "white",
-    color: "black",
-  },
-});
+
 
 export default class Search extends React.Component {
   static navigationOptions = {
@@ -40,7 +31,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.Iteminput}>
+        <View style={[styles.inputContainer, styles.shadow]}>
           <Icon name="user" type="font-awesome" color="white" />
           <TextInput
             placeholder="Name"
@@ -53,78 +44,81 @@ export default class Search extends React.Component {
             onChangeText={name => this.setState({ name })}
           />
         </View>
-        <ButtonGroup
-          selectMultiple
-          onPress={this.updateIndex}
-          selectedIndexes={this.state.index}
-          buttons={["Freelancer", "Part Time", "Full Time"]}
-        />
-        <Card >
-          <Item>
-            <Icon name="chain" type="font-awesome" color="gray" />
-            <Text>Years Experience</Text>
-          </Item>
-          <RNPickerSelect
-            placeholder={{
-              label: "Select a category...",
-              value: null,
-            }}
-            items={cats}
-            onValueChange={(value) => {
-              this.setState({
-                category: value,
-              });
-            }}
-            style={{ ...pickerSelectStyles }}
-            value={this.state.category}
+        <View style={styles.shadow}>
+          <ButtonGroup
+            selectMultiple
+            onPress={this.updateIndex}
+            selectedIndexes={this.state.index}
+            buttons={["Freelancer", "Part Time", "Full Time"]}
           />
-        </Card>
-        <View>
-          <Card>
-            <View>
-              <Text>Category</Text>
-            </View>
-            <RNPickerSelect
-              placeholder={{
-                label: "Select a category...",
-                value: null,
-              }}
-              items={cats}
-              onValueChange={(value) => {
-                this.setState({
-                  category: value,
-                });
-              }}
-              style={{ ...pickerSelectStyles }}
-              value={this.state.category}
-            />
-          </Card>
-          <Card>
-            <View>
-              <Text>Job</Text>
-            </View>
-            <RNPickerSelect
-              placeholder={{
-                label: "Select a category...",
-                value: null,
-              }}
-              items={cats}
-              onValueChange={(value) => {
-                this.setState({
-                  category: value,
-                });
-              }}
-              style={{ ...pickerSelectStyles }}
-              value={this.state.category}
-            />
-          </Card>
         </View>
-        <Card>
+        <View style={styles.card}>
+          <View style={styles.row}>
+            <Icon name="chain" type="font-awesome" color="gray" style={styles.icon} />
+            <Text style={styles.title}>Years Experience</Text>
+          </View>
           <RNPickerSelect
             placeholder={{
               label: "Select a category...",
               value: null,
             }}
+            items={cats}
+            hideIcon
+            onValueChange={(value) => {
+              this.setState({
+                category: value,
+              });
+            }}
+            style={{ ...pickerSelectStyles }}
+            value={this.state.category}
+          />
+        </View>
+        <View style={[styles.card, styles.row]}>
+          <View>
+            <Text style={styles.title}>Category</Text>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a category...",
+                value: null,
+              }}
+              hideIcon
+              items={cats}
+              onValueChange={(value) => {
+                this.setState({
+                  category: value,
+                });
+              }}
+              style={{ ...pickerHalfStyles }}
+              value={this.state.category}
+            />
+          </View>
+          <View style={styles.devider} />
+          <View>
+            <Text style={styles.title}>Job</Text>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a category...",
+                value: null,
+              }}
+              hideIcon
+              items={cats}
+              onValueChange={(value) => {
+                this.setState({
+                  category: value,
+                });
+              }}
+              style={{ ...pickerHalfStyles }}
+              value={this.state.category}
+            />
+          </View>
+        </View>
+        <View style={styles.card}>
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a category...",
+              value: null,
+            }}
+            hideIcon
             items={cats}
             onValueChange={(value) => {
               this.setState({
@@ -134,13 +128,14 @@ export default class Search extends React.Component {
             style={{ ...pickerSelectStyles }}
             value={this.state.category}
           />
-        </Card>
+        </View>
         <View>
           <Button
             rounded
             onPress={() => console.log(this.state.index)}
             title="SEARCH"
             backgroundColor="#1C39A1"
+            containerViewStyle={styles.button}
           />
         </View>
       </View>

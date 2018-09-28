@@ -226,11 +226,12 @@ export function updateProfile(formData) {
 }
 export function updatehistory(formData) {
   const { uid, name, year, startDate, availability, jobName, link } = formData;
+  const date = startDate.toString().substr(4, 12);
   return dispatch =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
       return FirebaseRef.child(`users/${uid}/history`)
-        .push({ name, year, startDate, availability, jobName, link })
+        .push({ name, year, date, availability, jobName, link })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
@@ -242,7 +243,66 @@ export function updatehistory(formData) {
       throw err.message;
     });
 }
-
+export function updateskills(formData) {
+  const {
+    uid,
+    skill1,
+    rate1,
+    skill2,
+    rate2,
+    skill3,
+    rate3,
+    skill4,
+    rate4,
+    skill5,
+    rate5
+  } = formData;
+  const skill = [];
+  return dispatch =>
+    new Promise(async (resolve, reject) => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
+      return FirebaseRef.child(`users/${uid}/skills`)
+        .push({
+          skill1,
+          rate1,
+          skill2,
+          rate2,
+          skill3,
+          rate3,
+          skill4,
+          rate4,
+          skill5,
+          rate5
+        })
+        .then(async () => {
+          await getUserData(dispatch);
+          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
+          resolve();
+        })
+        .catch(reject);
+    }).catch(async err => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
+      throw err.message;
+    });
+}
+export function updateCertificate(formData) {
+  const { uid, selectedCertif } = formData;
+  return dispatch =>
+    new Promise(async (resolve, reject) => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
+      return FirebaseRef.child(`users/${uid}/certificates`)
+        .push({ selectedCertif })
+        .then(async () => {
+          await getUserData(dispatch);
+          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
+          resolve();
+        })
+        .catch(reject);
+    }).catch(async err => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
+      throw err.message;
+    });
+}
 export function updatePersonalInfo(formData) {
   const {
     email,
