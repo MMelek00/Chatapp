@@ -2,6 +2,9 @@
   "expo": {
     "sdkVersion": "30.0.0",
     "slug": "Chatapp",
+    "splash": {
+      "image": "./assets/splash.png"
+    },
     "loading": {
       "hideExponentText": false,
       "icon": "./assets/loading.png"
@@ -9,9 +12,7 @@
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "packagerOpts": {
-      "assetExts": [
-        "ttf"
-      ]
+      "assetExts": ["ttf"]
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {

@@ -186,6 +186,14 @@ export function gethistory(uid) {
       .catch(reject);
   });
 }
+export function Imageurl(imageName) {
+  const reff = Firebase.storage().ref(`images/${imageName}.jpg`);
+
+  reff.getDownloadURL().then(url => {
+    console.log(url);
+  });
+}
+
 export function closeChat() {
   if (FirebaseRef) {
     FirebaseRef.off();

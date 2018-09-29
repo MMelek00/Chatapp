@@ -97,11 +97,11 @@ class EditProfile extends React.Component {
   uploadImage = async (uri, imageName) => {
     const response = await fetch(uri);
     const blob = await response.blob();
-
     var ref = firebase
       .storage()
       .ref()
-      .child("images/" + imageName);
+      .child("images")
+      .child(`${imageName}.jpg`);
     return ref.put(blob);
   };
 
