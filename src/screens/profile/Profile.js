@@ -30,7 +30,7 @@ class Profile extends React.Component {
             <Certificates />
           </Tab>
           <Tab heading="Skills">
-            <Skills />
+            <Skills data={data} />
           </Tab>
         </Tabs>
       </Container>

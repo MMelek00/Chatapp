@@ -25,12 +25,12 @@ const ConversationCard = ({ data, navigation }) => {
           <Left>
             <Avatar user={data.sendTo} unseen={data.unseenCount} />
             <View>
-              <Text style={styles.text2}>{data.sendTo.firstName}</Text>
-              <Text style={styles.text2}>{data.conversation.displayMessage}</Text>
+              <Text style={styles.name}>{data.sendTo.firstName}</Text>
+              <Text style={styles.message}>{data.conversation.displayMessage}</Text>
             </View>
           </Left>
           <Right >
-            <Text>{format(data.conversation.lastMessageTime, "YYYY-MM-DD")}</Text>
+            <Text style={styles.message} >{format(data.conversation.lastMessageTime, "YYYY-MM-DD")}</Text>
             <ActiveStatus style={styles.online} online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />
           </Right>
         </CardItem>

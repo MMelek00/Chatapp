@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: colors.body,
-        fontSize: normalize(16),
+        color: colors.grey,
+        fontSize: normalize(14),
     },
     logout: {
         color: colors.negative,
-        fontSize: normalize(16),
+        fontSize: normalize(14),
     },
     controlTitle: {
         flex: 1,

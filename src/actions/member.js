@@ -63,10 +63,10 @@ export function signUp(formData) {
 function getUserData(dispatch) {
   const UID =
     FirebaseRef &&
-    Firebase &&
-    Firebase.auth() &&
-    Firebase.auth().currentUser &&
-    Firebase.auth().currentUser.uid
+      Firebase &&
+      Firebase.auth() &&
+      Firebase.auth().currentUser &&
+      Firebase.auth().currentUser.uid
       ? Firebase.auth().currentUser.uid
       : null;
 
@@ -243,37 +243,12 @@ export function updatehistory(formData) {
       throw err.message;
     });
 }
-export function updateskills(formData) {
-  const {
-    uid,
-    skill1,
-    rate1,
-    skill2,
-    rate2,
-    skill3,
-    rate3,
-    skill4,
-    rate4,
-    skill5,
-    rate5
-  } = formData;
-  const skill = [];
-  return dispatch =>
+export function updateskills(skills) {
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
-      return FirebaseRef.child(`users/${uid}/skills`)
-        .push({
-          skill1,
-          rate1,
-          skill2,
-          rate2,
-          skill3,
-          rate3,
-          skill4,
-          rate4,
-          skill5,
-          rate5
-        })
+      return FirebaseRef.child(`users/${store().member.uid}`)
+        .update({ skills })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);

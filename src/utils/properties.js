@@ -25,6 +25,14 @@ export const cats = [
 ];
 
 
+export const skills = [
+    { label: "Wireframes", value: "Wireframes" },
+    { label: "UI design", value: "UI design" },
+    { label: "Software architecting", value: "Software architecting" },
+    { label: "Front-end coding", value: "Front-end coding" },
+    { label: "Back-end integration & APIs", value: "Back-end integration & APIs" },
+];
+
 
 export const WebOption = [
     "All Web, Mobile & Software Dev",

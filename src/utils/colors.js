@@ -1,7 +1,7 @@
 
 export default {
     base: "#1E145D",
-    body: "#333",
+    body: "#F5F5F7",
     border: "#cdcdcd",
     chrome: "#fff",
     disabled: "#acacac",

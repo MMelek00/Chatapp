@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { GiftedChat, Bubble, Send } from "react-native-gifted-chat";
+import { View } from "react-native";
+import { GiftedChat, Bubble, Send, MessageText, Time, InputToolbar, Composer } from "react-native-gifted-chat";
 import { Icon } from "native-base";
-import MessageBubble from "./MessageBubble";
 
 import { sendMessage, loadMessages, getConversationId, closeChat } from "../../utils/firebase-fns";
+import colors from "../../utils/colors";
 
 class Messages extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -53,8 +54,77 @@ class Messages extends React.Component {
 
   renderBubble(props) {
     return (
-      <MessageBubble
+      <Bubble
         {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: "transparent",
+          },
+          right: {
+            backgroundColor: "transparent",
+          },
+        }}
+      />
+    );
+  }
+
+  renderMessageText(props) {
+    return (
+      <MessageText
+        {...props}
+        containerStyle={{
+          left: {
+            backgroundColor: colors.body,
+            padding: 5,
+          },
+          right: {
+            backgroundColor: colors.body,
+            padding: 5,
+          },
+        }}
+        textStyle={{
+          left: {
+            color: colors.grey,
+          },
+          right: {
+            color: colors.grey,
+          },
+        }}
+      />
+    );
+  }
+
+  renderTime(props) {
+    return (
+      <Time
+        {...props}
+        textStyle={{
+          left: {
+            color: colors.secondary,
+          },
+          right: {
+            color: colors.secondary,
+          },
+        }}
+      />
+    );
+  }
+
+  renderInputToolbar(props) {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{ backgroundColor: colors.primary }}
+      />
+    );
+  }
+
+  renderComposer(props) {
+    return (
+      <Composer
+        {...props}
+        textInputStyle={{ color: "#fff" }}
+        placeholderTextColor="#fff"
       />
     );
   }
@@ -73,19 +143,25 @@ class Messages extends React.Component {
   render() {
     const { member } = this.props;
     return (
-      <GiftedChat
-        messages={this.state.messages}
-        renderBubble={this.renderBubble}
-        renderSend={this.renderSend}
-        onSend={messages => this._sendMessage(messages)}
-        user={{
-          _id: member.uid,
-          name: member.firstName,
-        }}
-        showUserAvatar
-        loadEarlier
-        showAvatarForEveryMessage
-      />
+      <View style={{ backgroundColor: "#fff", flex: 1 }}>
+        <GiftedChat
+          messages={this.state.messages}
+          renderBubble={this.renderBubble}
+          renderMessageText={this.renderMessageText}
+          renderTime={this.renderTime}
+          renderInputToolbar={this.renderInputToolbar}
+          renderSend={this.renderSend}
+          renderComposer={this.renderComposer}
+          onSend={messages => this._sendMessage(messages)}
+          user={{
+            _id: member.uid,
+            name: member.firstName,
+          }}
+          showUserAvatar
+          loadEarlier
+          showAvatarForEveryMessage
+        />
+      </View>
     );
   }
 }
