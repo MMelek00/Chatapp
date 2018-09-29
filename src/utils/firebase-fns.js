@@ -169,23 +169,6 @@ export function sendMessage(message, conversationId, uid, sendToId) {
     }
   });
 }
-export function gethistory(uid) {
-  const historyRef = FirebaseRef.child(`users/${uid}/history`);
-  const histories = [];
-  return new Promise((resolve, reject) => {
-    historyRef
-      .once("value")
-      .then(function(snapshot) {
-        snapshot.forEach(child => {
-          const history = child.val();
-          const id = child.key;
-          histories.push({ ...history, id, uid });
-        });
-        resolve(histories);
-      })
-      .catch(reject);
-  });
-}
 export function Imageurl(imageName) {
   const reff = Firebase.storage().ref(`images/${imageName}.jpg`);
 

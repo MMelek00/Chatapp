@@ -224,7 +224,7 @@ export function updateProfile(formData) {
       throw err.message;
     });
 }
-export function updatehistory(formData) {
+export function updatehistorys(formData) {
   const { uid, name, year, startDate, availability, jobName, link } = formData;
   const date = startDate.toString().substr(4, 12);
   return dispatch =>
@@ -243,37 +243,12 @@ export function updatehistory(formData) {
       throw err.message;
     });
 }
-export function updateskills(formData) {
-  const {
-    uid,
-    skill1,
-    rate1,
-    skill2,
-    rate2,
-    skill3,
-    rate3,
-    skill4,
-    rate4,
-    skill5,
-    rate5
-  } = formData;
-  const skill = [];
-  return dispatch =>
+export function updateskills(skills) {
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
-      return FirebaseRef.child(`users/${uid}/skills`)
-        .push({
-          skill1,
-          rate1,
-          skill2,
-          rate2,
-          skill3,
-          rate3,
-          skill4,
-          rate4,
-          skill5,
-          rate5
-        })
+      return FirebaseRef.child(`users/${store().member.uid}`)
+        .update({ skills })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
@@ -285,13 +260,29 @@ export function updateskills(formData) {
       throw err.message;
     });
 }
-export function updateCertificate(formData) {
-  const { uid, selectedCertif } = formData;
-  return dispatch =>
+export function updatehistory(history) {
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
-      return FirebaseRef.child(`users/${uid}/certificates`)
-        .push({ selectedCertif })
+      return FirebaseRef.child(`users/${store().member.uid}`)
+        .update({ history })
+        .then(async () => {
+          await getUserData(dispatch);
+          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
+          resolve();
+        })
+        .catch(reject);
+    }).catch(async err => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
+      throw err.message;
+    });
+}
+export function updatecertificates(certificates) {
+  return (dispatch, store) =>
+    new Promise(async (resolve, reject) => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
+      return FirebaseRef.child(`users/${store().member.uid}`)
+        .update({ certificates })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);

@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text } from "react-native";
 import { Avatar } from "react-native-elements";
 import Buttons from "./Button";
+import { DEFAULT_FONT, normalize } from "../../../utils/fonts";
+
 const AboutHeader = ({ data }) => {
   return (
     <View
@@ -22,16 +24,16 @@ const AboutHeader = ({ data }) => {
       </View>
       <Text
         style={{
-          fontSize: 25,
-          fontFamily: "Roboto_medium"
+          fontSize: normalize(25),
+          fontFamily: DEFAULT_FONT
         }}
       >
         {data.firstName}
       </Text>
       <Text
         style={{
-          fontSize: 20,
-          fontFamily: "Roboto_medium",
+          fontSize: normalize(20),
+          fontFamily: DEFAULT_FONT,
           color: "pink"
         }}
       >

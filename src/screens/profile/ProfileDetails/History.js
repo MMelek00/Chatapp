@@ -2,38 +2,18 @@ import React from "react";
 import { View, Content, Text } from "native-base";
 import HistoryCard from "../Components/HistoryCard";
 import { FlatList } from "react-native";
-import { gethistory } from "../../../utils/firebase-fns";
-import { connect } from "react-redux";
 import { Loader } from "../../../components/Loader";
 class History extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
       isLoading: true,
-      error: "",
-      id: props.id
+      error: ""
     };
   }
-  componentDidMount() {
-    this._fetchhistory(this.state.id);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      id: nextProps.id
-    });
-  }
+
   _keyExtractor = (item, index) => item.id;
   _renderItem = ({ item, key }) => <HistoryCard data={item} key={key} />;
-  _fetchhistory = id => {
-    gethistory(id)
-      .then(data => {
-        this.setState({ data, isLoading: false });
-      })
-      .catch(error => {
-        this.setState({ isLoading: false, error });
-      });
-  };
   render() {
     const { isLoading, error } = this.props;
     if (error) {
@@ -42,7 +22,7 @@ class History extends React.Component {
     if (isLoading) {
       return <Loader />;
     }
-    if (this.state.data.length === 0) {
+    if (this.props.data.history.length === 0) {
       return (
         <View style={{ padding: 10 }}>
           <Text style={{ fontSize: 17 }}>no job history recorded yet.</Text>
@@ -52,7 +32,7 @@ class History extends React.Component {
     return (
       <Content style={{ paddingTop: 10 }}>
         <FlatList
-          data={this.state.data}
+          data={this.props.data.history}
           extraData={this.props}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
@@ -61,7 +41,5 @@ class History extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  member: state.member || {}
-});
-export default connect(mapStateToProps)(History);
+
+export default History;

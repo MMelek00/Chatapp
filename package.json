@@ -43,6 +43,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
     "react-native-gifted-chat": "^0.4.3",
+    "react-native-picker-select": "^4.4.0",
+    "react-native-progress": "^3.5.0",
     "react-native-select-multiple": "^1.2.0",
     "react-navigation": "^2.13.0",
     "react-redux": "5.0.6",

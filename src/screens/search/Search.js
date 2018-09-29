@@ -1,30 +1,37 @@
 import React from "react";
-import { TextInput, View, Text } from "react-native";
-import { Item, Card, Picker } from "native-base";
-import { Icon, ButtonGroup, Button } from "react-native-elements";
-import styles from "../../styles/search";
-import { categories, WebOption, countries } from "../../utils/properties";
+import { TextInput, View, Text, StyleSheet } from "react-native";
+import { Icon, Button } from "react-native-elements";
+import RNPickerSelect from "react-native-picker-select";
+//components
+import ButtonGroup from "../../components/ButtonGroup";
+//utils
+import styles, {
+  pickerSelectStyles,
+  pickerHalfStyles
+} from "../../styles/search";
+import { categories, WebOption, experience } from "../../utils/properties";
 
 export default class Search extends React.Component {
   static navigationOptions = {
     title: "SEARCH"
   };
+  updateIndex = index => {
+    this.setState({ index });
+  };
+
   state = {
-    index: 0,
-    Years: 1,
-    category: "Design & Creative",
+    index: [0],
+    experiences: 1,
+    category: null,
     job: "Mobile Development",
     country: "Tunisia",
     name: ""
-  };
-  updateIndex = index => {
-    this.setState({ index });
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Item style={styles.Iteminput}>
+        <View style={[styles.inputContainer, styles.shadow]}>
           <Icon name="user" type="font-awesome" color="white" />
           <TextInput
             placeholder="Name"
@@ -36,100 +43,104 @@ export default class Search extends React.Component {
             underlineColorAndroid="transparent"
             onChangeText={name => this.setState({ name })}
           />
-        </Item>
-        <View style={{ paddingTop: 10 }}>
+        </View>
+        <View style={styles.shadow}>
           <ButtonGroup
-            selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
+            selectMultiple
             onPress={this.updateIndex}
-            selectedIndex={this.state.index}
+            selectedIndexes={this.state.index}
             buttons={["Freelancer", "Part Time", "Full Time"]}
-            containerStyle={{ height: 45, width: "90%" }}
           />
         </View>
-        <Card style={{ width: "90%", height: 90 }}>
-          <Item style={{ paddingTop: 10, paddingLeft: 15 }}>
-            <Icon name="chain" type="font-awesome" color="gray" />
-            <Text style={{ paddingLeft: 20 }}>Years Experience</Text>
-          </Item>
-          <View style={{ paddingLeft: 10 }}>
-            <Picker
-              selectedValue={this.state.Years}
-              itemStyle={{ color: "blue" }}
-              iosIcon={<Icon name="ios-arrow-down-outline" />}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ Years: itemValue })
-              }
-              mode="dialog"
-              iosHeader="Select"
-            >
-              <Picker.Item label="1 year" value="1" />
-              <Picker.Item label="2 years" value="2" />
-              <Picker.Item label="+3 years" value="3" />
-              <Picker.Item label="+5 years" value="5" />
-            </Picker>
+        <View style={styles.card}>
+          <View style={styles.row}>
+            <Icon
+              name="chain"
+              type="font-awesome"
+              color="gray"
+              style={styles.icon}
+            />
+            <Text style={styles.title}>Years Experience</Text>
           </View>
-        </Card>
-        <View
-          style={{ flexDirection: "row", padding: 5, paddingHorizontal: 22 }}
-        >
-          <Card style={{ width: "50%", height: 90 }}>
-            <View style={{ paddingTop: 15 }}>
-              <Text style={{ paddingLeft: 20 }}>Category</Text>
-            </View>
-            <View style={{ paddingLeft: 10 }}>
-              <Picker
-                selectedValue={this.state.category}
-                itemStyle={{ color: "blue" }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ category: itemValue })
-                }
-              >
-                {categories.map((value, i) => (
-                  <Picker.Item label={value} value={value} key={i} />
-                ))}
-              </Picker>
-            </View>
-          </Card>
-          <Card style={{ width: "50%", height: 90 }}>
-            <View style={{ paddingTop: 15 }}>
-              <Text style={{ paddingLeft: 20 }}>Job</Text>
-            </View>
-            <View style={{ paddingLeft: 10 }}>
-              <Picker
-                selectedValue={this.state.job}
-                style={{ height: 50, width: "100%" }}
-                itemStyle={{ color: "blue" }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ job: itemValue })
-                }
-              >
-                {WebOption.map((value, i) => (
-                  <Picker.Item label={value} value={value} key={i} />
-                ))}
-              </Picker>
-            </View>
-          </Card>
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a experience year...",
+              value: null
+            }}
+            items={experience}
+            hideIcon
+            onValueChange={value => {
+              this.setState({
+                experiences: value
+              });
+            }}
+            style={{ ...pickerSelectStyles }}
+            value={this.state.experiences}
+          />
         </View>
-        <Card style={{ width: "90%", height: 50 }}>
-          <Picker
-            selectedValue={this.state.country}
-            style={{ height: 50, width: "100%" }}
-            itemStyle={{ color: "blue" }}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ country: itemValue })
-            }
-          >
-            {countries.map((value, i) => (
-              <Picker.Item label={value} value={value} key={i} />
-            ))}
-          </Picker>
-        </Card>
-        <View style={{ width: "95%", paddingTop: 30 }}>
+        <View style={[styles.card, styles.row]}>
+          <View>
+            <Text style={styles.title}>Category</Text>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a category...",
+                value: null
+              }}
+              hideIcon
+              items={categories}
+              onValueChange={value => {
+                this.setState({
+                  category: value
+                });
+              }}
+              style={{ ...pickerHalfStyles }}
+              value={this.state.category}
+            />
+          </View>
+          <View style={styles.devider} />
+          <View>
+            <Text style={styles.title}>Job</Text>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a job...",
+                value: null
+              }}
+              hideIcon
+              items={WebOption}
+              onValueChange={value => {
+                this.setState({
+                  job: value
+                });
+              }}
+              style={{ ...pickerHalfStyles }}
+              value={this.state.job}
+            />
+          </View>
+        </View>
+        <View style={styles.card}>
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a category...",
+              value: null
+            }}
+            hideIcon
+            items={WebOption}
+            onValueChange={value => {
+              this.setState({
+                category: value
+              });
+            }}
+            style={{ ...pickerSelectStyles }}
+            value={this.state.category}
+          />
+        </View>
+        <View>
           <Button
             rounded
             onPress={() => console.log(this.state.index)}
             title="SEARCH"
             backgroundColor="#1C39A1"
+            containerViewStyle={styles.button}
           />
         </View>
       </View>

@@ -14,12 +14,9 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { navigation } = this.props;
-    const data = navigation.getParam("data");
-    const { uid } = this.props.member;
-    if (uid === data.id) {
-      this.data = this.props.member;
-    }
+    const { navigation, member } = this.props;
+    const userProp = navigation.getParam("data");
+    const data = userProp || member;
     return (
       <Container>
         <Tabs renderTabBar={() => <ScrollableTab />}>
@@ -27,13 +24,13 @@ class Profile extends React.Component {
             <About data={data} />
           </Tab>
           <Tab heading="History">
-            <History id={data.id} />
+            <History data={data} />
           </Tab>
           <Tab heading="Certificates">
             <Certificates />
           </Tab>
           <Tab heading="Skills">
-            <Skills />
+            <Skills data={data} />
           </Tab>
         </Tabs>
       </Container>

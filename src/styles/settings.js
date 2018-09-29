@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: colors.body,
-        fontSize: normalize(16),
+        color: colors.grey,
+        fontSize: normalize(14),
     },
     logout: {
         color: colors.negative,
-        fontSize: normalize(16),
+        fontSize: normalize(14),
     },
     controlTitle: {
         flex: 1,
@@ -43,10 +43,13 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingBottom: 15,
         borderRadius: 10,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
+        shadowColor: "rgba(223, 223, 223, 1)",
+        shadowOffset: {
+            width: -2,
+            height: 2
+        },
+        shadowOpacity: 99,
+        shadowRadius: 8
     },
     button: {
         backgroundColor: colors.base,

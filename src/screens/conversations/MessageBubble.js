@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
         color: colors.secondary
     },
     headerView: {
-        // Try to align it better with the avatar on Android.
         marginTop: Platform.OS === "android" ? -2 : 0,
         flexDirection: "row",
         alignItems: "baseline",
