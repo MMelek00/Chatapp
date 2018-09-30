@@ -9,7 +9,7 @@ const HomeHeader = ({ country, job, onPickerChange }) => {
     <View style={styles.pickersContainer}>
       <RNPickerSelect
         placeholder={{
-          label: "Select a category...",
+          label: "Select a country...",
           value: null
         }}
         items={countries}
@@ -30,7 +30,7 @@ const HomeHeader = ({ country, job, onPickerChange }) => {
         hideIcon
         onValueChange={value => {
           this.setState({
-            category: value
+            job: value
           });
         }}
         value={job}

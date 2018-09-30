@@ -16,7 +16,27 @@ export const skills = [
   { label: "UI design", value: "UI design" },
   { label: "Software architecting", value: "Software architecting" },
   { label: "Front-end coding", value: "Front-end coding" },
-  { label: "Back-end integration & APIs", value: "Back-end integration & APIs" }
+  {
+    label: "Back-end integration & APIs",
+    value: "Back-end integration & APIs"
+  },
+  { label: "Java/JEE", value: "Java/JEE" },
+  { label: "JavaScript", value: "JavaScript" },
+  { label: "Css", value: "Css" },
+  { label: "HTML5", value: "HTML5" },
+  { label: "ReactJs", value: "ReactJs" },
+  { label: "React native", value: "React native" },
+  { label: "Angular", value: "Angular" },
+  { label: "VueJs", value: "VueJs" },
+  { label: ".net", value: ".net" },
+  { label: "Content management systems (CMS)", value: "CMS" },
+  { label: "C++", value: "c++" },
+  { label: "SQL", value: "SQL" },
+  { label: "Adobe Illustrator ", value: "Adobe Illustrator" },
+  { label: "Adobe Photoshop", value: "Adobe Photoshop" },
+  { label: "AutoCAD", value: "AutoCAD" },
+  { label: "MATLAB", value: "MATLAB" },
+  { label: "Backup management", value: "Backup management" }
 ];
 export const experience = [
   { label: "one year", value: "1" },

@@ -46,7 +46,6 @@ class Addhistory extends Component {
       this.props.addhistoryHandler({
         name,
         jobName,
-
         year,
         link,
         availability
@@ -59,13 +58,20 @@ class Addhistory extends Component {
       <View>
         <View
           style={{
-            padding: 25,
+            padding: 15,
             justifyContent: "center",
-            backgroundColor: "#E6E6E6"
+            backgroundColor: "#fff",
+            borderWidth: 2,
+            shadowColor: "#e0e0e0",
+            shadowOffset: {
+              width: -2,
+              height: 2
+            },
+            borderRadius: 10
           }}
         >
-          <Item floatingLabel>
-            <Label>Company Name</Label>
+          <Item>
+            <Label>Company Name:</Label>
             <Input onChangeText={name => this.setState({ name })} />
           </Item>
           <View style={{ flexDirection: "row" }}>
@@ -93,15 +99,15 @@ class Addhistory extends Component {
               onDateChange={this.setDate}
             />
           </View>
-          <View style={{ paddingTop: 10 }}>
-            <ButtonGroup
-              selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
-              onPress={this.updateIndex}
-              selectedIndex={this.state.index}
-              buttons={["Freelancer", "Part Time", "Full Time"]}
-              containerStyle={{ height: 45, width: "90%" }}
-            />
-          </View>
+
+          <ButtonGroup
+            selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
+            onPress={this.updateIndex}
+            selectedIndex={this.state.index}
+            buttons={["Freelancer", "Part Time", "Full Time"]}
+            containerStyle={{ height: 45, width: "90%" }}
+          />
+
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{
@@ -110,7 +116,7 @@ class Addhistory extends Component {
                 color: "gray"
               }}
             >
-              Years on Company
+              Years on Company:
             </Text>
             <Picker
               selectedValue={this.state.years}
@@ -125,12 +131,12 @@ class Addhistory extends Component {
               <Picker.Item label="+5 years" value="5" />
             </Picker>
           </View>
-          <Item floatingLabel>
-            <Label>Job Titre</Label>
+          <Item>
+            <Label>Job Titre: </Label>
             <Input onChangeText={jobName => this.setState({ jobName })} />
           </Item>
-          <Item floatingLabel>
-            <Label>Company Link</Label>
+          <Item>
+            <Label>Company Link: </Label>
             <Input onChangeText={link => this.setState({ link })} />
           </Item>
         </View>

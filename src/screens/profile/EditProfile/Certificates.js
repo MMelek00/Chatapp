@@ -5,7 +5,7 @@ import { Button, CheckBox } from "react-native-elements";
 import { connect } from "react-redux";
 import { updateCertificate } from "../../../actions/member";
 import colors from "../../../utils/colors";
-import { certeficateOption } from "../../../utils/properties";
+import { EngineeringOption } from "../../../utils/properties";
 const renderLabel = (label, style) => {
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -56,7 +56,7 @@ class Certificates extends Component {
     return (
       <View>
         <SelectMultiple
-          items={certeficateOption}
+          items={EngineeringOption}
           renderLabel={renderLabel}
           selectedItems={this.state.selectedFruits}
           onSelectionsChange={this.onSelectionsChange}

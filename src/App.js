@@ -25,6 +25,9 @@ import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 const HomeStack = createStackNavigator(
   {
     Home: Home,
+    Company: {
+      screen: Company
+    },
     Settings: Settings,
     Skills: {
       screen: Skills
@@ -41,9 +44,6 @@ const HomeStack = createStackNavigator(
     },
     Certificates: {
       screen: Certificates
-    },
-    Company: {
-      screen: Company
     }
   },
   {

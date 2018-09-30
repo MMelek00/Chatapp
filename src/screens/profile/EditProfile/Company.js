@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { updatehistory } from "../../../actions/member";
 import Loader from "../../../components/Loader";
 import colors from "../../../utils/colors";
-import { View } from "react-native";
 import styles from "../../../styles/skills";
 import Addhistory from "../Components/addhistory";
 import HistoryList from "../Components/historyList";
+import { Content } from "native-base";
 class Company extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -73,21 +73,20 @@ class Company extends React.Component {
       return <Loader />;
     }
     return (
-      <View style={styles.container}>
+      <Content style={styles.container}>
         <HistoryList
           data={history}
           deletehistoryHandler={this.deletehistoryHandler}
         />
         <Addhistory addhistoryHandler={this.addhistoryHandler} />
         <Button
-          containerViewStyle={styles.button}
           block
           rounded
           onPress={this.handleSubmit}
           title="Save changes"
           backgroundColor={colors.base}
         />
-      </View>
+      </Content>
     );
   }
 }

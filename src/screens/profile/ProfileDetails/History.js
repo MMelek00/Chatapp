@@ -22,13 +22,6 @@ class History extends React.Component {
     if (isLoading) {
       return <Loader />;
     }
-    if (this.props.data.history.length === 0) {
-      return (
-        <View style={{ padding: 10 }}>
-          <Text style={{ fontSize: 17 }}>no job history recorded yet.</Text>
-        </View>
-      );
-    }
     return (
       <Content style={{ paddingTop: 10 }}>
         <FlatList
