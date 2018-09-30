@@ -25,17 +25,24 @@ const AboutInfo = ({ data }) => {
           </Text>
         </Item>
       </View>
-      <Text
+      <View
         style={{
-          padding: 5,
-          color: "#535353",
-          paddingLeft: 10,
-          fontSize: normalize(16),
-          fontFamily: DEFAULT_FONT
+          padding: 15,
+          borderWidth: 0.5,
+          backgroundColor: "#fff",
+          borderRadius: 5
         }}
       >
-        {data.description}
-      </Text>
+        <Text
+          style={{
+            color: "#535353",
+            fontSize: normalize(16),
+            fontFamily: DEFAULT_FONT
+          }}
+        >
+          {data.description}
+        </Text>
+      </View>
     </View>
   );
 };

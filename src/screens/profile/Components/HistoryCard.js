@@ -1,6 +1,6 @@
 import React from "react";
 import { Item, ListItem } from "native-base";
-import { Icon, Button } from "react-native-elements";
+import { Icon } from "react-native-elements";
 import styles from "../../../styles/historyCard";
 import { View, Text } from "react-native";
 const HistoryCard = ({ data }) => {
@@ -14,12 +14,6 @@ const HistoryCard = ({ data }) => {
     >
       <ListItem itemDivider>
         <Text style={styles.text3}>Start Day: {data.date}</Text>
-        <Button
-          block
-          onPress={() => {}}
-          title="delete"
-          backgroundColor="#1C39A1"
-        />
       </ListItem>
       <View style={styles.homeContainer}>
         <Text style={styles.text}>{data.name}</Text>

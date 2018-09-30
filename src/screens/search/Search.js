@@ -1,15 +1,15 @@
 import React from "react";
 import { TextInput, View, Text, StyleSheet } from "react-native";
-import { Item, Card, Picker } from "native-base";
 import { Icon, Button } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 //components
 import ButtonGroup from "../../components/ButtonGroup";
 //utils
-import styles, { pickerSelectStyles, pickerHalfStyles } from "../../styles/search";
-import { categories, cats, WebOption, countries } from "../../utils/properties";
-
-
+import styles, {
+  pickerSelectStyles,
+  pickerHalfStyles
+} from "../../styles/search";
+import { categories, WebOption, experience } from "../../utils/properties";
 
 export default class Search extends React.Component {
   static navigationOptions = {
@@ -21,11 +21,11 @@ export default class Search extends React.Component {
 
   state = {
     index: [0],
-    Years: 1,
+    experiences: 1,
     category: null,
     job: "Mobile Development",
     country: "Tunisia",
-    name: "",
+    name: ""
   };
 
   render() {
@@ -54,23 +54,28 @@ export default class Search extends React.Component {
         </View>
         <View style={styles.card}>
           <View style={styles.row}>
-            <Icon name="chain" type="font-awesome" color="gray" style={styles.icon} />
+            <Icon
+              name="chain"
+              type="font-awesome"
+              color="gray"
+              style={styles.icon}
+            />
             <Text style={styles.title}>Years Experience</Text>
           </View>
           <RNPickerSelect
             placeholder={{
-              label: "Select a category...",
-              value: null,
+              label: "Select a experience year...",
+              value: null
             }}
-            items={cats}
+            items={experience}
             hideIcon
-            onValueChange={(value) => {
+            onValueChange={value => {
               this.setState({
-                category: value,
+                experiences: value
               });
             }}
             style={{ ...pickerSelectStyles }}
-            value={this.state.category}
+            value={this.state.experiences}
           />
         </View>
         <View style={[styles.card, styles.row]}>
@@ -79,13 +84,13 @@ export default class Search extends React.Component {
             <RNPickerSelect
               placeholder={{
                 label: "Select a category...",
-                value: null,
+                value: null
               }}
               hideIcon
-              items={cats}
-              onValueChange={(value) => {
+              items={categories}
+              onValueChange={value => {
                 this.setState({
-                  category: value,
+                  category: value
                 });
               }}
               style={{ ...pickerHalfStyles }}
@@ -97,18 +102,18 @@ export default class Search extends React.Component {
             <Text style={styles.title}>Job</Text>
             <RNPickerSelect
               placeholder={{
-                label: "Select a category...",
-                value: null,
+                label: "Select a job...",
+                value: null
               }}
               hideIcon
-              items={cats}
-              onValueChange={(value) => {
+              items={WebOption}
+              onValueChange={value => {
                 this.setState({
-                  category: value,
+                  job: value
                 });
               }}
               style={{ ...pickerHalfStyles }}
-              value={this.state.category}
+              value={this.state.job}
             />
           </View>
         </View>
@@ -116,13 +121,13 @@ export default class Search extends React.Component {
           <RNPickerSelect
             placeholder={{
               label: "Select a category...",
-              value: null,
+              value: null
             }}
             hideIcon
-            items={cats}
-            onValueChange={(value) => {
+            items={WebOption}
+            onValueChange={value => {
               this.setState({
-                category: value,
+                category: value
               });
             }}
             style={{ ...pickerSelectStyles }}

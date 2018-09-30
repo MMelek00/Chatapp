@@ -29,25 +29,26 @@ class Skills extends React.Component {
     super(props);
     this.state = {
       skills: this.props.member.skills || [],
+      isloading: false
     };
   }
 
-  addSkillHandler = (skill) => {
+  addSkillHandler = skill => {
     var array = [...this.state.skills];
-    var index = array.map((e) => e.name).indexOf(skill.name);
+    var index = array.map(e => e.name).indexOf(skill.name);
     if (index === -1) {
       this.setState(prevState => ({
         skills: [...prevState.skills, skill]
       }));
     }
-  }
+  };
 
-  deleteSkillHandler = (skill) => {
+  deleteSkillHandler = skill => {
     var array = [...this.state.skills];
-    var index = array.map((e) => e.name).indexOf(skill.name);
+    var index = array.map(e => e.name).indexOf(skill.name);
     array.splice(index, 1);
     this.setState({ skills: array });
-  }
+  };
 
   handleSubmit = async () => {
     this.setState({ isloading: true });
@@ -68,7 +69,10 @@ class Skills extends React.Component {
     }
     return (
       <View style={styles.container}>
-        <SkillsList data={skills} deleteSkillHandler={this.deleteSkillHandler} />
+        <SkillsList
+          data={skills}
+          deleteSkillHandler={this.deleteSkillHandler}
+        />
         <SkillAdd addSkillHandler={this.addSkillHandler} />
         <Button
           containerViewStyle={styles.button}

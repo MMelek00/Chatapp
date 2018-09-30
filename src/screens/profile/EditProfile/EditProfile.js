@@ -13,7 +13,6 @@ import {
   Image,
   View,
   StyleSheet,
-  Picker,
   Text,
   ScrollView,
   Alert
@@ -22,6 +21,7 @@ import { Button, ButtonGroup } from "react-native-elements";
 import { ImagePicker } from "expo";
 import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
+import RNPickerSelect from "react-native-picker-select";
 import { categories, WebOption } from "../../../utils/properties";
 import colors from "../../../utils/colors";
 import * as firebase from "firebase";
@@ -86,22 +86,15 @@ class EditProfile extends React.Component {
   };
   updateIndex = index => {
     this.setState({ index });
-    if (index === 0) {
-      this.state.availability = "Freelancer";
-    } else if (index === 1) {
-      this.state.availability = "Part Time";
-    } else {
-      this.state.availability = "Full Time";
-    }
   };
   uploadImage = async (uri, imageName) => {
     const response = await fetch(uri);
     const blob = await response.blob();
-
     var ref = firebase
       .storage()
       .ref()
-      .child("images/" + imageName);
+      .child("images")
+      .child(`${imageName}.jpg`);
     return ref.put(blob);
   };
 
@@ -178,20 +171,20 @@ class EditProfile extends React.Component {
                 <Text style={{ paddingLeft: 20 }}>Category</Text>
               </View>
               <View style={{ paddingLeft: 10 }}>
-                <Picker
-                  selectedValue={this.state.category}
-                  style={{ height: 50, width: "100%" }}
-                  itemStyle={{ color: "blue" }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ category: itemValue })
-                  }
-                  mode="dialog"
-                  iosHeader="Select"
-                >
-                  {categories.map((value, i) => (
-                    <Picker.Item label={value} value={value} key={i} />
-                  ))}
-                </Picker>
+                <RNPickerSelect
+                  placeholder={{
+                    label: "Select a category...",
+                    value: null
+                  }}
+                  hideIcon
+                  items={categories}
+                  onValueChange={value => {
+                    this.setState({
+                      category: value
+                    });
+                  }}
+                  value={this.state.category}
+                />
               </View>
             </Card>
             <Card style={{ width: "50%", height: 90 }}>
@@ -199,20 +192,20 @@ class EditProfile extends React.Component {
                 <Text style={{ paddingLeft: 20 }}>Job</Text>
               </View>
               <View style={{ paddingLeft: 10 }}>
-                <Picker
-                  selectedValue={this.state.job}
-                  style={{ height: 50, width: "100%" }}
-                  itemStyle={{ color: "blue" }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ job: itemValue })
-                  }
-                  mode="dialog"
-                  iosHeader="Select"
-                >
-                  {WebOption.map((value, i) => (
-                    <Picker.Item label={value} value={value} key={i} />
-                  ))}
-                </Picker>
+                <RNPickerSelect
+                  placeholder={{
+                    label: "Select a category...",
+                    value: null
+                  }}
+                  hideIcon
+                  items={WebOption}
+                  onValueChange={value => {
+                    this.setState({
+                      job: value
+                    });
+                  }}
+                  value={this.state.job}
+                />
               </View>
             </Card>
           </View>

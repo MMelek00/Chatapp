@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 import { Item, Button } from "native-base";
 import { Icon } from "react-native-elements";
 import { login } from "../../actions/member";
-
+import colors from "../../utils/colors";
 import styles from "../../styles/login";
-
 
 class Login extends React.Component {
   state = { email: "", password: "", errorMessage: null };
@@ -15,11 +14,11 @@ class Login extends React.Component {
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
-      .then((resp) => {
+      .then(resp => {
         navigate("Main");
       })
       .catch(e => console.log(`Error: ${e}`));
-  }
+  };
   _signup = () => {
     this.props.navigation.navigate("Signup");
   };
@@ -96,7 +95,6 @@ class Login extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   member: state.member || {},

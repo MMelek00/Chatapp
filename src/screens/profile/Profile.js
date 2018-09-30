@@ -24,7 +24,7 @@ class Profile extends React.Component {
             <About data={data} />
           </Tab>
           <Tab heading="History">
-            <History id={data.id} />
+            <History data={data} />
           </Tab>
           <Tab heading="Certificates">
             <Certificates />

@@ -1,7 +1,6 @@
 import React from "react";
 import { View } from "react-native";
 import { Picker } from "native-base";
-
 import { Feather } from "@expo/vector-icons";
 import UsersList from "../../components/UsersList";
 import { getUsers } from "../../utils/firebase-fns";
@@ -38,8 +37,8 @@ export default class Home extends React.Component {
 
   state = {
     selected: "Settings",
-    country: "Egypt",
-    job: "Design & Creative",
+    country: null,
+    job: null,
     data: [],
     isLoading: true,
     isRefreshing: false,

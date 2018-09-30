@@ -63,10 +63,10 @@ export function signUp(formData) {
 function getUserData(dispatch) {
   const UID =
     FirebaseRef &&
-      Firebase &&
-      Firebase.auth() &&
-      Firebase.auth().currentUser &&
-      Firebase.auth().currentUser.uid
+    Firebase &&
+    Firebase.auth() &&
+    Firebase.auth().currentUser &&
+    Firebase.auth().currentUser.uid
       ? Firebase.auth().currentUser.uid
       : null;
 
@@ -224,7 +224,7 @@ export function updateProfile(formData) {
       throw err.message;
     });
 }
-export function updatehistory(formData) {
+export function updatehistorys(formData) {
   const { uid, name, year, startDate, availability, jobName, link } = formData;
   const date = startDate.toString().substr(4, 12);
   return dispatch =>
@@ -260,13 +260,29 @@ export function updateskills(skills) {
       throw err.message;
     });
 }
-export function updateCertificate(formData) {
-  const { uid, selectedCertif } = formData;
-  return dispatch =>
+export function updatehistory(history) {
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
-      return FirebaseRef.child(`users/${uid}/certificates`)
-        .push({ selectedCertif })
+      return FirebaseRef.child(`users/${store().member.uid}`)
+        .update({ history })
+        .then(async () => {
+          await getUserData(dispatch);
+          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
+          resolve();
+        })
+        .catch(reject);
+    }).catch(async err => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
+      throw err.message;
+    });
+}
+export function updatecertificates(certificates) {
+  return (dispatch, store) =>
+    new Promise(async (resolve, reject) => {
+      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
+      return FirebaseRef.child(`users/${store().member.uid}`)
+        .update({ certificates })
         .then(async () => {
           await getUserData(dispatch);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
