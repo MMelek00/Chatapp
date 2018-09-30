@@ -6,7 +6,7 @@ export function getUsers() {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         snapshot.forEach(child => {
           const user = child.val();
           const id = child.key;
@@ -23,7 +23,7 @@ export function getSingleUser(id) {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const user = snapshot.val();
         resolve(user);
       })
@@ -36,9 +36,22 @@ export function getSingleConversation(id) {
   return new Promise((resolve, reject) => {
     conversationsRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const user = snapshot.val();
         resolve(user);
+      })
+      .catch(reject);
+  });
+}
+
+export function getSingleGroup(id) {
+  const groupsRef = FirebaseRef.child("/groups/" + id);
+  return new Promise((resolve, reject) => {
+    groupsRef
+      .once("value")
+      .then(function (snapshot) {
+        const group = snapshot.val();
+        resolve(group);
       })
       .catch(reject);
   });
@@ -65,7 +78,10 @@ export function getSimpleConversations(uid) {
 export async function getConversations(uid) {
   return getSimpleConversations(uid)
     .then(async conversations => {
-      const usersPromises = conversations.map(i => getSingleUser(i.sendToId));
+      const usersPromises = conversations.map(i => {
+        if (i.isGroup) { return getSingleGroup(i.sendToId); }
+        return getSingleUser(i.sendToId);
+      });
       const conversationsUsers = await Promise.all(usersPromises);
 
       const detailsPromises = conversations.map(i =>
@@ -108,7 +124,7 @@ export function getConversationId(uid, sendToId) {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const data = snapshot.val();
         conversationId = data ? data.conversationId : "";
         resolve(conversationId);
@@ -156,10 +172,12 @@ export function sendMessage(message, conversationId, uid, sendToId) {
         })
         .then(conversation => {
           userConversationsRef.child("/" + sendToId).set({
+            isGroup: false,
             conversationId: conversation.key,
             unseenCount: 0
           });
           sendToConversationsRef.child("/" + uid).set({
+            isGroup: false,
             conversationId: conversation.key,
             unseenCount: 0
           });
@@ -175,7 +193,7 @@ export function gethistory(uid) {
   return new Promise((resolve, reject) => {
     historyRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         snapshot.forEach(child => {
           const history = child.val();
           const id = child.key;
@@ -186,6 +204,29 @@ export function gethistory(uid) {
       .catch(reject);
   });
 }
+
+export async function addGroup(name, avatar, users) {
+
+  const group = await FirebaseRef.child("/groups").push({ firstName: name, avatar, members: users });
+
+  const groupId = group.key;
+
+  const conversation = await FirebaseRef.child("/conversations")
+    .push({ isGroup: true, groupId, displayMessage: "", lastMessageTime: Firebase.database.ServerValue.TIMESTAMP });
+
+  const usersUpdatePromises = users.map(id =>
+    FirebaseRef.child(`/users/${id}/conversations/${groupId}`).set({
+      isGroup: true,
+      conversationId: conversation.key,
+      unseenCount: 0
+    }));
+
+  await Promise.all(usersUpdatePromises);
+
+  return groupId;
+
+}
+
 export function closeChat() {
   if (FirebaseRef) {
     FirebaseRef.off();

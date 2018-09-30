@@ -35,7 +35,7 @@ export default class Search extends React.Component {
           <Icon name="user" type="font-awesome" color="white" />
           <TextInput
             placeholder="Name"
-            placeholderTextColor="white"
+            placeholderTextColor="#fff"
             style={styles.textInput}
             autoCorrect={false}
             multiline={false}

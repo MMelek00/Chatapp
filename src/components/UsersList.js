@@ -2,21 +2,29 @@ import React, { Component } from "react";
 import { FlatList, Text, RefreshControl } from "react-native";
 
 import UserCard from "./UserCard";
+import UserCardSelect from "./UserCardSelect";
 import Loader from "./Loader";
 
 export default class UsersList extends Component {
     _keyExtractor = (item, index) => item.id;
 
-    _onPressItem = (id: string) => {
-        console.log("user card clicked");
+    _renderItem = ({ item, key }) => {
+        if (this.props.addUserToList) {
+            return (
+                <UserCardSelect
+                    data={item}
+                    key={key}
+                    addUserToList={this.props.addUserToList}
+                />
+            );
+        }
+        return (
+            <UserCard
+                data={item}
+                key={key}
+            />
+        );
     };
-    _renderItem = ({ item, key }) => (
-        <UserCard
-            data={item}
-            key={key}
-            onPressItem={this._onPressItem}
-        />
-    );
 
     render() {
         const { isLoading, error, data, isRefreshing, _fetchUsers } = this.props;
@@ -33,11 +41,16 @@ export default class UsersList extends Component {
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 refreshControl={
-                    <RefreshControl
-                        refreshing={isRefreshing}
-                        onRefresh={_fetchUsers}
-                        enabled
-                    />
+                    isRefreshing === undefined ?
+                        undefined
+                        :
+                        (
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={_fetchUsers}
+                                enabled
+                            />
+                        )
                 }
             />
         );

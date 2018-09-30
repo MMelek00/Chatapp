@@ -34,7 +34,15 @@ export default class Setup extends Component {
     return (
       <PersistGate persistor={persistor}>
         <Provider store={store}>
-          <App />
+          <View >
+            <StatusBar
+              hidden={false}
+              translucent={true}
+              backgroundColor="rgba(0, 0, 0, 0)"
+              barStyle="light-content"
+            />
+            <App />
+          </View>
         </Provider>
       </PersistGate>
     );

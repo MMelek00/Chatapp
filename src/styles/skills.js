@@ -1,9 +1,8 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { normalize } from "../utils/fonts";
 import colors from "../utils/colors";
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -30,8 +29,9 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
     },
     button: {
-        marginHorizontal: 0,
-        marginTop: deviceHeight / 10
+        marginLeft: 0,
+        marginRight: 0,
+        marginTop: 10
     },
     skillItem: {
         paddingVertical: 10,

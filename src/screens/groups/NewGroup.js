@@ -1,75 +1,111 @@
 import React from "react";
-import {
-  Container,
-  Left,
-  Body,
-  Right,
-  Title,
-  Content,
-  Input,
-  View
-} from "native-base";
-import { Icon, Header } from "react-native-elements";
-import { StyleSheet } from "react-native";
+import { View, TextInput } from "react-native";
+import { Icon } from "react-native-elements";
+
+import UsersList from "../../components/UsersList";
+import { getUsers, addGroup } from "../../utils/firebase-fns";
+
+import styles from "../../styles/groups";
 
 class NewGroupe extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    return {
+      title: "ADD GROUP",
+      headerRight:
+        <Icon
+          name="check"
+          type="feather"
+          color="#fff"
+          containerStyle={styles.addIcon}
+          onPress={() => params.handleAddClick()} />
+    };
+  };
+
+  state = {
+    usersToAdd: [],
+    data: [],
+    name: "",
+    avatar: "",
+    isLoading: true,
+    error: ""
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      handleAddClick: this.handleSubmit
+    });
+    this._fetchUsers();
+  }
+
+  handleSubmit = () => {
+    const { usersToAdd, name, avatar } = this.state;
+    const { navigate } = this.props.navigation;
+    addGroup(name, avatar, usersToAdd)
+      .then(groupId => {
+        navigate("Messages", {
+          sendToId: groupId,
+          sendToName: name
+        });
+      })
+      .catch(e => console.log(`Error: ${e}`));
+  }
+
+  _fetchUsers = () => {
+    getUsers()
+      .then(data => {
+        this.setState({ data, isLoading: false });
+      })
+      .catch(error => {
+        this.setState({ isLoading: false, error });
+        console.error(error);
+      });
+  };
+
+  addUserToList = (id) => {
+    var array = [...this.state.usersToAdd];
+    var index = array.map((e) => e).indexOf(id);
+    if (index === -1) {
+      this.setState(prevState => ({
+        usersToAdd: [...prevState.usersToAdd, id]
+      }));
+    } else {
+      this.setState(prevState => ({
+        usersToAdd: [
+          ...array.slice(0, index),
+          ...array.slice(index + 1)
+        ]
+      }));
+    }
+  }
+
   render() {
     return (
-      <Container>
-        <Header>
-          <Left>
-            <Icon
-              name="arrow-back"
-              color="white"
-              onPress={() => this.props.navigation.navigate("Main")}
-            />
-          </Left>
-          <Body>
-            <Title>NEW GROUPE</Title>
-          </Body>
-          <Right>
-            <Icon
-              name="check"
-              color="white"
-              onPress={() => this.props.navigation.navigate("Main")}
-            />
-          </Right>
-        </Header>
-        <Content>
-          <View style={styles.Iteminput}>
-            <Input placeholder="Groupe Name" style={styles.textInput} />
-          </View>
-          <View style={{ paddingTop: 20, paddingLeft: 30 }}>
-            <Icon
-              raised
-              name="camera"
-              type="entypo"
-              color="#f50"
-              size={35}
-              onPress={() => console.log("hello")}
-            />
-          </View>
-        </Content>
-      </Container>
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Groupe name"
+          placeholderTextColor="#fff"
+          style={styles.textInput}
+          value={this.state.name}
+          onChangeText={name => this.setState({ name })}
+        />
+        <View style={styles.avatarUpload}>
+          <Icon
+            raised
+            name="camera"
+            type="entypo"
+            color="#f50"
+            size={35}
+            onPress={() => console.log("hello")}
+          />
+        </View>
+        <View style={styles.usersContainer}>
+          <UsersList {...this.state} addUserToList={this.addUserToList} />
+        </View>
+      </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  textInput: {
-    height: 60,
-    width: "60%",
-    color: "black",
-    paddingLeft: 0,
-    alignSelf: "flex-end"
-  },
-  Iteminput: {
-    height: 60,
-    width: "100%",
-    backgroundColor: "#57A0FD",
-    borderColor: "#a39e9e",
-    position: "absolute",
-    zIndex: 2
-  }
-});
 
 export default NewGroupe;

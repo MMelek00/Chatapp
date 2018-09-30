@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { updateskills } from "../../../actions/member";
-import { View, StyleSheet, } from "react-native";
+import { View } from "react-native";
 //components
 import SkillAdd from "../Components/SkillAdd";
 import SkillsList from "../Components/SkillsList";
