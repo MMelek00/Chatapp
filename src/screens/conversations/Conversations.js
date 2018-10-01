@@ -6,6 +6,8 @@ import { Text, View } from "react-native";
 import Loader from "../../components/Loader";
 import ConversationsList from "./ConversationsList";
 
+import styles from "../../styles/indicators";
+
 class ConversationsScreen extends Component {
   static navigationOptions = {
     title: "CONVERSATIONS"
@@ -43,8 +45,8 @@ class ConversationsScreen extends Component {
     }
     if (this.state.data.length === 0) {
       return (
-        <View style={{ padding: 10 }}>
-          <Text style={{ fontSize: 17 }}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
             you didn't made any conversations yet.
           </Text>
         </View>

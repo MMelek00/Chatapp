@@ -45,7 +45,7 @@ export const jobPickerStyles = StyleSheet.create({
         backgroundColor: colors.primary,
         color: "#fff",
         width: deviceWidth / 2,
-        alignItems: "center",
+        textAlign: "center",
     },
     viewContainer: {
         justifyContent: "center",
