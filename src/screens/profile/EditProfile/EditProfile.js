@@ -1,23 +1,20 @@
 import React from "react";
-import {
-  Container,
-  Item,
-  Label,
-  Input,
-  Card,
-  Form,
-  Textarea
-} from "native-base";
+import { Card, Textarea } from "native-base";
 import {
   TouchableOpacity,
   Image,
   View,
-  StyleSheet,
   Text,
   ScrollView,
-  Alert
+  Alert,
+  TextInput
 } from "react-native";
-import { Button, ButtonGroup } from "react-native-elements";
+import styles, {
+  pickerSelectStyles,
+  pickerHalfStyles
+} from "../../../styles/editProfile";
+import ButtonGroup from "../../../components/ButtonGroup";
+import { Button, Icon } from "react-native-elements";
 import { ImagePicker } from "expo";
 import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
@@ -42,14 +39,13 @@ class EditProfile extends React.Component {
   };
 
   state = {
-    index: 2,
     uid: this.props.member.uid,
     firstName: this.props.member.firstName || "",
     phoneNumber: this.props.member.phoneNumber || "",
     avatar:
       this.props.member.avatar ||
       "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
-    availability: this.props.member.availability || "",
+    availability: this.props.member.availability || [0],
     experience: this.props.member.experience || "",
     country: this.props.member.country || "",
     city: this.props.member.city || "",
@@ -84,8 +80,8 @@ class EditProfile extends React.Component {
         });
     }
   };
-  updateIndex = index => {
-    this.setState({ index });
+  updateIndex = availability => {
+    this.setState({ availability });
   };
   uploadImage = async (uri, imageName) => {
     const response = await fetch(uri);
@@ -102,166 +98,159 @@ class EditProfile extends React.Component {
     if (this.state.isloading) {
       return <Loader />;
     }
+    console.log(this.state.availability);
     return (
-      <Container>
-        <ScrollView style={styles.container}>
-          <TouchableOpacity
-            onPress={() => this.onChooseImagePress()}
-            style={{ alignSelf: "center" }}
-          >
-            <Image
-              style={{ width: 150, height: 150, borderRadius: 100 }}
-              source={{
-                uri: this.state.avatar
-              }}
-            />
-          </TouchableOpacity>
-
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input
-                value={this.state.firstName}
-                onChangeText={firstName => this.setState({ firstName })}
-              />
-            </Item>
-
-            <Item floatingLabel>
-              <Label>Phone Number</Label>
-              <Input
-                value={this.state.phoneNumber}
-                onChangeText={phoneNumber => this.setState({ phoneNumber })}
-              />
-            </Item>
-
-            <Item floatingLabel>
-              <Label>Country</Label>
-              <Input
-                value={this.state.country}
-                onChangeText={country => this.setState({ country })}
-              />
-            </Item>
-            <Item floatingLabel>
-              <Label>City</Label>
-              <Input
-                value={this.state.city}
-                onChangeText={city => this.setState({ city })}
-              />
-            </Item>
-          </Form>
-          <View style={{ paddingTop: 10 }}>
-            <ButtonGroup
-              selectedButtonStyle={{ backgroundColor: "#57A0FD" }}
-              onPress={this.updateIndex}
-              selectedIndex={this.state.index}
-              buttons={["Freelancer", "Part Time", "Full Time"]}
-              containerStyle={{ height: 45, width: "90%" }}
-            />
-          </View>
-
-          <View
-            style={{
-              flexDirection: "row",
-              paddingHorizontal: 22,
-              alignSelf: "center"
+      <ScrollView style={styles.container}>
+        <TouchableOpacity
+          onPress={() => this.onChooseImagePress()}
+          style={{ alignSelf: "center" }}
+        >
+          <Image
+            style={{ width: 150, height: 150, borderRadius: 100 }}
+            source={{
+              uri: this.state.avatar
             }}
-          >
-            <Card style={{ width: "50%", height: 90 }}>
-              <View style={{ paddingTop: 15 }}>
-                <Text style={{ paddingLeft: 20 }}>Category</Text>
-              </View>
-              <View style={{ paddingLeft: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: "Select a category...",
-                    value: null
-                  }}
-                  hideIcon
-                  items={categories}
-                  onValueChange={value => {
-                    this.setState({
-                      category: value
-                    });
-                  }}
-                  value={this.state.category}
-                />
-              </View>
-            </Card>
-            <Card style={{ width: "50%", height: 90 }}>
-              <View style={{ paddingTop: 15 }}>
-                <Text style={{ paddingLeft: 20 }}>Job</Text>
-              </View>
-              <View style={{ paddingLeft: 10 }}>
-                <RNPickerSelect
-                  placeholder={{
-                    label: "Select a category...",
-                    value: null
-                  }}
-                  hideIcon
-                  items={WebOption}
-                  onValueChange={value => {
-                    this.setState({
-                      job: value
-                    });
-                  }}
-                  value={this.state.job}
-                />
-              </View>
-            </Card>
+          />
+        </TouchableOpacity>
+
+        <View>
+          <View style={[styles.inputContainer, styles.shadow]}>
+            <Icon name="user" type="font-awesome" color="white" />
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.firstName}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={firstName => this.setState({ firstName })}
+            />
+            <Icon name="edit" type="materialIcons" color="black" />
           </View>
 
-          <View style={{ paddingTop: 5, paddingHorizontal: 14 }}>
-            <Textarea
-              value={this.state.description}
-              rowSpan={5}
-              bordered
-              placeholder="Description"
-              placeholderTextColor="white"
-              returnKeyType="go"
-              style={{
-                padding: 10,
-                backgroundColor: "gray"
+          <View style={[styles.inputContainer, styles.shadow]}>
+            <Icon name="phone" type="font-awesome" color="white" />
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.phoneNumber}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={phoneNumber => this.setState({ phoneNumber })}
+            />
+            <Icon name="edit" type="materialIcons" color="black" />
+          </View>
+
+          <View style={[styles.inputContainer, styles.shadow]}>
+            <Icon name="location-pin" type="entypo" color="white" />
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.country}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={country => this.setState({ country })}
+            />
+            <Icon name="edit" type="materialIcons" color="black" />
+          </View>
+
+          <View style={[styles.inputContainer, styles.shadow]}>
+            <Icon name="location-city" type="materialIcons" color="white" />
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.city}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={city => this.setState({ city })}
+            />
+            <Icon name="edit" type="materialIcons" color="black" />
+          </View>
+        </View>
+
+        <View style={{ paddingTop: 10 }}>
+          <ButtonGroup
+            selectMultiple
+            onPress={this.updateIndex}
+            selectedIndexes={this.state.availability}
+            buttons={["Freelancer", "Part Time", "Full Time"]}
+          />
+        </View>
+
+        <Card>
+          <Text style={styles.title}>Category</Text>
+          <View style={{ paddingLeft: 10 }}>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a category...",
+                value: null
               }}
-              onChangeText={description => this.setState({ description })}
+              hideIcon
+              items={categories}
+              onValueChange={value => {
+                this.setState({
+                  category: value
+                });
+              }}
+              value={this.state.category}
             />
           </View>
-          <View style={{ width: "30%", alignSelf: "flex-end" }}>
-            <Button
-              block
-              onPress={this.handleSubmit}
-              title="Next"
-              backgroundColor={colors.base}
+        </Card>
+        <Card>
+          <Text style={styles.title}>Job</Text>
+          <View style={{ paddingLeft: 10 }}>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a category...",
+                value: null
+              }}
+              hideIcon
+              items={WebOption}
+              onValueChange={value => {
+                this.setState({
+                  job: value
+                });
+              }}
+              value={this.state.job}
             />
           </View>
-        </ScrollView>
-      </Container>
+        </Card>
+        <Textarea
+          value={this.state.description}
+          rowSpan={5}
+          bordered
+          placeholder="Description"
+          placeholderTextColor="white"
+          returnKeyType="go"
+          style={{
+            padding: 10,
+            backgroundColor: "gray"
+          }}
+          onChangeText={description => this.setState({ description })}
+        />
+        <Button
+          rounded
+          block
+          onPress={this.handleSubmit}
+          title="Next"
+          backgroundColor={colors.base}
+          containerViewStyle={styles.button}
+        />
+      </ScrollView>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 5,
-    backgroundColor: "#ecf0f1"
-  },
-  textInput: {
-    height: 45,
-    width: "90%",
-    borderRadius: 8,
-    color: "black",
-    borderWidth: 0,
-    padding: 15
-  },
-  Iteminput: {
-    height: 50,
-    width: "90%",
-    backgroundColor: "gray",
-    borderColor: "#a39e9e",
-    borderRadius: 8,
-    borderWidth: 0,
-    padding: 12
-  }
-});
 
 const mapStateToProps = state => ({
   member: state.member || {}

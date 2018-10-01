@@ -5,7 +5,10 @@ import { Avatar as RNEAvatar } from "react-native-elements";
 import styles from "../styles/avatar";
 
 const Picture = ({ user, ...rest }) => {
-  const title = user.avatar ? null : user.firstName.slice(0, 2).toUpperCase();
+  const title =
+    user.avatar && !user.firstName
+      ? null
+      : user.firstName.slice(0, 2).toUpperCase();
   const src = user.avatar ? { uri: user.avatar } : null;
   return (
     <RNEAvatar

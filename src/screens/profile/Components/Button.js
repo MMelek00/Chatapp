@@ -1,11 +1,8 @@
 import React from "react";
 import { Button } from "react-native-elements";
-import { Firebase } from "../../../utils/firebase";
-import { withNavigation } from "react-navigation";
-
+import { connect } from "react-redux";
 const Buttons = ({ data, navigation }) => {
-  const user = Firebase.auth().currentUser;
-  if (data.id === user.uid) {
+  if (data.id === this.props.member.id) {
     return (
       <Button
         rounded
@@ -42,5 +39,8 @@ const Buttons = ({ data, navigation }) => {
     );
   }
 };
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
 
-export default withNavigation(Buttons);
+export default connect(mapStateToProps)(Buttons);
