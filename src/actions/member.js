@@ -33,11 +33,10 @@ export function signUp(formData) {
                 email,
                 country: "",
                 city: "",
-                avatar:
-                  "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
-                description: "",
+                avatar: "",
+                description: "No Description for this User",
                 experience: 1,
-                job: "",
+                job: "unmentioned Job",
                 online: true,
                 lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
                 availability: "",
@@ -47,8 +46,12 @@ export function signUp(formData) {
                 rating: 0,
                 emailVerified: false
               })
-              .then(() => {
-                status(dispatch, "signup", "loading", false);
+              .then(async () => {
+                getUserData(dispatch);
+                await dispatch({
+                  type: "USER_LOGIN",
+                  data: { uid: res.user.uid, email, firstName, phoneNumber }
+                });
                 resolve();
               });
           }
@@ -129,14 +132,6 @@ export function login(formData) {
                 FirebaseRef.child(`users/${userDetails.uid}`).update({
                   lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP
                 });
-
-                if (userDetails.emailVerified === false) {
-                  Firebase.auth()
-                    .currentUser.sendEmailVerification()
-                    .catch(() =>
-                      console.log("Verification email failed to send")
-                    );
-                }
 
                 getUserData(dispatch);
               }

@@ -2,17 +2,14 @@ import React from "react";
 import { Card, Textarea } from "native-base";
 import {
   TouchableOpacity,
-  Image,
   View,
   Text,
   ScrollView,
   Alert,
   TextInput
 } from "react-native";
-import styles, {
-  pickerSelectStyles,
-  pickerHalfStyles
-} from "../../../styles/editProfile";
+import styles, { pickerSelectStyles } from "../../../styles/editProfile";
+import Avatar from "../../../components/Avatar";
 import ButtonGroup from "../../../components/ButtonGroup";
 import { Button, Icon } from "react-native-elements";
 import { ImagePicker } from "expo";
@@ -42,9 +39,7 @@ class EditProfile extends React.Component {
     uid: this.props.member.uid,
     firstName: this.props.member.firstName || "",
     phoneNumber: this.props.member.phoneNumber || "",
-    avatar:
-      this.props.member.avatar ||
-      "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+    avatar: this.props.member.avatar || "",
     availability: this.props.member.availability || [0],
     experience: this.props.member.experience || "",
     country: this.props.member.country || "",
@@ -98,19 +93,13 @@ class EditProfile extends React.Component {
     if (this.state.isloading) {
       return <Loader />;
     }
-    console.log(this.state.availability);
     return (
       <ScrollView style={styles.container}>
         <TouchableOpacity
           onPress={() => this.onChooseImagePress()}
           style={{ alignSelf: "center" }}
         >
-          <Image
-            style={{ width: 150, height: 150, borderRadius: 100 }}
-            source={{
-              uri: this.state.avatar
-            }}
-          />
+          <Avatar user={this.props.member} width={250} height={250} />
         </TouchableOpacity>
 
         <View>
@@ -133,7 +122,7 @@ class EditProfile extends React.Component {
           <View style={[styles.inputContainer, styles.shadow]}>
             <Icon name="phone" type="font-awesome" color="white" />
             <TextInput
-              placeholder="Name"
+              placeholder="phoneNumber"
               placeholderTextColor="#fff"
               style={styles.textInputt}
               value={this.state.phoneNumber}
@@ -149,7 +138,7 @@ class EditProfile extends React.Component {
           <View style={[styles.inputContainer, styles.shadow]}>
             <Icon name="location-pin" type="entypo" color="white" />
             <TextInput
-              placeholder="Name"
+              placeholder="country"
               placeholderTextColor="#fff"
               style={styles.textInputt}
               value={this.state.country}
@@ -165,7 +154,7 @@ class EditProfile extends React.Component {
           <View style={[styles.inputContainer, styles.shadow]}>
             <Icon name="location-city" type="materialIcons" color="white" />
             <TextInput
-              placeholder="Name"
+              placeholder="city"
               placeholderTextColor="#fff"
               style={styles.textInputt}
               value={this.state.city}
@@ -198,6 +187,7 @@ class EditProfile extends React.Component {
               }}
               hideIcon
               items={categories}
+              style={{ ...pickerSelectStyles }}
               onValueChange={value => {
                 this.setState({
                   category: value
@@ -217,6 +207,7 @@ class EditProfile extends React.Component {
               }}
               hideIcon
               items={WebOption}
+              style={{ ...pickerSelectStyles }}
               onValueChange={value => {
                 this.setState({
                   job: value

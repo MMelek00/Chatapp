@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-const Buttons = ({ data, navigation }) => {
-  if (data.id === this.props.member.id) {
+import { withNavigation } from "react-navigation";
+
+const Buttons = ({ data, member, navigation }) => {
+  if (data.id === member.uid) {
     return (
       <Button
         rounded
@@ -43,4 +45,4 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 
-export default connect(mapStateToProps)(Buttons);
+export default connect(mapStateToProps)(withNavigation(Buttons));
