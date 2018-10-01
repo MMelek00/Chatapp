@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput, View, Text, StyleSheet } from "react-native";
+import { TextInput, View, Text } from "react-native";
 import { Icon, Button } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 //components
@@ -23,10 +23,14 @@ export default class Search extends React.Component {
     index: [0],
     experiences: 1,
     category: null,
-    job: "Mobile Development",
-    country: "Tunisia",
+    job: null,
+    country: null,
     name: ""
   };
+  handleSubmit = () => {
+    const { navigate } = this.props.navigation;
+    navigate("Results", this.state);
+  }
 
   render() {
     return (
@@ -134,15 +138,13 @@ export default class Search extends React.Component {
             value={this.state.category}
           />
         </View>
-        <View>
-          <Button
-            rounded
-            onPress={() => console.log(this.state.index)}
-            title="SEARCH"
-            backgroundColor="#1C39A1"
-            containerViewStyle={styles.button}
-          />
-        </View>
+        <Button
+          rounded
+          onPress={this.handleSubmit}
+          title="SEARCH"
+          backgroundColor="#1C39A1"
+          containerViewStyle={styles.button}
+        />
       </View>
     );
   }

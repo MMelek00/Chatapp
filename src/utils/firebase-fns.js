@@ -18,6 +18,29 @@ export function getUsers() {
   });
 }
 
+export function getFilteredUsers(filters) {
+  const usersRef = FirebaseRef.child("/users");
+  const users = [];
+  return new Promise((resolve, reject) => {
+    usersRef
+      .once("value")
+      .then(function (snapshot) {
+        snapshot.forEach(child => {
+          const user = child.val();
+          const id = child.key;
+          if (filters.firstName) {
+            if (filters.firstName === user.firstName)
+              {users.push({ ...user, id });}
+          } else {
+            users.push({ ...user, id });
+          }
+        });
+        resolve(users);
+      })
+      .catch(reject);
+  });
+}
+
 export function getSingleUser(id) {
   const usersRef = FirebaseRef.child("/users/" + id);
   return new Promise((resolve, reject) => {

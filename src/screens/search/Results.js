@@ -2,9 +2,9 @@ import React from "react";
 import UsersList from "../../components/UsersList";
 import { getUsers } from "../../utils/firebase-fns";
 
-export default class Home extends React.Component {
+export default class Results extends React.Component {
     static navigationOptions = {
-        title: "Search",
+        title: "Results",
     };
 
     state = {

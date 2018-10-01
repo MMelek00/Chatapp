@@ -11,6 +11,7 @@ import AuthLoading from "./components/Loading";
 import Home from "./screens/home/Home";
 import Profile from "./screens/profile/Profile";
 import Search from "./screens/search/Search";
+import Results from "./screens/search/Results";
 import Messages from "./screens/conversations/Messages";
 import Conversations from "./screens/conversations/Conversations";
 import NewGroupe from "./screens/groups/NewGroup";
@@ -53,7 +54,8 @@ const HomeStack = createStackNavigator(
 
 const SearchStack = createStackNavigator(
   {
-    Search: Search
+    Search: Search,
+    Results: Results,
   },
   {
     navigationOptions: headerStyle
