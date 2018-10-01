@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { normalize } from "../utils/fonts";
-
+import colors from "../utils/colors";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
   Iteminput: {
     height: 50,
     width: "85%",
-    backgroundColor: "#eae3e3",
-    borderColor: "#a39e9e",
+    backgroundColor: colors.border,
+    borderWidth: 0,
     marginTop: 12,
     borderRadius: 8,
     padding: 12
   },
   textStyle: {
-    color: "#003399",
+    color: colors.base,
     fontFamily: "Roboto_medium",
     fontSize: normalize(45),
     alignSelf: "flex-start",
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: normalize(25)
   },
   forgettext: {
-    color: "blue",
+    color: colors.base,
     fontFamily: "Roboto",
     fontSize: normalize(18),
     paddingLeft: 30,

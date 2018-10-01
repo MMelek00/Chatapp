@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.grey,
+    paddingLeft: 20,
     fontSize: normalize(12),
     fontWeight: "500"
   },
