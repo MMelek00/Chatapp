@@ -44,10 +44,7 @@ class NewGroupe extends React.Component {
     const { navigate } = this.props.navigation;
     addGroup(name, avatar, usersToAdd)
       .then(groupId => {
-        navigate("Messages", {
-          sendToId: groupId,
-          sendToName: name
-        });
+        navigate("Conversations");
       })
       .catch(e => console.log(`Error: ${e}`));
   }

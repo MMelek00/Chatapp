@@ -8,7 +8,7 @@ import ActiveStatus from "../../components/ActiveStatus";
 import styles from "../../styles/conversations-card";
 
 const ConversationCard = ({ data, navigation }) => {
-  if (data.sendTo === null) {
+  if (!data.sendTo || !data.conversation) {
     return null;
   }
   return (
@@ -16,7 +16,9 @@ const ConversationCard = ({ data, navigation }) => {
       onPress={() => {
         navigation.navigate("Messages", {
           sendToId: data.sendToId,
-          sendToName: data.sendTo.firstName
+          sendToName: data.sendTo.firstName,
+          isGroup: data.conversation.isGroup,
+          conversationId: data.conversationId
         });
       }}
     >
@@ -25,13 +27,13 @@ const ConversationCard = ({ data, navigation }) => {
           <Left>
             <Avatar user={data.sendTo} unseen={data.unseenCount} />
             <View>
-              <Text style={styles.name}>{data.sendTo.firstName}</Text>
+              <Text style={styles.name}>{data.conversation.isGroup ? `Group: ${data.sendTo.firstName}` : data.sendTo.firstName}</Text>
               <Text style={styles.message}>{data.conversation.displayMessage}</Text>
             </View>
           </Left>
           <Right >
             <Text style={styles.message} >{format(data.conversation.lastMessageTime, "YYYY-MM-DD")}</Text>
-            <ActiveStatus style={styles.online} online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />
+            {!data.conversation.isGroup && <ActiveStatus style={styles.online} online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />}
           </Right>
         </CardItem>
       </Card>

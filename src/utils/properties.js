@@ -227,6 +227,7 @@ export const certeficateOption = [
 ];
 
 export const countries = [
+  { label: "Egypt", value: "Egypt" },
   "Afghanistan",
   "Aland Islands",
   "Albania",

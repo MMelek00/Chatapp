@@ -2,7 +2,10 @@ import React from "react";
 import { View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { categories, countries } from "../../utils/properties";
-import styles from "../../styles/home";
+import styles, {
+  countryPickerStyles,
+  jobPickerStyles
+} from "../../styles/home";
 
 const HomeHeader = ({ country, job, onPickerChange }) => {
   return (
@@ -14,11 +17,8 @@ const HomeHeader = ({ country, job, onPickerChange }) => {
         }}
         items={countries}
         hideIcon
-        onValueChange={value => {
-          this.setState({
-            category: value
-          });
-        }}
+        onValueChange={value => onPickerChange(value, "country")}
+        style={{ ...countryPickerStyles }}
         value={country}
       />
       <RNPickerSelect
@@ -28,11 +28,8 @@ const HomeHeader = ({ country, job, onPickerChange }) => {
         }}
         items={categories}
         hideIcon
-        onValueChange={value => {
-          this.setState({
-            job: value
-          });
-        }}
+        onValueChange={value => onPickerChange(value, "job")}
+        style={{ ...jobPickerStyles }}
         value={job}
       />
     </View>

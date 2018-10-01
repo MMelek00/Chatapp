@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import colors from "../utils/colors";
+import { normalize } from "../utils/fonts";
+const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
     homeContainer: {
@@ -30,6 +32,42 @@ const styles = StyleSheet.create({
     },
     pickerText: {
         color: "#fff"
+    }
+});
+
+export const jobPickerStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: normalize(16),
+        fontWeight: "500",
+        padding: 10,
+        borderWidth: 0,
+        borderRadius: 50,
+        backgroundColor: colors.primary,
+        color: "#fff",
+        width: deviceWidth / 2,
+        alignItems: "center",
+    },
+    viewContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+    }
+});
+
+export const countryPickerStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: normalize(16),
+        fontWeight: "500",
+        padding: 10,
+        borderWidth: 0,
+        borderRadius: 50,
+        backgroundColor: colors.grey,
+        color: "#fff",
+        width: deviceWidth / 2.5,
+        textAlign: "center"
+    },
+    viewContainer: {
+        justifyContent: "center",
+        alignItems: "center",
     }
 });
 

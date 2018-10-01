@@ -133,7 +133,7 @@ export function getConversationId(uid, sendToId) {
   });
 }
 
-const pushMessages = (message, conversationId) => {
+export const pushMessages = (message, conversationId) => {
   const messagesRef = FirebaseRef.child(
     "/conversations/" + conversationId + "/messages"
   );

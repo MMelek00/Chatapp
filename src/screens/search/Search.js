@@ -120,7 +120,7 @@ export default class Search extends React.Component {
         <View style={styles.card}>
           <RNPickerSelect
             placeholder={{
-              label: "Select a category...",
+              label: "Select a country...",
               value: null
             }}
             hideIcon

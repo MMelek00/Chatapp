@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { GiftedChat, Bubble, Send, MessageText, Time, InputToolbar, Composer } from "react-native-gifted-chat";
 import { Icon } from "native-base";
 
-import { sendMessage, loadMessages, getConversationId, closeChat } from "../../utils/firebase-fns";
+import { sendMessage, loadMessages, pushMessages, getConversationId, closeChat } from "../../utils/firebase-fns";
 import colors from "../../utils/colors";
 
 class Messages extends React.Component {
@@ -26,30 +26,48 @@ class Messages extends React.Component {
   _fetchConversation = () => {
     const { navigation, member } = this.props;
     const sendToId = navigation.getParam("sendToId");
-    getConversationId(member.uid, sendToId).then((conversationId) => {
+    const conversationId = navigation.getParam("conversationId");
+    if (conversationId) {
+
       loadMessages(conversationId, (message) => {
         this.setState(previousState => ({
-          messages: GiftedChat.append(previousState.messages, message),
-          conversationId
+          messages: GiftedChat.append(previousState.messages, message)
         }));
       });
-    });
+    } else {
+      getConversationId(member.uid, sendToId).then((resId) => {
+        loadMessages(resId, (message) => {
+          this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, message),
+            conversationId
+          }));
+        });
+      });
+    }
   }
 
   _sendMessage = (message) => {
     const { navigation, member } = this.props;
     const sendToId = navigation.getParam("sendToId");
-    sendMessage(
-      message,
-      this.state.conversationId,
-      member.uid,
-      sendToId
-    ).then(res => {
-      if (res) {
-        this.setState({ conversationId: res });
-        this._fetchConversation();
-      }
-    });
+    const isGroup = navigation.getParam("isGroup");
+    if (isGroup === true) {
+      const conversationId = navigation.getParam("conversationId");
+      pushMessages(
+        message,
+        conversationId);
+    } else {
+      sendMessage(
+        message,
+        this.state.conversationId,
+        member.uid,
+        sendToId
+      ).then(res => {
+        if (res) {
+          this.setState({ conversationId: res });
+          this._fetchConversation();
+        }
+      });
+    }
   }
 
   renderBubble(props) {
