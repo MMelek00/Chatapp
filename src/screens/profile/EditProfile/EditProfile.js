@@ -18,7 +18,7 @@ import Avatar from "../../../components/Avatar";
 import ButtonGroup from "../../../components/ButtonGroup";
 import { ImagePicker } from "expo";
 import { updateProfile } from "../../../actions/member";
-import { categories, WebOption } from "../../../utils/properties";
+import { categories, WebOption, experience } from "../../../utils/properties";
 import colors from "../../../utils/colors";
 import Loader from "../../../components/Loader";
 
@@ -48,8 +48,8 @@ class EditProfile extends React.Component {
     city: this.props.member.city || "",
     description: this.props.member.description || "",
     isloading: false,
-    category: "Design & Creative",
-    job: this.props.member.job || "Mobile Development"
+    category: this.props.member.job || "",
+    job: this.props.member.job || ""
   };
   handleSubmit = async () => {
     this.setState({ isloading: true });
@@ -179,6 +179,26 @@ class EditProfile extends React.Component {
           />
         </View>
 
+        <Card>
+          <Text style={styles.title}>experience</Text>
+          <View style={{ paddingLeft: 10 }}>
+            <RNPickerSelect
+              placeholder={{
+                label: "Select a experience...",
+                value: null
+              }}
+              hideIcon
+              items={experience}
+              style={{ ...pickerSelectStyles }}
+              onValueChange={value => {
+                this.setState({
+                  experience: value
+                });
+              }}
+              value={this.state.experience}
+            />
+          </View>
+        </Card>
         <Card>
           <Text style={styles.title}>Category</Text>
           <View style={{ paddingLeft: 10 }}>

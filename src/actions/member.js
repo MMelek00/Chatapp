@@ -187,6 +187,7 @@ export function updateProfile(formData) {
     experience,
     country,
     city,
+    category,
     job,
     availability,
     description
@@ -204,6 +205,7 @@ export function updateProfile(formData) {
           experience,
           country,
           city,
+          category,
           job,
           availability,
           description
