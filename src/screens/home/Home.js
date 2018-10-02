@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Picker } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import UsersList from "../../components/UsersList";
-import { getUsers } from "../../utils/firebase-fns";
+import { getFilteredUsers } from "../../utils/firebase-fns";
 import HomeHeader from "./HomeHeader";
 
 import styles from "../../styles/home";
@@ -38,7 +38,7 @@ export default class Home extends React.Component {
   state = {
     selected: "Settings",
     country: null,
-    job: null,
+    category: null,
     data: [],
     isLoading: true,
     isRefreshing: false,
@@ -58,7 +58,8 @@ export default class Home extends React.Component {
 
   _fetchUsers = () => {
     this.setState({ isRefreshing: true });
-    getUsers()
+    const { category, country } = this.state;
+    getFilteredUsers({ category, country })
       .then(data => {
         this.setState({ data, isLoading: false, isRefreshing: false });
       })
@@ -73,7 +74,9 @@ export default class Home extends React.Component {
   };
 
   onPickerChange = (value, target) => {
-    this.setState({ [target]: value });
+    this.setState({ [target]: value }, () => {
+      this._fetchUsers();
+    });
   };
 
   render() {

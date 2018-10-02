@@ -63,25 +63,12 @@ export function signUp(formData) {
     });
 }
 
-function getUserData(dispatch) {
-  const UID =
-    FirebaseRef &&
-    Firebase &&
-    Firebase.auth() &&
-    Firebase.auth().currentUser &&
-    Firebase.auth().currentUser.uid
-      ? Firebase.auth().currentUser.uid
-      : null;
-
-  if (!UID) {
-    return false;
-  }
-
-  const ref = FirebaseRef.child(`users/${UID}`);
+function getUserData(dispatch, store) {
+  const uid = store().member.uid;
+  const ref = FirebaseRef.child(`users/${uid}`);
 
   return ref.on("value", snapshot => {
     const userData = snapshot.val() || [];
-
     return dispatch({
       type: "USER_DETAILS_UPDATE",
       data: userData
@@ -109,7 +96,7 @@ export function getMemberData() {
 export function login(formData) {
   const { email, password } = formData;
 
-  return dispatch =>
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "login", "loading", true);
 
@@ -133,7 +120,7 @@ export function login(formData) {
                   lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP
                 });
 
-                getUserData(dispatch);
+                getUserData(dispatch, store);
               }
 
               await status(dispatch, "login", "loading", false);
@@ -193,7 +180,7 @@ export function updateProfile(formData) {
     description
   } = formData;
 
-  return dispatch =>
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
 
@@ -211,7 +198,7 @@ export function updateProfile(formData) {
           description
         })
         .then(async () => {
-          await getUserData(dispatch);
+          await getUserData(dispatch, store);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
           resolve();
         })
@@ -228,7 +215,7 @@ export function updateskills(skills) {
       return FirebaseRef.child(`users/${store().member.uid}`)
         .update({ skills })
         .then(async () => {
-          await getUserData(dispatch);
+          await getUserData(dispatch, store);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
           resolve();
         })
@@ -245,7 +232,7 @@ export function updatehistory(history) {
       return FirebaseRef.child(`users/${store().member.uid}`)
         .update({ history })
         .then(async () => {
-          await getUserData(dispatch);
+          await getUserData(dispatch, store);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
           resolve();
         })
@@ -262,7 +249,7 @@ export function updatecertificates(certificates) {
       return FirebaseRef.child(`users/${store().member.uid}`)
         .update({ certificates })
         .then(async () => {
-          await getUserData(dispatch);
+          await getUserData(dispatch, store);
           await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
           resolve();
         })
@@ -282,7 +269,7 @@ export function updatePersonalInfo(formData) {
     changePassword
   } = formData;
 
-  return dispatch =>
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
       const UID = Firebase.auth().currentUser.uid;
       if (!UID) {
@@ -324,7 +311,7 @@ export function updatePersonalInfo(formData) {
               .catch(reject);
           }
 
-          await getUserData(dispatch);
+          await getUserData(dispatch, store);
           resolve();
         })
         .catch(reject);

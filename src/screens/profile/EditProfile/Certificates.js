@@ -23,19 +23,27 @@ class Certificates extends Component {
       )
     };
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCertif: this.props.member.certificates || [],
+      isloading: false
+    };
+  }
+
   componentDidMount() {
     this.props.navigation.setParams({
       handleAddClick: this.handleSubmit
     });
   }
 
-  state = {
-    selectedCertif: this.props.member.certificates || [],
-    isloading: false
-  };
   handleSubmit = async () => {
     this.setState({ isloading: true });
-    const array = this.state.selectedCertif.map(cert => cert.value);
+    const array = this.state.selectedCertif.map(cert => {
+      if (cert.value) { return cert.value; }
+      return cert;
+    });
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
     onFormSubmit(array)

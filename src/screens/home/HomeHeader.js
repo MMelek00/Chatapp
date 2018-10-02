@@ -28,7 +28,7 @@ const HomeHeader = ({ country, job, onPickerChange }) => {
         }}
         items={categories}
         hideIcon
-        onValueChange={value => onPickerChange(value, "job")}
+        onValueChange={value => onPickerChange(value, "category")}
         style={{ ...jobPickerStyles }}
         value={job}
       />

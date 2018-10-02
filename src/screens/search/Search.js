@@ -9,7 +9,7 @@ import styles, {
   pickerSelectStyles,
   pickerHalfStyles
 } from "../../styles/search";
-import { categories, WebOption, experience } from "../../utils/properties";
+import { categories, categoriesOptions, experience, countries } from "../../utils/properties";
 
 export default class Search extends React.Component {
   static navigationOptions = {
@@ -30,11 +30,13 @@ export default class Search extends React.Component {
     navigate("Results", { filters: this.state });
   }
 
-  updateIndex = availability => {
-    this.setState({ availability });
+  handleState = (value, target) => {
+    this.setState({ [target]: value });
   };
 
   render() {
+    const { category } = this.state;
+    const jobOptions = category ? categoriesOptions[category] : [];
     return (
       <View style={styles.container}>
         <View style={[styles.inputContainer, styles.shadow]}>
@@ -47,13 +49,13 @@ export default class Search extends React.Component {
             multiline={false}
             autoCapitalize="none"
             underlineColorAndroid="transparent"
-            onChangeText={firstName => this.setState({ firstName })}
+            onChangeText={v => this.handleState(v, "firstName")}
           />
         </View>
         <View style={styles.shadow}>
           <ButtonGroup
             selectMultiple
-            onPress={this.updateIndex}
+            onPress={v => this.handleState(v, "availability")}
             selectedIndexes={this.state.availability}
             buttons={["Freelancer", "Part Time", "Full Time"]}
           />
@@ -75,11 +77,7 @@ export default class Search extends React.Component {
             }}
             items={experience}
             hideIcon
-            onValueChange={value => {
-              this.setState({
-                experience: value
-              });
-            }}
+            onValueChange={v => this.handleState(v, "experience")}
             style={{ ...pickerSelectStyles }}
             value={this.state.experience}
           />
@@ -96,7 +94,8 @@ export default class Search extends React.Component {
               items={categories}
               onValueChange={value => {
                 this.setState({
-                  category: value
+                  category: value,
+                  job: null
                 });
               }}
               style={{ ...pickerHalfStyles }}
@@ -112,12 +111,8 @@ export default class Search extends React.Component {
                 value: null
               }}
               hideIcon
-              items={WebOption}
-              onValueChange={value => {
-                this.setState({
-                  job: value
-                });
-              }}
+              items={jobOptions}
+              onValueChange={v => this.handleState(v, "job")}
               style={{ ...pickerHalfStyles }}
               value={this.state.job}
             />
@@ -130,14 +125,10 @@ export default class Search extends React.Component {
               value: null
             }}
             hideIcon
-            items={WebOption}
-            onValueChange={value => {
-              this.setState({
-                category: value
-              });
-            }}
+            items={countries}
+            onValueChange={v => this.handleState(v, "country")}
             style={{ ...pickerSelectStyles }}
-            value={this.state.category}
+            value={this.state.country}
           />
         </View>
         <Button

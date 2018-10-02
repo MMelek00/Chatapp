@@ -1,12 +1,12 @@
 import React from "react";
-import { Button } from "react-native-elements";
+import { Button as RNEButton } from "react-native-elements";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 
-const Buttons = ({ data, member, navigation }) => {
+const Button = ({ data, member, navigation }) => {
   if (data.id === member.uid) {
     return (
-      <Button
+      <RNEButton
         rounded
         title="edit Profile"
         onPress={() => navigation.navigate("EditProfile")}
@@ -21,7 +21,7 @@ const Buttons = ({ data, member, navigation }) => {
     );
   } else {
     return (
-      <Button
+      <RNEButton
         rounded
         title="Send message"
         onPress={() => {
@@ -45,4 +45,4 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 
-export default connect(mapStateToProps)(withNavigation(Buttons));
+export default connect(mapStateToProps)(withNavigation(Button));

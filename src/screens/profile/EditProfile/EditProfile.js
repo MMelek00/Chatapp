@@ -48,7 +48,7 @@ class EditProfile extends React.Component {
     city: this.props.member.city || "",
     description: this.props.member.description || "",
     isloading: false,
-    category: this.props.member.job || "",
+    category: this.props.member.category || "",
     job: this.props.member.job || ""
   };
   handleSubmit = async () => {

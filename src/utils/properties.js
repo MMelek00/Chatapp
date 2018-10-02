@@ -1,6 +1,7 @@
+
 export const categories = [
   { label: "Web, Mobile & Software Dev", value: "Web, Mobile & Software Dev" },
-  { label: "Design & Creative", value: "Design & Creative " },
+  { label: "Design & Creative", value: "Design & Creative" },
   { label: "Admin Support", value: "Admin Support" },
   { label: "IT & Networking", value: "IT & Networking" },
   { label: "Writing", value: "Writing" },
@@ -199,6 +200,20 @@ export const TranslationOption = [
     value: "Technical Translation"
   }
 ];
+
+export const categoriesOptions = {
+  "Web, Mobile & Software Dev": WebOption,
+  "Design & Creative": DesignOption,
+  "Admin Support": AdminOption,
+  "IT & Networking": ITOption,
+  "Writing": WritingOption,
+  "Data Science & Analytics": AnalyticsOption,
+  "Sales & Marketing": SalesOption,
+  "Translation": TranslationOption,
+  "Engineering & Architecture": EngineeringOption,
+  "Legal": LegalOption
+};
+
 export const certeficateOption = [
   "English",
   "Frensh",

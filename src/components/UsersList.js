@@ -4,6 +4,7 @@ import { FlatList, Text, RefreshControl } from "react-native";
 import UserCard from "./UserCard";
 import UserCardSelect from "./UserCardSelect";
 import Loader from "./Loader";
+import EmptyState from "./EmptyState";
 
 export default class UsersList extends Component {
     _keyExtractor = (item, index) => item.id;
@@ -33,6 +34,9 @@ export default class UsersList extends Component {
         }
         if (isLoading) {
             return (<Loader />);
+        }
+        if (data.length === 0) {
+            return (<EmptyState />);
         }
         return (
             <FlatList
