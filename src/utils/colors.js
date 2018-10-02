@@ -9,5 +9,6 @@ export default {
   primary: "#76AAE4",
   secondary: "#F4879E",
   loader: "#0056b3",
-  grey: "#686868"
+  grey: "#686868",
+  darkGrey: "#464646",
 };

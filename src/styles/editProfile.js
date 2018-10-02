@@ -13,38 +13,33 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
-    backgroundColor: "#ACACAC",
-    paddingHorizontal: 22,
-    paddingVertical: 12,
-    marginTop: 10,
+    backgroundColor: colors.border,
+    padding: 12,
+    marginBottom: 10,
     borderRadius: 30
   },
   textInputt: {
-    color: "black",
+    color: colors.darkGrey,
     paddingLeft: 15,
     fontSize: normalize(15),
     flex: 1,
     borderRadius: 30
   },
   title: {
-    color: colors.grey,
-    paddingLeft: 20,
-    fontSize: normalize(12),
+    color: colors.darkGrey,
+    marginLeft: 13,
+    marginBottom: 7,
+    fontSize: normalize(13),
     fontWeight: "500"
-  },
-  shadow: {
-    shadowColor: "#e0e0e0",
-    shadowOffset: {
-      width: -2,
-      height: 2
-    },
-    shadowOpacity: 1,
-    shadowRadius: 1,
-    elevation: 2
   },
   button: {
     marginHorizontal: 0,
     marginVertical: 20
+  },
+  textArea: {
+    padding: 10,
+    backgroundColor: colors.border,
+    borderRadius: 30,
   }
 });
 
@@ -52,10 +47,11 @@ export const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     fontSize: normalize(16),
     fontWeight: "500",
-    paddingVertical: 5,
+    padding: 12,
     borderWidth: 0,
-    borderRadius: 4,
-    backgroundColor: "white",
+    backgroundColor: colors.border,
+    marginBottom: 10,
+    borderRadius: 30,
     color: colors.base
   }
 });

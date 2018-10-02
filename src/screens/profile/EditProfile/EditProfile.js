@@ -104,9 +104,8 @@ class EditProfile extends React.Component {
           <Avatar user={this.props.member} width={250} height={250} />
         </TouchableOpacity>
 
-        <View>
-          <View style={[styles.inputContainer, styles.shadow]}>
-            <Icon name="user" type="font-awesome" color="white" />
+              <Text style={styles.title}>First name</Text>
+          <View style={styles.inputContainer}>
             <TextInput
               placeholder="Name"
               placeholderTextColor="#fff"
@@ -118,11 +117,11 @@ class EditProfile extends React.Component {
               underlineColorAndroid="transparent"
               onChangeText={firstName => this.setState({ firstName })}
             />
-            <Icon name="edit" type="materialIcons" color="black" />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
           </View>
 
-          <View style={[styles.inputContainer, styles.shadow]}>
-            <Icon name="phone" type="font-awesome" color="white" />
+          <Text style={styles.title}>Phone number</Text>
+          <View style={styles.inputContainer}>
             <TextInput
               placeholder="phoneNumber"
               placeholderTextColor="#fff"
@@ -134,11 +133,11 @@ class EditProfile extends React.Component {
               underlineColorAndroid="transparent"
               onChangeText={phoneNumber => this.setState({ phoneNumber })}
             />
-            <Icon name="edit" type="materialIcons" color="black" />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
           </View>
 
-          <View style={[styles.inputContainer, styles.shadow]}>
-            <Icon name="location-pin" type="entypo" color="white" />
+          <Text style={styles.title}>Country</Text>
+          <View style={styles.inputContainer}>
             <TextInput
               placeholder="country"
               placeholderTextColor="#fff"
@@ -150,11 +149,11 @@ class EditProfile extends React.Component {
               underlineColorAndroid="transparent"
               onChangeText={country => this.setState({ country })}
             />
-            <Icon name="edit" type="materialIcons" color="black" />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
           </View>
 
-          <View style={[styles.inputContainer, styles.shadow]}>
-            <Icon name="location-city" type="materialIcons" color="white" />
+          <Text style={styles.title}>City</Text>
+          <View style={styles.inputContainer}>
             <TextInput
               placeholder="city"
               placeholderTextColor="#fff"
@@ -166,9 +165,8 @@ class EditProfile extends React.Component {
               underlineColorAndroid="transparent"
               onChangeText={city => this.setState({ city })}
             />
-            <Icon name="edit" type="materialIcons" color="black" />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
           </View>
-        </View>
 
         <View style={{ paddingTop: 10 }}>
           <ButtonGroup
@@ -179,9 +177,7 @@ class EditProfile extends React.Component {
           />
         </View>
 
-        <Card>
-          <Text style={styles.title}>experience</Text>
-          <View style={{ paddingLeft: 10 }}>
+          <Text style={styles.title}>Experience</Text>
             <RNPickerSelect
               placeholder={{
                 label: "Select a experience...",
@@ -197,11 +193,7 @@ class EditProfile extends React.Component {
               }}
               value={this.state.experience}
             />
-          </View>
-        </Card>
-        <Card>
           <Text style={styles.title}>Category</Text>
-          <View style={{ paddingLeft: 10 }}>
             <RNPickerSelect
               placeholder={{
                 label: "Select a category...",
@@ -217,11 +209,7 @@ class EditProfile extends React.Component {
               }}
               value={this.state.category}
             />
-          </View>
-        </Card>
-        <Card>
           <Text style={styles.title}>Job</Text>
-          <View style={{ paddingLeft: 10 }}>
             <RNPickerSelect
               placeholder={{
                 label: "Select a category...",
@@ -237,19 +225,12 @@ class EditProfile extends React.Component {
               }}
               value={this.state.job}
             />
-          </View>
-        </Card>
         <Textarea
           value={this.state.description}
           rowSpan={5}
-          bordered
-          placeholder="Description"
-          placeholderTextColor="white"
-          returnKeyType="go"
-          style={{
-            padding: 10,
-            backgroundColor: "gray"
-          }}
+          placeholder="Description ..."
+          placeholderTextColor={colors.darkGrey}
+          style={styles.textArea}
           onChangeText={description => this.setState({ description })}
         />
         <Button
