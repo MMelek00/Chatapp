@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signUp } from "../../actions/member";
-import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import { Item } from "native-base";
 import { Icon, Button } from "react-native-elements";
 import colors from "../../utils/colors";
@@ -15,7 +15,8 @@ class SignUp extends React.Component {
       password: "",
       firstName: "",
       phoneNumber: "",
-      isLoading: false
+      isLoading: false,
+      errorMessage: ""
     };
   }
 
@@ -29,15 +30,18 @@ class SignUp extends React.Component {
         this.setState({ isloading: false });
         navigate("EditProfile");
       })
-      .catch(e => console.log(`Error: ${e}`));
+      .catch(e => {
+        this.setState({ errorMessage: e });
+        console.log(`Error: ${e}`);
+      });
   };
   _login = () => {
     this.props.navigation.navigate("Login");
   };
   render() {
-    if (this.state.isLoading) {return <Loader />;}
+    if (this.state.isLoading) { return <Loader />; }
     return (
-      <View
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-64}
         style={{
           flex: 1,
           flexDirection: "column",
@@ -125,15 +129,16 @@ class SignUp extends React.Component {
         >
           <Text style={styles.forgettext}>already have an account? Login</Text>
         </TouchableOpacity>
-        <View style={{ width: "90%", paddingTop: 50 }}>
+        <View style={{ paddingTop: 50 }}>
           <Button
             block
+            rounded
             onPress={this.handleSubmit}
             title="Create Account"
             backgroundColor={colors.base}
           />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

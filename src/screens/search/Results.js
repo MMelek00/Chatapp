@@ -1,6 +1,6 @@
 import React from "react";
 import UsersList from "../../components/UsersList";
-import { getUsers } from "../../utils/firebase-fns";
+import { getFilteredUsers } from "../../utils/firebase-fns";
 
 export default class Results extends React.Component {
     static navigationOptions = {
@@ -14,11 +14,13 @@ export default class Results extends React.Component {
     };
 
     componentWillMount = () => {
-        getUsers()
-            .then(data => {
-                this.setState({ data });
-            })
+        const { navigation } = this.props;
+        const filters = navigation.getParam("filters");
 
+        getFilteredUsers(filters)
+            .then(data => {
+                this.setState({ data, isLoading: false });
+            })
             .catch(err => console.log(err));
     };
     render() {

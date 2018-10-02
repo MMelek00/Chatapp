@@ -1,4 +1,5 @@
 import { Firebase, FirebaseRef } from "./firebase";
+const R = require("ramda");
 
 export function getUsers() {
   const usersRef = FirebaseRef.child("/users");
@@ -18,9 +19,10 @@ export function getUsers() {
   });
 }
 
-export function getFilteredUsers(filters) {
+export function getFilteredUsers(data) {
   const usersRef = FirebaseRef.child("/users");
   const users = [];
+  const availability = data.availability;
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
@@ -28,10 +30,15 @@ export function getFilteredUsers(filters) {
         snapshot.forEach(child => {
           const user = child.val();
           const id = child.key;
-          if (filters.firstName) {
-            if (filters.firstName === user.firstName)
-              {users.push({ ...user, id });}
-          } else {
+          const dissocAv = R.dissoc("availability", data);
+          const filters = R.reject(R.either(R.isNil, R.isEmpty), dissocAv);
+          const pred = R.whereEq({ ...filters });
+          const checkAvailablity = (_) => availability.every(elem => _.indexOf(elem) > -1);
+          const predName = R.where({
+            availability: checkAvailablity,
+          });
+          const composed = R.both(pred, predName);
+          if (composed(user)) {
             users.push({ ...user, id });
           }
         });

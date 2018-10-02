@@ -27,8 +27,8 @@ class Messages extends React.Component {
     const { navigation, member } = this.props;
     const sendToId = navigation.getParam("sendToId");
     const conversationId = navigation.getParam("conversationId");
-    if (conversationId) {
-
+    const isGroup = navigation.getParam("isGroup");
+    if (isGroup) {
       loadMessages(conversationId, (message) => {
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, message)

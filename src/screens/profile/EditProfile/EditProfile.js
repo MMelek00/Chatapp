@@ -8,18 +8,20 @@ import {
   Alert,
   TextInput
 } from "react-native";
+import { connect } from "react-redux";
+import { Button, Icon } from "react-native-elements";
+import RNPickerSelect from "react-native-picker-select";
+import * as firebase from "firebase";
+
 import styles, { pickerSelectStyles } from "../../../styles/editProfile";
 import Avatar from "../../../components/Avatar";
 import ButtonGroup from "../../../components/ButtonGroup";
-import { Button, Icon } from "react-native-elements";
 import { ImagePicker } from "expo";
-import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/member";
-import RNPickerSelect from "react-native-picker-select";
 import { categories, WebOption } from "../../../utils/properties";
 import colors from "../../../utils/colors";
-import * as firebase from "firebase";
 import Loader from "../../../components/Loader";
+
 class EditProfile extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {

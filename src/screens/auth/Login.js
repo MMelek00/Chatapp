@@ -14,7 +14,7 @@ class Login extends React.Component {
     const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
       .then(resp => {
-        navigate("Main");
+        navigate("App");
       })
       .catch(e => console.log(`Error: ${e}`));
   };

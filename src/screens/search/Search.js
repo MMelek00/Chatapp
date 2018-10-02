@@ -15,22 +15,24 @@ export default class Search extends React.Component {
   static navigationOptions = {
     title: "SEARCH"
   };
-  updateIndex = index => {
-    this.setState({ index });
-  };
 
   state = {
-    index: [0],
-    experiences: 1,
+    availability: [],
+    experience: null,
     category: null,
     job: null,
     country: null,
-    name: ""
+    firstName: ""
   };
+
   handleSubmit = () => {
     const { navigate } = this.props.navigation;
-    navigate("Results", this.state);
+    navigate("Results", { filters: this.state });
   }
+
+  updateIndex = availability => {
+    this.setState({ availability });
+  };
 
   render() {
     return (
@@ -45,14 +47,14 @@ export default class Search extends React.Component {
             multiline={false}
             autoCapitalize="none"
             underlineColorAndroid="transparent"
-            onChangeText={name => this.setState({ name })}
+            onChangeText={firstName => this.setState({ firstName })}
           />
         </View>
         <View style={styles.shadow}>
           <ButtonGroup
             selectMultiple
             onPress={this.updateIndex}
-            selectedIndexes={this.state.index}
+            selectedIndexes={this.state.availability}
             buttons={["Freelancer", "Part Time", "Full Time"]}
           />
         </View>
@@ -75,11 +77,11 @@ export default class Search extends React.Component {
             hideIcon
             onValueChange={value => {
               this.setState({
-                experiences: value
+                experience: value
               });
             }}
             style={{ ...pickerSelectStyles }}
-            value={this.state.experiences}
+            value={this.state.experience}
           />
         </View>
         <View style={[styles.card, styles.row]}>

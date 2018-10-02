@@ -1,14 +1,14 @@
 import {
-  compose,
   createStore,
   applyMiddleware,
 } from "redux";
 import thunk from "redux-thunk";
-import combineReducers from "../reducers/index";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/es/storage";
 
-import { createLogger } from "redux-logger";
+import combineReducers from "../reducers/index";
+
 
 const config = {
   key: "root",
@@ -22,9 +22,8 @@ const configureStore = (state) => {
   const store = createStore(
     reducers,
     state,
-    compose(applyMiddleware(
+    composeWithDevTools(applyMiddleware(
       thunk,
-      createLogger(),
     )),
   );
 
