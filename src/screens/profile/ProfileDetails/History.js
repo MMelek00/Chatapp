@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Content, Text } from "native-base";
+import { Content, Text } from "native-base";
 import HistoryCard from "../Components/HistoryCard";
 import { FlatList } from "react-native";
 import { Loader } from "../../../components/Loader";
