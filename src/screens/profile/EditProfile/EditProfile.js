@@ -5,8 +5,8 @@ import {
   View,
   Text,
   ScrollView,
-  Alert,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
@@ -18,6 +18,7 @@ import Avatar from "../../../components/Avatar";
 import ButtonGroup from "../../../components/ButtonGroup";
 import { ImagePicker } from "expo";
 import { updateProfile } from "../../../actions/member";
+import { Imageurl } from "../../../utils/firebase-fns";
 import { categories, WebOption, experience } from "../../../utils/properties";
 import colors from "../../../utils/colors";
 import Loader from "../../../components/Loader";
@@ -48,7 +49,8 @@ class EditProfile extends React.Component {
     city: this.props.member.city || "",
     description: this.props.member.description || "",
     isloading: false,
-    category: this.props.member.job || "",
+    isuploading: false,
+    category: this.props.member.category || "",
     job: this.props.member.job || ""
   };
   handleSubmit = async () => {
@@ -66,15 +68,14 @@ class EditProfile extends React.Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true
     });
-
+    this.setState({ isuploading: true });
     if (!result.cancelled) {
-      this.uploadImage(result.uri, this.state.uid)
-        .then(() => {
-          this.setState({ avatar: result.uri });
-        })
-        .catch(error => {
-          Alert.alert(error);
-        });
+      await this.uploadImage(result.uri, this.state.uid);
+
+      const url = await Imageurl(this.state.uid);
+      console.log(url);
+      this.setState({ avatar: url });
+      this.setState({ isuploading: false });
     }
   };
   updateIndex = availability => {
@@ -101,7 +102,11 @@ class EditProfile extends React.Component {
           onPress={() => this.onChooseImagePress()}
           style={{ alignSelf: "center" }}
         >
-          <Avatar user={this.props.member} width={250} height={250} />
+          {this.state.isuploading ? (
+            <ActivityIndicator />
+          ) : (
+            <Avatar user={{ ...this.state }} xlarge withIcon />
+          )}
         </TouchableOpacity>
 
         <View>

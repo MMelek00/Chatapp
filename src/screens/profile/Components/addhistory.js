@@ -27,7 +27,7 @@ class Addhistory extends Component {
     this.setDate = this.setDate.bind(this);
   }
   setDate(newDate) {
-    this.setState({ startDate: newDate });
+    this.setState({ startDate: newDate.toString().substr(4, 12) });
   }
 
   updateIndex = index => {
@@ -46,6 +46,7 @@ class Addhistory extends Component {
       this.props.addhistoryHandler({
         name,
         jobName,
+        startDate,
         year,
         link,
         availability

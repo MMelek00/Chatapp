@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { Item } from "native-base";
 import { DEFAULT_FONT, normalize } from "../../../utils/fonts";
+import Availability from "../../../components/Availability";
 const AboutInfo = ({ data }) => {
   return (
     <View>
@@ -18,31 +19,22 @@ const AboutInfo = ({ data }) => {
             {data.experience} years Experience
           </Text>
         </Item>
-        <Item style={{ paddingLeft: 50, width: "50%" }}>
+        <Item style={{ paddingLeft: 20, width: "50%" }}>
           <Icon name="access-time" type="materialIcons" color="pink" />
-          <Text style={{ paddingLeft: 10, fontFamily: DEFAULT_FONT }}>
-            {data.availability}
-          </Text>
+          <Availability availability={data.availability} />
         </Item>
       </View>
-      <View
+      <Text
         style={{
           padding: 15,
-          borderWidth: 0.5,
-          backgroundColor: "#fff",
-          borderRadius: 5
+          color: "#535353",
+          fontSize: normalize(16),
+          fontFamily: DEFAULT_FONT,
+          opacity: 0.7
         }}
       >
-        <Text
-          style={{
-            color: "#535353",
-            fontSize: normalize(16),
-            fontFamily: DEFAULT_FONT
-          }}
-        >
-          {data.description}
-        </Text>
-      </View>
+        {data.description}
+      </Text>
     </View>
   );
 };

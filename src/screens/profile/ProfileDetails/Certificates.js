@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlatList, Text } from "react-native";
-import { Content } from "native-base";
+import { View } from "native-base";
 import Loader from "../../../components/Loader";
 import CertifCard from "../Components/CertifCard";
 
@@ -12,7 +12,7 @@ class Certificates extends Component {
       error: ""
     };
   }
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => item;
   _renderItem = ({ item, key }) => <CertifCard Name={item} key={key} />;
   render() {
     const { isLoading, error } = this.props;
@@ -23,14 +23,15 @@ class Certificates extends Component {
       return <Loader />;
     }
     return (
-      <Content style={{ paddingTop: 10 }}>
+      <View style={{ paddingTop: 10, flex: 1 }}>
         <FlatList
+          numColumns={2}
           data={this.props.data.certificates}
           extraData={this.props}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
-      </Content>
+      </View>
     );
   }
 }

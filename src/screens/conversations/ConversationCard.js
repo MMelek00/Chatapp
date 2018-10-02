@@ -25,21 +25,34 @@ const ConversationCard = ({ data, navigation }) => {
       <Card style={styles.card}>
         <CardItem style={styles.item}>
           <Left>
-            <Avatar user={data.sendTo} unseen={data.unseenCount} />
+            <Avatar user={data.sendTo} unseen={data.unseenCount} large />
             <View>
-              <Text style={styles.name}>{data.conversation.isGroup ? `Group: ${data.sendTo.firstName}` : data.sendTo.firstName}</Text>
-              <Text style={styles.message}>{data.conversation.displayMessage}</Text>
+              <Text style={styles.name}>
+                {data.conversation.isGroup
+                  ? `Group: ${data.sendTo.firstName}`
+                  : data.sendTo.firstName}
+              </Text>
+              <Text style={styles.message}>
+                {data.conversation.displayMessage}
+              </Text>
             </View>
           </Left>
-          <Right >
-            <Text style={styles.message} >{format(data.conversation.lastMessageTime, "YYYY-MM-DD")}</Text>
-            {!data.conversation.isGroup && <ActiveStatus style={styles.online} online={data.sendTo.online} lastLoggedIn={data.sendTo.lastLoggedIn} />}
+          <Right>
+            <Text style={styles.message}>
+              {format(data.conversation.lastMessageTime, "YYYY-MM-DD")}
+            </Text>
+            {!data.conversation.isGroup && (
+              <ActiveStatus
+                style={styles.online}
+                online={data.sendTo.online}
+                lastLoggedIn={data.sendTo.lastLoggedIn}
+              />
+            )}
           </Right>
         </CardItem>
       </Card>
     </TouchableOpacity>
   );
 };
-
 
 export default withNavigation(ConversationCard);

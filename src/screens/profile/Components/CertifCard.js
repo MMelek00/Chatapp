@@ -1,19 +1,29 @@
 import React from "react";
-import { Item } from "native-base";
 import { View, Image, Text, Dimensions } from "react-native";
-const deviceWidth = Dimensions.get("window").width;
+import { certeficateimages } from "../../../utils/properties";
+import colors from "../../../utils/colors";
 const deviceHeight = Dimensions.get("window").height;
 const CertifCard = ({ Name }) => {
   return (
-    <View>
+    <View style={{ flex: 1, margin: 2 }}>
       <Image
+        style={{ width: null, height: deviceHeight / 3 - 20, flex: 1 }}
+        resizeMode={"cover"}
         source={{
-          uri: "https://facebook.github.io/react-native/docs/assets/favicon.png"
+          uri: certeficateimages[Name]
         }}
       />
-      <Item>
-        <Text>{Name}</Text>
-      </Item>
+      <Text
+        style={{
+          backgroundColor: colors.base,
+          color: "white",
+          padding: 10,
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10
+        }}
+      >
+        {Name}
+      </Text>
     </View>
   );
 };
