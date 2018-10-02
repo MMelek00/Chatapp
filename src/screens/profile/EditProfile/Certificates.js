@@ -1,46 +1,44 @@
 import React, { Component } from "react";
-import { View, Text, Image } from "react-native";
+import { View } from "react-native";
 import SelectMultiple from "react-native-select-multiple";
-import { Button, CheckBox } from "react-native-elements";
+import { Button } from "react-native-elements";
+import Loader from "../../../components/Loader";
 import { connect } from "react-redux";
-import { updateCertificate } from "../../../actions/member";
+import { updatecertificates } from "../../../actions/member";
 import colors from "../../../utils/colors";
-import { EngineeringOption } from "../../../utils/properties";
-const renderLabel = (label, style) => {
-  return (
-    <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <Image
-        style={{ width: 42, height: 42 }}
-        source={{ uri: "https://dummyimage.com/100x100/52c25a/fff&text=S" }}
-      />
-      <View style={{ marginLeft: 10 }}>
-        <Text style={style}>{label}</Text>
-      </View>
-    </View>
-  );
-};
+import { certeficateOption } from "../../../utils/properties";
+
 class Certificates extends Component {
   static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
     return {
       title: "Add Certificates ",
       headerRight: (
         <Button
           block
-          onPress={this.handleSubmit}
+          onPress={() => params.handleAddClick()}
           title="finish"
           backgroundColor={colors.base}
         />
       )
     };
   };
+  componentDidMount() {
+    this.props.navigation.setParams({
+      handleAddClick: this.handleSubmit
+    });
+  }
+
   state = {
-    selectedCertif: this.props.member.certificates || []
+    selectedCertif: this.props.member.certificates || [],
+    isloading: false
   };
   handleSubmit = async () => {
     this.setState({ isloading: true });
+    const array = this.state.selectedCertif.map(cert => cert.value);
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
-    onFormSubmit(this.state)
+    onFormSubmit(array)
       .then(resp => {
         this.setState({ isloading: false });
         navigate("Profile");
@@ -49,16 +47,17 @@ class Certificates extends Component {
   };
   onSelectionsChange = selectedCertif => {
     this.setState({ selectedCertif });
-    console.log(this.state.selectedCertif);
   };
 
   render() {
+    if (this.state.isloading) {
+      return <Loader />;
+    }
     return (
       <View>
         <SelectMultiple
-          items={EngineeringOption}
-          renderLabel={renderLabel}
-          selectedItems={this.state.selectedFruits}
+          items={certeficateOption}
+          selectedItems={this.state.selectedCertif}
           onSelectionsChange={this.onSelectionsChange}
         />
       </View>
@@ -70,7 +69,7 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 const mapDispatchToProps = {
-  onFormSubmit: updateCertificate
+  onFormSubmit: updatecertificates
 };
 
 export default connect(

@@ -219,25 +219,6 @@ export function updateProfile(formData) {
       throw err.message;
     });
 }
-export function updatehistorys(formData) {
-  const { uid, name, year, startDate, availability, jobName, link } = formData;
-  const date = startDate.toString().substr(4, 12);
-  return dispatch =>
-    new Promise(async (resolve, reject) => {
-      await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
-      return FirebaseRef.child(`users/${uid}/history`)
-        .push({ name, year, date, availability, jobName, link })
-        .then(async () => {
-          await getUserData(dispatch);
-          await status(dispatch, "USER_DETAILS_UPDATE", "loading", false);
-          resolve();
-        })
-        .catch(reject);
-    }).catch(async err => {
-      await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
-      throw err.message;
-    });
-}
 export function updateskills(skills) {
   return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
