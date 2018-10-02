@@ -1,19 +1,20 @@
 import React from "react";
-import { Item, ListItem } from "native-base";
+import { Item, ListItem, Card } from "native-base";
 import { Icon } from "react-native-elements";
 import styles from "../../../styles/historyCard";
 import { View, Text } from "react-native";
 const HistoryCard = ({ data }) => {
   return (
-    <View
+    <Card
       style={{
         paddingBottom: 10,
-        borderBottomWidth: 5,
-        borderBottomColor: "#000"
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 10
       }}
     >
       <ListItem itemDivider>
-        <Text style={styles.text3}>Start Day: {data.date}</Text>
+        <Text style={styles.text3}>Start Day: {data.startDate}</Text>
       </ListItem>
       <View style={styles.homeContainer}>
         <Text style={styles.text}>{data.name}</Text>
@@ -35,7 +36,7 @@ const HistoryCard = ({ data }) => {
         <Text style={styles.text}>My Project</Text>
         <Text style={styles.linktext}>{data.link}</Text>
       </View>
-    </View>
+    </Card>
   );
 };
 

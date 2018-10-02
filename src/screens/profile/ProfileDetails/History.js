@@ -12,7 +12,7 @@ class History extends React.Component {
     };
   }
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => item.name;
   _renderItem = ({ item, key }) => <HistoryCard data={item} key={key} />;
   render() {
     const { isLoading, error } = this.props;

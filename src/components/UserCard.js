@@ -26,7 +26,7 @@ const UserCard = ({ data, navigation }) => {
           <TouchableHighlight
             onPress={() => navigation.navigate("Profile", { data })}
           >
-            <Avatar user={data} />
+            <Avatar user={data} large />
           </TouchableHighlight>
           <View>
             <Text style={styles.text2}>{truncate(data.firstName, 15)}</Text>

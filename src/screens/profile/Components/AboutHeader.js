@@ -13,7 +13,7 @@ const AboutHeader = ({ data }) => {
       }}
     >
       <View>
-        <Avatar user={data} width={190} height={190} />
+        <Avatar user={data} xlarge />
       </View>
       <Text
         style={{

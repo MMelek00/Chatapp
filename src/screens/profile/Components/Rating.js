@@ -1,21 +1,21 @@
 import React from "react";
 import { View } from "react-native";
-import { CheckBox, Rating } from "react-native-elements";
 import { connect } from "react-redux";
 
+import { CheckBox, Rating } from "react-native-elements";
+import { addRating } from "../../../utils/firebase-fns";
 class CheckRating extends React.Component {
-
-  state = {
-    bool: false
-  };
-
-  componentDidMount() {
-    const { data, member } = this.props;
-    if (data.id === member.uid) {
-      this.setState({ bool: true });
-    }
+  constructor(props) {
+    super(props);
+    const { uid } = props.member;
+    this.state = {
+      bool: props.data.id === uid
+    };
   }
-
+  setrating = rating => {
+    const { member, data } = this.props;
+    addRating(member.uid, data.id, rating);
+  };
   render() {
     return (
       <View
@@ -39,6 +39,7 @@ class CheckRating extends React.Component {
         <View>
           <Rating
             readonly={this.state.bool}
+            onFinishRating={this.setrating}
             fractions={1}
             startingValue={this.props.data.rating}
             imageSize={35}
@@ -52,7 +53,6 @@ class CheckRating extends React.Component {
     );
   }
 }
-
 const mapStateToProps = state => ({
   member: state.member || {}
 });
