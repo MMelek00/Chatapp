@@ -1,20 +1,21 @@
 import React from "react";
 import { View } from "react-native";
-import { Firebase } from "../../../utils/firebase";
 import { CheckBox, Rating } from "react-native-elements";
+import { connect } from "react-redux";
+
 class CheckRating extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bool: false
-    };
-  }
+
+  state = {
+    bool: false
+  };
+
   componentDidMount() {
-    const user = Firebase.auth().currentUser;
-    if (this.props.data.id === user.uid) {
+    const { data, member } = this.props;
+    if (data.id === member.uid) {
       this.setState({ bool: true });
     }
   }
+
   render() {
     return (
       <View
@@ -52,4 +53,8 @@ class CheckRating extends React.Component {
   }
 }
 
-export default CheckRating;
+const mapStateToProps = state => ({
+  member: state.member || {}
+});
+
+export default connect(mapStateToProps)(CheckRating);
