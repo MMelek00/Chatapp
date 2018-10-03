@@ -8,6 +8,9 @@
     "ios": {
       "bundleIdentifier": "com.princeapp.business"
     },
+    "android": {
+      "package": "com.princeapp.business"
+    },
     "splash": {
       "image": "./assets/splash.png"
     },
@@ -18,9 +21,7 @@
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "packagerOpts": {
-      "assetExts": [
-        "ttf"
-      ]
+      "assetExts": ["ttf"]
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {

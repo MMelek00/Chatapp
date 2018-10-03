@@ -6,6 +6,8 @@ import { Icon, Button } from "react-native-elements";
 import { login } from "../../actions/member";
 import styles from "../../styles/login";
 import colors from "../../utils/colors";
+import Loader from "../../components/Loader";
+
 class Login extends React.Component {
   state = { email: "", password: "", errorMessage: null };
 
@@ -22,6 +24,9 @@ class Login extends React.Component {
     this.props.navigation.navigate("Signup");
   };
   render() {
+    if (this.state.isLoading) {
+      return <Loader />;
+    }
     return (
       <View
         style={{
@@ -86,10 +91,7 @@ class Login extends React.Component {
             backgroundColor={colors.base}
           />
         </View>
-        <TouchableOpacity
-          onPress={this._signup}
-          style={{ flexDirection: "row", alignSelf: "flex-start" }}
-        >
+        <TouchableOpacity onPress={this._signup}>
           <Text style={styles.forgettext}>No account yet? Create one</Text>
         </TouchableOpacity>
       </View>
