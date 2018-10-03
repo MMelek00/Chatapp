@@ -21,6 +21,7 @@ import EditProfile from "./screens/profile/EditProfile/EditProfile";
 import Company from "./screens/profile/EditProfile/Company";
 import Skills from "./screens/profile/EditProfile/Skills";
 import Certificates from "./screens/profile/EditProfile/Certificates";
+import HomePicker from "./screens/home/HomePicker";
 import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 
 const HomeStack = createStackNavigator(
@@ -35,6 +36,9 @@ const HomeStack = createStackNavigator(
     },
     Skills: {
       screen: Skills
+    },
+    HomePicker: {
+      screen: HomePicker
     },
     Profile: {
       screen: Profile
@@ -55,7 +59,7 @@ const HomeStack = createStackNavigator(
 const SearchStack = createStackNavigator(
   {
     Search: Search,
-    Results: Results,
+    Results: Results
   },
   {
     navigationOptions: headerStyle

@@ -1,11 +1,9 @@
 import React from "react";
 import { View } from "react-native";
-import { Picker } from "native-base";
-import { Feather } from "@expo/vector-icons";
+import { Icon } from "react-native-elements";
 import UsersList from "../../components/UsersList";
 import { getFilteredUsers } from "../../utils/firebase-fns";
 import HomeHeader from "./HomeHeader";
-
 import styles from "../../styles/home";
 
 export default class Home extends React.Component {
@@ -13,30 +11,19 @@ export default class Home extends React.Component {
     return {
       title: "BUSINESS APP",
       headerRight: (
-        <Picker
-          mode="dropdown"
-          iosHeader="Select"
-          iosIcon={
-            <Feather
-              name="more-vertical"
-              color="white"
-              style={{ paddingRight: 10 }}
-            />
-          }
-          textStyle={{ color: "white" }}
-          style={{ width: undefined }}
-          onValueChange={navigation.getParam("onValueChange")}
-        >
-          <Picker.Item label="New group" value="NewGroupe" />
-          <Picker.Item label="Account" value="Profile" />
-          <Picker.Item label="Setting" value="Settings" />
-        </Picker>
+        <Icon
+          containerStyle={{ paddingRight: 20 }}
+          name="more-vertical"
+          type="feather"
+          color="white"
+          onPress={() => navigation.navigate("HomePicker")}
+        />
       )
     };
   };
 
   state = {
-    selected: "Settings",
+    selected: undefined,
     country: null,
     category: null,
     data: [],

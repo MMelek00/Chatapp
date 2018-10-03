@@ -22,7 +22,7 @@ class History extends React.Component {
     if (isLoading) {
       return <Loader />;
     }
-    if (this.state.data.length === 0) {
+    if (this.props.data.length === 0) {
       return (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>

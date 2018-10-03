@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   icon: {
-    marginRight: 20,
+    marginRight: 20
   },
   inputContainer: {
     flexDirection: "row",
     backgroundColor: colors.primary,
     paddingHorizontal: 22,
     paddingVertical: 12,
-    marginBottom: 5,
+    marginBottom: 5
   },
   shadow: {
     borderRadius: 8,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1
   },
   row: {
-    flexDirection: "row",
+    flexDirection: "row"
   },
   devider: {
     borderColor: colors.grey,
@@ -60,14 +60,13 @@ const styles = StyleSheet.create({
       height: 2
     },
     shadowOpacity: 1,
-    shadowRadius: 1,
+    shadowRadius: 1
   },
   button: {
     marginHorizontal: 0,
     marginTop: deviceHeight / 5
   }
 });
-
 
 export const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
@@ -77,7 +76,15 @@ export const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 4,
     backgroundColor: "white",
+    color: colors.base
+  },
+  inputAndroid: {
+    paddingVertical: 5,
+    borderWidth: 0,
+    borderRadius: 4,
+    backgroundColor: "white",
     color: colors.base,
+    width: deviceWidth / 2.5
   }
 });
 
@@ -91,8 +98,16 @@ export const pickerHalfStyles = StyleSheet.create({
     backgroundColor: "white",
     color: colors.base,
     width: deviceWidth / 2.5
-  }
+  },
+  inputAndroid: {
+    paddingVertical: 5,
+    borderWidth: 0,
+    borderRadius: 4,
+    backgroundColor: "white",
+    color: colors.base,
+    width: deviceWidth / 2.5
+  },
+  underline: { borderColor: "white" }
 });
-
 
 export default styles;
