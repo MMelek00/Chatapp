@@ -65,7 +65,6 @@ export default class Home extends React.Component {
       })
       .catch(error => {
         this.setState({ isLoading: false, isRefreshing: false, error });
-        console.error(error);
       });
   };
 

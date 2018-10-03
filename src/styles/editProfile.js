@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions } from "react-native";
 import { normalize } from "../utils/fonts";
 import colors from "../utils/colors";
 const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
@@ -37,9 +36,10 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   textArea: {
-    padding: 10,
+    padding: 30,
     backgroundColor: colors.border,
     borderRadius: 30,
+    height: 200
   }
 });
 
@@ -48,6 +48,7 @@ export const pickerSelectStyles = StyleSheet.create({
     fontSize: normalize(16),
     fontWeight: "500",
     padding: 12,
+    paddingLeft: 12,
     borderWidth: 0,
     backgroundColor: colors.border,
     marginBottom: 10,

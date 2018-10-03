@@ -11,7 +11,7 @@ import {
   Icon
 } from "native-base";
 import { withNavigation } from "react-navigation";
-import { TouchableHighlight } from "react-native";
+import { TouchableOpacity } from "react-native";
 import Avatar from "./Avatar";
 import Availability from "./Availability";
 
@@ -23,11 +23,11 @@ const UserCard = ({ data, navigation }) => {
     <Card style={styles.card}>
       <CardItem style={styles.item}>
         <Left>
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={() => navigation.navigate("Profile", { data })}
           >
             <Avatar user={data} large />
-          </TouchableHighlight>
+          </TouchableOpacity>
           <View>
             <Text style={styles.text2}>{truncate(data.firstName, 15)}</Text>
             <Text style={styles.text}>{truncate(data.email, 18)}</Text>

@@ -1,27 +1,28 @@
 import React from "react";
-import { Card, Textarea } from "native-base";
 import {
   TouchableOpacity,
   View,
   Text,
   ScrollView,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  KeyboardAvoidingView
 } from "react-native";
+import { ImagePicker,Permissions } from "expo";
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import * as firebase from "firebase";
 
-import styles, { pickerSelectStyles } from "../../../styles/editProfile";
 import Avatar from "../../../components/Avatar";
 import ButtonGroup from "../../../components/ButtonGroup";
-import { ImagePicker } from "expo";
 import { updateProfile } from "../../../actions/member";
 import { Imageurl } from "../../../utils/firebase-fns";
 import { categories, WebOption, experience } from "../../../utils/properties";
-import colors from "../../../utils/colors";
 import Loader from "../../../components/Loader";
+
+import colors from "../../../utils/colors";
+import styles, { pickerSelectStyles } from "../../../styles/editProfile";
 
 class EditProfile extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -61,22 +62,22 @@ class EditProfile extends React.Component {
       .then(resp => {
         this.setState({ isloading: false });
         navigate("Company");
-      })
-      .catch(e => console.log(`Error: ${e}`));
+      });
   };
   onChooseImagePress = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true
-    });
-    this.setState({ isuploading: true });
-    if (!result.cancelled) {
-      await this.uploadImage(result.uri, this.state.uid);
-
-      const url = await Imageurl(this.state.uid);
-      console.log(url);
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === "granted") {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true
+      });
+      this.setState({ isuploading: true });
+      if (!result.cancelled) {
+        await this.uploadImage(result.uri, this.state.uid);
+        const url = await Imageurl(this.state.uid);
       this.setState({ avatar: url });
       this.setState({ isuploading: false });
     }
+  }
   };
   updateIndex = availability => {
     this.setState({ availability });
@@ -98,6 +99,7 @@ class EditProfile extends React.Component {
     }
     return (
       <ScrollView style={styles.container}>
+      <KeyboardAvoidingView behavior="position">
         <TouchableOpacity
           onPress={() => this.onChooseImagePress()}
           style={{ alignSelf: "center" }}
@@ -109,7 +111,8 @@ class EditProfile extends React.Component {
           )}
         </TouchableOpacity>
 
-              <Text style={styles.title}>First name</Text>
+          <Text style={styles.title}>First name</Text>
+
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="Name"
@@ -126,6 +129,7 @@ class EditProfile extends React.Component {
           </View>
 
           <Text style={styles.title}>Phone number</Text>
+
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="phoneNumber"
@@ -142,6 +146,7 @@ class EditProfile extends React.Component {
           </View>
 
           <Text style={styles.title}>Country</Text>
+
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="country"
@@ -158,6 +163,7 @@ class EditProfile extends React.Component {
           </View>
 
           <Text style={styles.title}>City</Text>
+
           <View style={styles.inputContainer}>
             <TextInput
               placeholder="city"
@@ -173,79 +179,89 @@ class EditProfile extends React.Component {
             <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
           </View>
 
-        <View style={{ paddingTop: 10 }}>
-          <ButtonGroup
-            selectMultiple
-            onPress={this.updateIndex}
-            selectedIndexes={this.state.availability}
-            buttons={["Freelancer", "Part Time", "Full Time"]}
-          />
-        </View>
+          <View style={{ paddingTop: 10 }}>
+            <ButtonGroup
+              selectMultiple
+              onPress={this.updateIndex}
+              selectedIndexes={this.state.availability}
+              buttons={["Freelancer", "Part Time", "Full Time"]}
+            />
+          </View>
 
           <Text style={styles.title}>Experience</Text>
-            <RNPickerSelect
-              placeholder={{
-                label: "Select a experience...",
-                value: null
-              }}
-              hideIcon
-              items={experience}
-              style={{ ...pickerSelectStyles }}
-              onValueChange={value => {
-                this.setState({
-                  experience: value
-                });
-              }}
-              value={this.state.experience}
-            />
+
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a experience...",
+              value: null
+            }}
+            hideIcon
+            items={experience}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={value => {
+              this.setState({
+                experience: value
+              });
+            }}
+            value={this.state.experience}
+          />
+
           <Text style={styles.title}>Category</Text>
-            <RNPickerSelect
-              placeholder={{
-                label: "Select a category...",
-                value: null
-              }}
-              hideIcon
-              items={categories}
-              style={{ ...pickerSelectStyles }}
-              onValueChange={value => {
-                this.setState({
-                  category: value
-                });
-              }}
-              value={this.state.category}
-            />
+
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a category...",
+              value: null
+            }}
+            hideIcon
+            items={categories}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={value => {
+              this.setState({
+                category: value
+              });
+            }}
+            value={this.state.category}
+          />
+
           <Text style={styles.title}>Job</Text>
-            <RNPickerSelect
-              placeholder={{
-                label: "Select a category...",
-                value: null
-              }}
-              hideIcon
-              items={WebOption}
-              style={{ ...pickerSelectStyles }}
-              onValueChange={value => {
-                this.setState({
-                  job: value
-                });
-              }}
-              value={this.state.job}
-            />
-        <Textarea
-          value={this.state.description}
-          rowSpan={5}
-          placeholder="Description ..."
-          placeholderTextColor={colors.darkGrey}
-          style={styles.textArea}
-          onChangeText={description => this.setState({ description })}
-        />
-        <Button
-          rounded
-          block
-          onPress={this.handleSubmit}
-          title="Next"
-          backgroundColor={colors.base}
-          containerViewStyle={styles.button}
-        />
+
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a category...",
+              value: null
+            }}
+            hideIcon
+            items={WebOption}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={value => {
+              this.setState({
+                job: value
+              });
+            }}
+            value={this.state.job}
+          />
+
+          <TextInput
+            value={this.state.description}
+            placeholder="Description ..."
+            placeholderTextColor={colors.darkGrey}
+            style={styles.textArea}
+            multiline
+            returnKeyType="done"
+            onChangeText={description => this.setState({ description })}
+          />
+
+          <Button
+            rounded
+            block
+            onPress={this.handleSubmit}
+            title="Next"
+            backgroundColor={colors.base}
+            containerViewStyle={styles.button}
+          />
+
+      </KeyboardAvoidingView>
       </ScrollView>
     );
   }

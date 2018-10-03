@@ -50,8 +50,7 @@ class Certificates extends Component {
       .then(resp => {
         this.setState({ isloading: false });
         navigate("Profile");
-      })
-      .catch(e => console.log(`Error: ${e}`));
+      });
   };
   onSelectionsChange = selectedCertif => {
     this.setState({ selectedCertif });

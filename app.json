@@ -1,7 +1,13 @@
 {
   "expo": {
+    "name": "Business App",
+    "icon": "./assets/icon.png",
     "sdkVersion": "30.0.0",
     "slug": "Chatapp",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.princeapp.business"
+    },
     "splash": {
       "image": "./assets/splash.png"
     },
@@ -12,7 +18,9 @@
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "packagerOpts": {
-      "assetExts": ["ttf"]
+      "assetExts": [
+        "ttf"
+      ]
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {
