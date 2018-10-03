@@ -63,15 +63,6 @@ class Certificates extends Component {
     if (this.state.isloading) {
       return <Loader />;
     }
-    if (this.state.data.length === 0) {
-      return (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>
-            you didn't add any histories yet.
-          </Text>
-        </View>
-      );
-    }
     return (
       <View>
         <SelectMultiple
