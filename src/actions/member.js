@@ -117,7 +117,8 @@ export function login(formData) {
 
               if (userDetails.uid) {
                 FirebaseRef.child(`users/${userDetails.uid}`).update({
-                  lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP
+                  lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
+                  online: true
                 });
 
                 getUserData(dispatch, store);
@@ -321,11 +322,15 @@ export function updatePersonalInfo(formData) {
 }
 
 export function logout() {
-  return dispatch =>
+  return (dispatch, store) =>
     new Promise((resolve, reject) => {
       Firebase.auth()
         .signOut()
         .then(() => {
+          FirebaseRef.child(`users/${store().member.uid}`).update({
+            lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
+            online: false
+          });
           dispatch({ type: "USER_RESET" });
           setTimeout(resolve, 1000);
         })

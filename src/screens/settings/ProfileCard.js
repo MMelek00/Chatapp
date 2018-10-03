@@ -1,52 +1,45 @@
 
 import React from "react";
-import {
-    Image,
-    TouchableOpacity,
-    Badge,
-    View,
-} from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-elements";
 import { connect } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
-
+//components
 import Avatar from "../../components/Avatar";
-
+//utils
 import styles from "../../styles/settings";
 import colors from "../../utils/colors";
 
-class ProfileCard extends React.Component {
-    render() {
-        const { navigate, member } = this.props;
-        const { firstName } = this.props.member;
-        return (
-            <View style={styles.container}>
-                <View style={styles.controlTitle}>
-                    <Avatar
-                        large
-                        rounded
-                        user={member}
-                        containerStyle={{ margin: 10 }}
-                    />
-                    <View>
-                        <Text h4 style={styles.text}>{firstName}</Text>
-                    </View>
+const ProfileCard = () => {
+    const { navigate, member } = this.props;
+    const { firstName } = this.props.member;
+    return (
+        <View style={styles.container}>
+            <View style={styles.controlTitle}>
+                <Avatar
+                    large
+                    rounded
+                    user={member}
+                    containerStyle={{ margin: 10 }}
+                />
+                <View>
+                    <Text h4 style={styles.text}>{firstName}</Text>
                 </View>
-                <TouchableOpacity
-                    onPress={() => navigate("PersonalInfo")}
-                    style={styles.control}
-                >
-                    <Text style={styles.text}>Update personal informations</Text>
-                    <Ionicons
-                        name="ios-arrow-forward-outline"
-                        size={18}
-                        color={colors.secondary}
-                    />
-                </TouchableOpacity>
-            </View >
-        );
-    }
-}
+            </View>
+            <TouchableOpacity
+                onPress={() => navigate("PersonalInfo")}
+                style={styles.control}
+            >
+                <Text style={styles.text}>Update personal informations</Text>
+                <Ionicons
+                    name="ios-arrow-forward-outline"
+                    size={18}
+                    color={colors.secondary}
+                />
+            </TouchableOpacity>
+        </View >
+    );
+};
 
 export default connect(state => ({
     member: state.member,
