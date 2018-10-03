@@ -1,24 +1,17 @@
-
 import React from "react";
 import { connect } from "react-redux";
-import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Icon } from "react-native-elements";
+import { withNavigation } from "react-navigation";
 import ProfileCard from "./ProfileCard";
-
 import { logout } from "../../actions/member";
-
 import styles from "../../styles/settings";
 import colors from "../../utils/colors";
 
 class Settings extends React.Component {
   static navigationOptions = {
-    title: "SETTINGS",
+    title: "SETTINGS"
   };
 
   settings() {
@@ -27,8 +20,8 @@ class Settings extends React.Component {
         name: "Update Profile",
         url: "EditProfile",
         color: colors.primary,
-        icon: "account-card-details",
-      },
+        icon: "account-card-details"
+      }
     ];
   }
 
@@ -36,7 +29,6 @@ class Settings extends React.Component {
     const navigate = this.props.navigation.navigate;
 
     return this.settings().map((setting, index) => {
-
       return (
         <TouchableOpacity
           key={index}
@@ -52,9 +44,7 @@ class Settings extends React.Component {
               containerStyle={styles.leftIcon}
               size={20}
             />
-            <Text style={styles.text}>
-              {setting.name}
-            </Text>
+            <Text style={styles.text}>{setting.name}</Text>
           </View>
           <Ionicons
             name="ios-arrow-forward-outline"
@@ -70,23 +60,17 @@ class Settings extends React.Component {
     const { onLogOut } = this.props;
     const { navigate } = this.props.navigation;
     navigate("Auth");
-    onLogOut(this.state)
-      .catch(e => console.log(`Error: ${e}`));
-  }
+    onLogOut(this.state).catch(e => console.log(`Error: ${e}`));
+  };
 
   render() {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
         <ProfileCard navigate={navigate} />
+        <View style={styles.container}>{this.contents()}</View>
         <View style={styles.container}>
-          {this.contents()}
-        </View>
-        <View style={styles.container}>
-          <TouchableOpacity
-            onPress={this._signOutAsync}
-            style={styles.control}
-          >
+          <TouchableOpacity onPress={this._signOutAsync} style={styles.control}>
             <Text style={styles.logout}>Log out from this account</Text>
             <Ionicons
               name="ios-arrow-forward-outline"
@@ -95,14 +79,16 @@ class Settings extends React.Component {
             />
           </TouchableOpacity>
         </View>
-      </ScrollView >
+      </ScrollView>
     );
   }
 }
 
 const mapDispatchToProps = {
-  onLogOut: logout,
+  onLogOut: logout
 };
 
-
-export default connect(null, mapDispatchToProps)(Settings);
+export default connect(
+  null,
+  mapDispatchToProps
+)(withNavigation(Settings));
