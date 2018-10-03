@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import SelectMultiple from "react-native-select-multiple";
 import { Button } from "react-native-elements";
 import Loader from "../../../components/Loader";
+import { certeficateOption } from "../../../utils/properties";
 import { connect } from "react-redux";
 import { updatecertificates } from "../../../actions/member";
 import colors from "../../../utils/colors";
-import { certeficateOption } from "../../../utils/properties";
+import styles from "../../../styles/indicators";
 
 class Certificates extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -41,7 +42,9 @@ class Certificates extends Component {
   handleSubmit = async () => {
     this.setState({ isloading: true });
     const array = this.state.selectedCertif.map(cert => {
-      if (cert.value) { return cert.value; }
+      if (cert.value) {
+        return cert.value;
+      }
       return cert;
     });
     const { onFormSubmit } = this.props;
@@ -60,6 +63,15 @@ class Certificates extends Component {
   render() {
     if (this.state.isloading) {
       return <Loader />;
+    }
+    if (this.state.data.length === 0) {
+      return (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
+            you didn't add any histories yet.
+          </Text>
+        </View>
+      );
     }
     return (
       <View>

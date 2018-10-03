@@ -41,7 +41,7 @@ class CheckRating extends React.Component {
             readonly={this.state.bool}
             onFinishRating={this.setrating}
             fractions={1}
-            startingValue={this.props.data.rating}
+            startingValue={this.props.data.rate}
             imageSize={35}
             style={{
               flexDirection: "row-reverse",

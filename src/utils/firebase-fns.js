@@ -20,7 +20,6 @@ export function getUsers() {
 }
 
 export function getFilteredUsers(data) {
-  console.log(data);
   const usersRef = FirebaseRef.child("/users");
   const users = [];
   const availability = data.availability || [];

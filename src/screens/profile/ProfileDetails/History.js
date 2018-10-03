@@ -1,8 +1,8 @@
 import React from "react";
-import { Content, Text } from "native-base";
+import { FlatList, Text, View } from "react-native";
 import HistoryCard from "../Components/HistoryCard";
-import { FlatList } from "react-native";
 import { Loader } from "../../../components/Loader";
+import styles from "../../../styles/indicators";
 class History extends React.Component {
   constructor(props) {
     super(props);
@@ -22,15 +22,24 @@ class History extends React.Component {
     if (isLoading) {
       return <Loader />;
     }
+    if (this.state.data.length === 0) {
+      return (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
+            you didn't add any histories yet.
+          </Text>
+        </View>
+      );
+    }
     return (
-      <Content style={{ paddingTop: 10 }}>
+      <View style={{ paddingTop: 10 }}>
         <FlatList
           data={this.props.data.history}
           extraData={this.props}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
         />
-      </Content>
+      </View>
     );
   }
 }

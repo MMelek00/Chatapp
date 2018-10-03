@@ -56,17 +56,6 @@ class Company extends React.Component {
       })
       .catch(e => console.log(`Error: ${e}`));
   };
-
-  updateIndex = index => {
-    this.setState({ index });
-    if (index === 0) {
-      this.state.availability = "Freelancer";
-    } else if (index === 1) {
-      this.state.availability = "Part Time";
-    } else {
-      this.state.availability = "Full Time";
-    }
-  };
   render() {
     const { history, isLoading } = this.state;
     if (isLoading) {

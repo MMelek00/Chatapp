@@ -29,7 +29,6 @@ class ConversationsScreen extends Component {
     this.setState({ isRefreshing: true });
     getConversations(this.props.member.uid)
       .then(res => {
-        console.log(res);
         const data = res.sort((a, b) => {
           return compareAsc(a.lastMessageTime, b.lastMessageTime);
         });
