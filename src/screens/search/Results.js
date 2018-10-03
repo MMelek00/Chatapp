@@ -20,8 +20,7 @@ export default class Results extends React.Component {
         getFilteredUsers(filters)
             .then(data => {
                 this.setState({ data, isLoading: false });
-            })
-            .catch(err => console.log(err));
+            });
     };
     render() {
         return (

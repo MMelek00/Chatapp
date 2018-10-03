@@ -7,7 +7,7 @@ export function getUsers() {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         snapshot.forEach(child => {
           const user = child.val();
           const id = child.key;
@@ -26,7 +26,7 @@ export function getFilteredUsers(data) {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         snapshot.forEach(child => {
           const user = child.val();
           const id = child.key;
@@ -54,7 +54,7 @@ export function getSingleUser(id) {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const user = snapshot.val();
         resolve(user);
       })
@@ -67,7 +67,7 @@ export function getSingleConversation(id) {
   return new Promise((resolve, reject) => {
     conversationsRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const user = snapshot.val();
         resolve(user);
       })
@@ -80,7 +80,7 @@ export function getSingleGroup(id) {
   return new Promise((resolve, reject) => {
     groupsRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const group = snapshot.val();
         resolve(group);
       })
@@ -157,7 +157,7 @@ export function getConversationId(uid, sendToId) {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         const data = snapshot.val();
         conversationId = data ? data.conversationId : "";
         resolve(conversationId);
@@ -226,7 +226,7 @@ export function gethistory(uid) {
   return new Promise((resolve, reject) => {
     historyRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         snapshot.forEach(child => {
           const history = child.val();
           const id = child.key;
@@ -279,7 +279,7 @@ export async function getRating(uid) {
   return new Promise((resolve, reject) => {
     usersRef
       .once("value")
-      .then(function(snapshot) {
+      .then(function (snapshot) {
         snapshot.forEach(child => {
           const rating = child.val();
           ratings.push(rating.rating);

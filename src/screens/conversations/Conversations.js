@@ -33,8 +33,7 @@ class ConversationsScreen extends Component {
           return compareAsc(a.lastMessageTime, b.lastMessageTime);
         });
         this.setState({ data, isLoading: false, isRefreshing: false });
-      })
-      .catch(err => console.log(err));
+      });
   };
 
   render() {

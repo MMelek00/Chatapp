@@ -58,8 +58,7 @@ class Skills extends React.Component {
       .then(resp => {
         this.setState({ isloading: false });
         navigate("Certificates");
-      })
-      .catch(e => console.log(`Error: ${e}`));
+      });
   };
 
   render() {
