@@ -75,6 +75,17 @@ function getUserData(dispatch, store) {
     });
   });
 }
+function getUserDataWithId(dispatch, id) {
+  const ref = FirebaseRef.child(`users/${id}`);
+
+  return ref.on("value", snapshot => {
+    const userData = snapshot.val() || [];
+    return dispatch({
+      type: "USER_DETAILS_UPDATE",
+      data: userData
+    });
+  });
+}
 
 export function getMemberData() {
   if (Firebase === null) {
@@ -121,7 +132,7 @@ export function login(formData) {
                   online: true
                 });
 
-                getUserData(dispatch, store);
+                getUserDataWithId(dispatch, userDetails.uid);
               }
 
               await status(dispatch, "login", "loading", false);

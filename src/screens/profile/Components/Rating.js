@@ -7,9 +7,9 @@ import { addRating } from "../../../utils/firebase-fns";
 class CheckRating extends React.Component {
   constructor(props) {
     super(props);
-    const { uid } = props.member;
+    const { email } = props.member;
     this.state = {
-      bool: props.data.id === uid
+      bool: props.data.email === email
     };
   }
   setrating = rating => {

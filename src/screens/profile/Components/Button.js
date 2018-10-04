@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 
 const Button = ({ data, member, navigation }) => {
-  if (data.id === member.uid) {
+  if (data.email === member.email) {
     return (
       <RNEButton
         rounded
