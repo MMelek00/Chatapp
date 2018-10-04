@@ -12,7 +12,8 @@
       "package": "com.princeapp.business"
     },
     "splash": {
-      "image": "./assets/splash.png"
+      "image": "./assets/splash.png",
+      "resizeMode": "cover"
     },
     "loading": {
       "hideExponentText": false,

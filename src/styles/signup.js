@@ -9,12 +9,14 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 45,
+    width: "80%",
     borderRadius: 8,
     color: "black",
     padding: 15
   },
   Iteminput: {
     height: 50,
+    width: "85%",
     backgroundColor: colors.border,
     borderWidth: 0,
     marginTop: 12,
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
   forgettext: {
     color: colors.base,
     fontFamily: "Roboto",
-    fontSize: normalize(18), 
+    fontSize: normalize(18),
     paddingLeft: 30,
     paddingRight: 10
   },

@@ -9,19 +9,25 @@ import colors from "../../utils/colors";
 import Loader from "../../components/Loader";
 
 class Login extends React.Component {
-  state = { email: "", password: "", errorMessage: null };
+  state = {
+    email: "",
+    password: "",
+    errorMessage: null,
+    isLoading: false
+  };
 
   handleSubmit = async () => {
+    this.setState({ isloading: true });
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
       .then(resp => {
+        this.setState({ isloading: false });
         navigate("App");
       })
-      .catch(e => console.log(`Error: ${e}`));
-  };
-  _signup = () => {
-    this.props.navigation.navigate("Signup");
+      .catch(e => {
+        this.setState({ errorMessage: e, isloading: false });
+      });
   };
   render() {
     if (this.state.isLoading) {
@@ -91,7 +97,9 @@ class Login extends React.Component {
             backgroundColor={colors.base}
           />
         </View>
-        <TouchableOpacity onPress={this._signup}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("SignUp")}
+        >
           <Text style={styles.forgettext}>No account yet? Create one</Text>
         </TouchableOpacity>
       </View>

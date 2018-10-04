@@ -5,19 +5,19 @@ import { Firebase, FirebaseRef } from "../utils/firebase";
 export function signUp(formData) {
   const { email, password, firstName, phoneNumber } = formData;
 
-  return dispatch =>
+  return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
-      if (!firstName) {
-        return reject({ message: ErrorMessages.missingFirstName });
-      }
-      if (!phoneNumber) {
-        return reject({ message: ErrorMessages.missingFirstName });
-      }
       if (!email) {
         return reject({ message: ErrorMessages.missingEmail });
       }
       if (!password) {
         return reject({ message: ErrorMessages.missingPassword });
+      }
+      if (!firstName) {
+        return reject({ message: ErrorMessages.missingFirstName });
+      }
+      if (!phoneNumber) {
+        return reject({ message: ErrorMessages.missingFirstName });
       }
 
       await status(dispatch, "signup", "loading", true);
@@ -47,7 +47,7 @@ export function signUp(formData) {
                 emailVerified: false
               })
               .then(async () => {
-                getUserData(dispatch);
+                getUserData(dispatch, store);
                 await dispatch({
                   type: "USER_LOGIN",
                   data: { uid: res.user.uid, email, firstName, phoneNumber }

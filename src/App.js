@@ -89,13 +89,8 @@ const MainStack = createBottomTabNavigator(
 
 const AuthStack = createStackNavigator(
   {
-    Login: {
-      screen: Login
-    },
-
-    Signup: {
-      screen: SignUp
-    }
+    Login: Login,
+    SignUp: SignUp
   },
   {
     headerMode: "none"

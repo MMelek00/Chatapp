@@ -3,7 +3,7 @@ import { View, Text, FlatList } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../../utils/colors";
 import styles from "../../../styles/skills";
-
+import Availability from "../../../components/Availability";
 class HistoryList extends Component {
   _keyExtractor = (item, index) => item.name;
 
@@ -23,7 +23,7 @@ class HistoryList extends Component {
       </View>
       <View style={styles.row}>
         <Text style={styles.skillTitle}>{item.jobName}</Text>
-        <Text style={styles.skillTitle}>{item.availability}</Text>
+        <Availability availability={item.availability} />
       </View>
     </View>
   );
