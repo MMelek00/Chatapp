@@ -48,7 +48,7 @@ export const jobPickerStyles = StyleSheet.create({
     textAlign: "center"
   },
   inputAndroid: {
-    padding: 10,
+    padding: 5,
     borderWidth: 0,
     borderRadius: 50,
     backgroundColor: colors.primary,
@@ -74,7 +74,7 @@ export const countryPickerStyles = StyleSheet.create({
     textAlign: "center"
   },
   inputAndroid: {
-    padding: 10,
+    padding: 5,
     borderWidth: 0,
     borderRadius: 50,
     backgroundColor: colors.grey,
