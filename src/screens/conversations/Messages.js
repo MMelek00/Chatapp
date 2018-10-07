@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import {
   GiftedChat,
   Bubble,
@@ -10,8 +10,8 @@ import {
   InputToolbar,
   Composer
 } from "react-native-gifted-chat";
-import { Icon } from "native-base";
-
+import { Icon } from "react-native-elements";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 import {
   sendMessage,
   loadMessages,
@@ -162,7 +162,7 @@ class Messages extends React.Component {
   renderSend(props) {
     return (
       <Send {...props}>
-        <Icon name="send" type="MaterialIcons" />
+        <Icon name="send" type="materialicons" color="white" />
       </Send>
     );
   }
@@ -188,6 +188,7 @@ class Messages extends React.Component {
           loadEarlier
           showAvatarForEveryMessage
         />
+        {Platform.OS === "android" ? <KeyboardSpacer /> : null}
       </View>
     );
   }
