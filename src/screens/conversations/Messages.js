@@ -1,10 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { View } from "react-native";
-import { GiftedChat, Bubble, Send, MessageText, Time, InputToolbar, Composer } from "react-native-gifted-chat";
+import {
+  GiftedChat,
+  Bubble,
+  Send,
+  MessageText,
+  Time,
+  InputToolbar,
+  Composer
+} from "react-native-gifted-chat";
 import { Icon } from "native-base";
 
-import { sendMessage, loadMessages, pushMessages, getConversationId, closeChat } from "../../utils/firebase-fns";
+import {
+  sendMessage,
+  loadMessages,
+  pushMessages,
+  getConversationId,
+  closeChat
+} from "../../utils/firebase-fns";
 import colors from "../../utils/colors";
 
 class Messages extends React.Component {
@@ -29,14 +43,14 @@ class Messages extends React.Component {
     const conversationId = navigation.getParam("conversationId");
     const isGroup = navigation.getParam("isGroup");
     if (isGroup) {
-      loadMessages(conversationId, (message) => {
+      loadMessages(conversationId, message => {
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, message)
         }));
       });
     } else {
-      getConversationId(member.uid, sendToId).then((resId) => {
-        loadMessages(resId, (message) => {
+      getConversationId(member.uid, sendToId).then(resId => {
+        loadMessages(resId, message => {
           this.setState(previousState => ({
             messages: GiftedChat.append(previousState.messages, message),
             conversationId
@@ -44,17 +58,15 @@ class Messages extends React.Component {
         });
       });
     }
-  }
+  };
 
-  _sendMessage = (message) => {
+  _sendMessage = message => {
     const { navigation, member } = this.props;
     const sendToId = navigation.getParam("sendToId");
     const isGroup = navigation.getParam("isGroup");
     if (isGroup === true) {
       const conversationId = navigation.getParam("conversationId");
-      pushMessages(
-        message,
-        conversationId);
+      pushMessages(message, conversationId);
     } else {
       sendMessage(
         message,
@@ -68,7 +80,7 @@ class Messages extends React.Component {
         }
       });
     }
-  }
+  };
 
   renderBubble(props) {
     return (
@@ -76,11 +88,11 @@ class Messages extends React.Component {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: "transparent",
+            backgroundColor: "transparent"
           },
           right: {
-            backgroundColor: "transparent",
-          },
+            backgroundColor: "transparent"
+          }
         }}
       />
     );
@@ -93,20 +105,20 @@ class Messages extends React.Component {
         containerStyle={{
           left: {
             backgroundColor: colors.body,
-            padding: 5,
+            padding: 5
           },
           right: {
             backgroundColor: colors.body,
-            padding: 5,
-          },
+            padding: 5
+          }
         }}
         textStyle={{
           left: {
-            color: colors.grey,
+            color: colors.grey
           },
           right: {
-            color: colors.grey,
-          },
+            color: colors.grey
+          }
         }}
       />
     );
@@ -118,11 +130,11 @@ class Messages extends React.Component {
         {...props}
         textStyle={{
           left: {
-            color: colors.secondary,
+            color: colors.secondary
           },
           right: {
-            color: colors.secondary,
-          },
+            color: colors.secondary
+          }
         }}
       />
     );
@@ -149,14 +161,11 @@ class Messages extends React.Component {
 
   renderSend(props) {
     return (
-      <Send
-        {...props}
-      >
+      <Send {...props}>
         <Icon name="send" type="MaterialIcons" />
       </Send>
     );
   }
-
 
   render() {
     const { member } = this.props;
@@ -173,7 +182,7 @@ class Messages extends React.Component {
           onSend={messages => this._sendMessage(messages)}
           user={{
             _id: member.uid,
-            name: member.firstName,
+            name: member.firstName
           }}
           showUserAvatar
           loadEarlier
@@ -184,7 +193,6 @@ class Messages extends React.Component {
   }
 }
 
-
 export default connect(state => ({
-  member: state.member || {},
+  member: state.member || {}
 }))(Messages);

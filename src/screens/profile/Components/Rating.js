@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
-
-import { CheckBox, Rating } from "react-native-elements";
+import ActiveStatus from "../../../components/ActiveStatus";
+import { Rating } from "react-native-elements";
 import { addRating } from "../../../utils/firebase-fns";
 class CheckRating extends React.Component {
   constructor(props) {
@@ -24,18 +24,11 @@ class CheckRating extends React.Component {
           paddingTop: 5
         }}
       >
-        <View>
-          <CheckBox
-            right
-            title="Online"
-            checkedIcon="dot-circle-o"
-            uncheckedIcon="circle-o"
-            checked={this.props.data.online}
-            textStyle={{ color: "pink" }}
-            checkedColor="pink"
-            containerStyle={{ backgroundColor: "white", borderWidth: 0 }}
-          />
-        </View>
+        <ActiveStatus
+          style={{ marginTop: 15, paddingRight: 15 }}
+          online={this.props.data.online}
+          minimal
+        />
         <View>
           <Rating
             readonly={this.state.bool}

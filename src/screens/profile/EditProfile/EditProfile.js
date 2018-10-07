@@ -102,7 +102,7 @@ class EditProfile extends React.Component {
       return <Loader />;
     }
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} keyboardDismissMode="on-drag">
         <TouchableOpacity
           onPress={() => this.onChooseImagePress()}
           style={{ alignSelf: "center" }}
