@@ -7,6 +7,7 @@ import { Icon, Button } from "react-native-elements";
 import colors from "../../utils/colors";
 import styles from "../../styles/signup";
 import Loader from "../../components/Loader";
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -20,22 +21,23 @@ class SignUp extends React.Component {
     };
   }
 
-  handleSubmit = () => {
-    this.setState({ isLoading: true });
+  handleSubmit = async () => {
+    await this.setState({ isLoading: true });
     const { onFormSubmit } = this.props;
-    const navigate = this.props.navigation.navigate;
-    onFormSubmit(this.state)
-      .then(resp => {
-        this.setState({ isLoading: false });
-        navigate("EditProfile");
-      })
-      .catch(e => {
-        this.setState({ errorMessage: e, isLoading: false });
-      });
+    const { navigate } = this.props.navigation;
+    try {
+      await onFormSubmit(this.state);
+      await this.setState({ isLoading: false });
+      navigate("EditProfile");
+    } catch (e) {
+      this.setState({ errorMessage: e, isLoading: false });
+    }
   };
+
   _login = () => {
     this.props.navigation.navigate("Login");
   };
+
   render() {
     if (this.state.isLoading) {
       return <Loader />;
@@ -143,16 +145,12 @@ class SignUp extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  member: state.member || {},
-  status: state.status.signup || null
-});
 
 const mapDispatchToProps = {
   onFormSubmit: signUp
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(SignUp);

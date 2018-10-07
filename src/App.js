@@ -7,6 +7,7 @@ import {
 //navigation file
 import Login from "./screens/auth/Login";
 import SignUp from "./screens/auth/SignUp";
+import ForgetPassword from "./screens/auth/ForgetPassword";
 import AuthLoading from "./components/Loading";
 import Home from "./screens/home/Home";
 import Profile from "./screens/profile/Profile";
@@ -90,7 +91,8 @@ const MainStack = createBottomTabNavigator(
 const AuthStack = createStackNavigator(
   {
     Login: Login,
-    SignUp: SignUp
+    SignUp: SignUp,
+    ForgetPassword: ForgetPassword,
   },
   {
     headerMode: "none"
