@@ -62,7 +62,7 @@ class Addhistory extends Component {
             padding: 15,
             justifyContent: "center",
             backgroundColor: "#fff",
-            borderWidth: 2,
+            borderWidth: 0,
             shadowColor: "#e0e0e0",
             shadowOffset: {
               width: -2,

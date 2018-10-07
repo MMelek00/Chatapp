@@ -17,16 +17,16 @@ class Login extends React.Component {
   };
 
   handleSubmit = async () => {
-    this.setState({ isloading: true });
+    this.setState({ isLoading: true });
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
     onFormSubmit(this.state)
       .then(resp => {
-        this.setState({ isloading: false });
+        this.setState({ isLoading: false });
         navigate("App");
       })
       .catch(e => {
-        this.setState({ errorMessage: e, isloading: false });
+        this.setState({ errorMessage: e, isLoading: false });
       });
   };
   render() {

@@ -8,10 +8,22 @@ class HistoryList extends Component {
   _keyExtractor = (item, index) => item.name;
 
   _renderItem = ({ item, key }) => (
-    <View style={styles.skillItem}>
-      <View style={styles.row}>
-        <Text style={styles.skillTitle}>{item.name}</Text>
-        <Text style={styles.skillTitle}>{item.startDate}</Text>
+    <View
+      style={{
+        margin: 7,
+        padding: 15,
+        justifyContent: "center",
+        backgroundColor: "#fff",
+        borderWidth: 0,
+        shadowColor: "#e0e0e0",
+        shadowOffset: {
+          width: -2,
+          height: 2
+        },
+        borderRadius: 10
+      }}
+    >
+      <View>
         {this.props.deletehistoryHandler && (
           <Icon
             name="x-circle"
@@ -22,8 +34,12 @@ class HistoryList extends Component {
         )}
       </View>
       <View style={styles.row}>
+        <Text style={styles.skillTitle}>{item.name}</Text>
+        <Text style={styles.skillTitle}>{item.startDate}</Text>
+      </View>
+      <View style={styles.row}>
         <Text style={styles.skillTitle}>{item.jobName}</Text>
-        <Availability availability={item.availability} />
+        <Text style={styles.skillTitle}>{item.availability}</Text>
       </View>
     </View>
   );

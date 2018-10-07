@@ -21,16 +21,16 @@ class SignUp extends React.Component {
   }
 
   handleSubmit = () => {
-    this.setState({ isloading: true });
+    this.setState({ isLoading: true });
     const { onFormSubmit } = this.props;
     const navigate = this.props.navigation.navigate;
     onFormSubmit(this.state)
       .then(resp => {
-        this.setState({ isloading: false });
+        this.setState({ isLoading: false });
         navigate("EditProfile");
       })
       .catch(e => {
-        this.setState({ errorMessage: e, isloading: false });
+        this.setState({ errorMessage: e, isLoading: false });
       });
   };
   _login = () => {

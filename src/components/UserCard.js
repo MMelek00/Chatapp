@@ -14,7 +14,7 @@ import { withNavigation } from "react-navigation";
 import { TouchableOpacity } from "react-native";
 import Avatar from "./Avatar";
 import Availability from "./Availability";
-
+import ActiveStatus from "./ActiveStatus";
 import styles from "../styles/user-card";
 import { truncate } from "../utils/helpers";
 
@@ -35,6 +35,11 @@ const UserCard = ({ data, navigation }) => {
           </View>
         </Left>
         <Right>
+          <ActiveStatus
+            style={{ marginBottom: 15 }}
+            online={data.online}
+            minimal
+          />
           <Button
             iconRight
             rounded

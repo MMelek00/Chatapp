@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   textArea: {
-    padding: 30,
+    marginTop: 10,
+    padding: 20,
     backgroundColor: colors.border,
     borderRadius: 30,
-    height: 200
+    height: 150
   }
 });
 

@@ -253,6 +253,7 @@ class EditProfile extends React.Component {
             style={styles.textArea}
             multiline
             returnKeyType="done"
+            underlineColorAndroid="transparent"
             onChangeText={description => this.setState({ description })}
           />
         </KeyboardAvoidingView>
