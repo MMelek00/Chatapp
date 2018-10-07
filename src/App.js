@@ -23,6 +23,7 @@ import Company from "./screens/profile/EditProfile/Company";
 import Skills from "./screens/profile/EditProfile/Skills";
 import Certificates from "./screens/profile/EditProfile/Certificates";
 import HomePicker from "./screens/home/HomePicker";
+
 import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 
 const HomeStack = createStackNavigator(
