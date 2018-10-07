@@ -166,13 +166,10 @@ export function resetPassword(formData) {
       return Firebase.auth()
         .sendPasswordResetEmail(email)
         .then(() =>
-          status(dispatch, "resetpassword", "loading", false).then(
-            resolve(dispatch({ type: "USER_RESET" }))
-          )
+          resolve(dispatch({ type: "USER_RESET" }))
         )
         .catch(reject);
     }).catch(async err => {
-      await status(dispatch, "resetpassword", "error", err.message);
       throw err.message;
     });
 }

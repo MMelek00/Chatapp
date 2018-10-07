@@ -17,18 +17,18 @@ class Login extends React.Component {
   };
 
   handleSubmit = async () => {
-    this.setState({ isloading: true });
+    await this.setState({ isLoading: true });
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
-    onFormSubmit(this.state)
-      .then(resp => {
-        this.setState({ isloading: false });
-        navigate("App");
-      })
-      .catch(e => {
-        this.setState({ errorMessage: e, isloading: false });
-      });
+    try {
+      await onFormSubmit(this.state);
+      await this.setState({ isLoading: false });
+      navigate("App");
+    } catch (e) {
+      this.setState({ errorMessage: e, isLoading: false });
+    }
   };
+
   render() {
     if (this.state.isLoading) {
       return <Loader />;
@@ -80,6 +80,7 @@ class Login extends React.Component {
         </Item>
         <TouchableOpacity
           style={{ flexDirection: "row", alignSelf: "flex-start" }}
+          onPress={() => this.props.navigation.navigate("ForgetPassword")}
         >
           <Text style={styles.forgettext}>Forget password</Text>
           <Icon
@@ -107,16 +108,11 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  member: state.member || {},
-  status: state.status.login || null
-});
-
 const mapDispatchToProps = {
   onFormSubmit: login
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Login);

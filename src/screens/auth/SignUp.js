@@ -20,22 +20,23 @@ class SignUp extends React.Component {
     };
   }
 
-  handleSubmit = () => {
-    this.setState({ isLoading: true });
+  handleSubmit = async () => {
+    await this.setState({ isLoading: true });
     const { onFormSubmit } = this.props;
-    const navigate = this.props.navigation.navigate;
-    onFormSubmit(this.state)
-      .then(resp => {
-        this.setState({ isLoading: false });
-        navigate("EditProfile");
-      })
-      .catch(e => {
-        this.setState({ errorMessage: e, isLoading: false });
-      });
+    const { navigate } = this.props.navigation;
+    try {
+      await onFormSubmit(this.state);
+      await this.setState({ isLoading: false });
+      navigate("EditProfile");
+    } catch (e) {
+      this.setState({ errorMessage: e, isLoading: false });
+    }
   };
+
   _login = () => {
     this.props.navigation.navigate("Login");
   };
+
   render() {
     if (this.state.isLoading) {
       return <Loader />;

@@ -1,67 +1,95 @@
-import React, { Component } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  StatusBar,
-  Spinner
-} from "react-native";
-import styles from "../../styles/forget-password";
+import React from "react";
+import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import { Item } from "native-base";
+import { Icon, Button } from "react-native-elements";
+import { resetPassword } from "../../actions/member";
+import styles from "../../styles/login";
+import colors from "../../utils/colors";
+import Loader from "../../components/Loader";
 
-export default class ForgetPassword extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      errorMessage: null,
-      loading: false
-    };
-  }
-  static navigationOptions = {
-    headerStyle: {
-      backgroundColor: "#16a085",
-      elevation: null
-    }
+class Login extends React.Component {
+  state = {
+    email: "",
+    errorMessage: null,
+    isLoading: false
   };
 
-  onForgetPress() {
-    this.setState({ errorMessage: null, loading: true });
-
-  }
-
-  renderErrorMessage = () => {
-    if (this.state.errorMessage) {
-      return <Text style={styles.error}>{this.state.errorMessage}</Text>;
+  handleSubmit = async () => {
+    await this.setState({ isLoading: true });
+    const { onFormSubmit } = this.props;
+    const { navigate } = this.props.navigation;
+    try {
+      await onFormSubmit(this.state);
+      await this.setState({ isLoading: false });
+      navigate("Login");
+    } catch (e) {
+      this.setState({ errorMessage: e, isLoading: false });
     }
   };
 
   render() {
+    if (this.state.isLoading) {
+      return <Loader />;
+    }
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#16a085" />
-        <TextInput
-          placeholder="Username"
-          placeholderTextColor="rgba(255,255,255,0.7)"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.input}
-          value={this.state.email}
-          onChangeText={email => this.setState({ email })}
-        />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        {this.state.errorMessage && (
+          <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
+        )}
+        <Text style={styles.textStyle}>Forgot password</Text>
+        <Item style={styles.Iteminput}>
+          <Icon name="mail" color="#c50d66" />
+          <TextInput
+            placeholder="user@gmail.com"
+            placeholderTextColor="#393E46"
+            returnKeyType="next"
+            keyboardType="email-address"
+            style={styles.textInput}
+            autoCorrect={false}
+            multiline={false}
+            autoCapitalize="none"
+            underlineColorAndroid="transparent"
+            onChangeText={email => this.setState({ email })}
+          />
+        </Item>
         <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={this.onForgetPress.bind(this)}
+          style={{ flexDirection: "row", alignSelf: "flex-start" }}
+          onPress={() => this.props.navigation.navigate("Login")}
         >
-          <Text style={styles.buttonText}>Forget Password</Text>
+          <Text style={styles.forgettext}>Go back to login page</Text>
+          <Icon
+            size={20}
+            name="info-circle"
+            type="font-awesome"
+            color={colors.base}
+          />
         </TouchableOpacity>
-        {this.renderErrorMessage()}
-        <Spinner visible={this.state.loading} />
+        <View style={{ width: "90%", paddingTop: 50 }}>
+          <Button
+            rounded
+            onPress={this.handleSubmit}
+            title="Send password resetting"
+            backgroundColor={colors.base}
+          />
+        </View>
       </View>
     );
   }
 }
 
+const mapDispatchToProps = {
+  onFormSubmit: resetPassword
+};
 
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);
