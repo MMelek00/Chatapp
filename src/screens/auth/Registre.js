@@ -7,7 +7,6 @@ import { Icon, Button } from "react-native-elements";
 import colors from "../../utils/colors";
 import styles from "../../styles/signup";
 import Loader from "../../components/Loader";
-
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -17,27 +16,26 @@ class SignUp extends React.Component {
       firstName: "",
       phoneNumber: "",
       isLoading: false,
-      errorMessage: null
+      errorMessage: ""
     };
   }
 
-  handleSubmit = async () => {
-    await this.setState({ isLoading: true });
+  handleSubmit = () => {
+    this.setState({ isLoading: true });
     const { onFormSubmit } = this.props;
-    const { navigate } = this.props.navigation;
-    try {
-      await onFormSubmit(this.state);
-      await this.setState({ isLoading: false });
-      navigate("EditProfile");
-    } catch (e) {
-      this.setState({ errorMessage: e, isLoading: false });
-    }
+    const navigate = this.props.navigation.navigate;
+    onFormSubmit(this.state)
+      .then(resp => {
+        this.setState({ isLoading: false });
+        navigate("EditProfile");
+      })
+      .catch(e => {
+        this.setState({ errorMessage: e, isLoading: false });
+      });
   };
-
   _login = () => {
     this.props.navigation.navigate("Login");
   };
-
   render() {
     if (this.state.isLoading) {
       return <Loader />;
@@ -65,9 +63,6 @@ class SignUp extends React.Component {
             onSubmitEditing={() => this.passwordInput.focus()}
             keyboardType="email-address"
             style={styles.textInput}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
             underlineColorAndroid="transparent"
             onChangeText={email => this.setState({ email })}
           />
@@ -79,14 +74,11 @@ class SignUp extends React.Component {
             style={styles.textInput}
             placeholderTextColor="#393E46"
             placeholder="Password"
-            autoCapitalize="none"
             returnKeyType="next"
-            multiline={false}
             ref={input => (this.passwordInput = input)}
             onSubmitEditing={() => this.firstName.focus()}
             underlineColorAndroid="transparent"
             onChangeText={password => this.setState({ password })}
-            value={this.state.password}
           />
         </Item>
         <Item style={styles.Iteminput}>
@@ -98,9 +90,6 @@ class SignUp extends React.Component {
             returnKeyType="next"
             onSubmitEditing={() => this.phoneNumber.focus()}
             style={styles.textInput}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
             underlineColorAndroid="transparent"
             onChangeText={firstName => this.setState({ firstName })}
           />
@@ -114,9 +103,6 @@ class SignUp extends React.Component {
             returnKeyType="go"
             keyboardType="numeric"
             style={styles.textInput}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
             underlineColorAndroid="transparent"
             onChangeText={phoneNumber => this.setState({ phoneNumber })}
           />
@@ -131,7 +117,7 @@ class SignUp extends React.Component {
         >
           <Text style={styles.forgettext}>already have an account? Login</Text>
         </TouchableOpacity>
-        <View style={{ paddingTop: 50, width: "90%" }}>
+        <View style={{ paddingTop: 50 }}>
           <Button
             block
             rounded
@@ -145,12 +131,16 @@ class SignUp extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  member: state.member || {},
+  status: state.status.signup || null
+});
 
 const mapDispatchToProps = {
   onFormSubmit: signUp
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignUp);

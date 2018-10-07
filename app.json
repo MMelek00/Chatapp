@@ -22,7 +22,8 @@
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "packagerOpts": {
-      "assetExts": ["ttf"]
+      "assetExts": ["ttf"],
+      "nonPersistent": "--nonPersistent"
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {

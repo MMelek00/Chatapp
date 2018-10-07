@@ -21,7 +21,8 @@ class CheckRating extends React.Component {
       <View
         style={{
           flexDirection: "row",
-          paddingTop: 5
+          paddingTop: 5,
+          paddingLeft: 20
         }}
       >
         <ActiveStatus
