@@ -6,7 +6,7 @@ import * as Expo from "expo";
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
-if (!I18nManager.isRTL) {
+if (I18nManager.isRTL) {
   Expo.Updates.reload();
 }
 

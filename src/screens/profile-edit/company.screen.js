@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-import { updatehistory } from "../../../actions/member";
-import Loader from "../../../components/Loader";
-import colors from "../../../utils/colors";
-import styles from "../../../styles/skills";
-import Addhistory from "../Components/addhistory";
-import HistoryList from "../Components/historyList";
+import { updatehistory } from "../../actions/member";
+import Loader from "../../components/loader";
+import colors from "../../utils/colors";
+import styles from "../../styles/skills";
+import Addhistory from "../../components/history-add";
+import HistoryList from "../../components/history-list";
 import { Content } from "native-base";
 class Company extends React.Component {
   static navigationOptions = ({ navigation }) => {

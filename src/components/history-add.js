@@ -11,7 +11,7 @@ import {
   Text as NBText
 } from "native-base";
 import { ButtonGroup } from "react-native-elements";
-import colors from "../../../utils/colors";
+import colors from "../utils/colors";
 class Addhistory extends Component {
   constructor(props) {
     super(props);

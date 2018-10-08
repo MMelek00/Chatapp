@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Avatar from "../../../components/Avatar";
+import Avatar from "./avatar";
 
-import Buttons from "./Button";
-import { DEFAULT_FONT, normalize } from "../../../utils/fonts";
+import Buttons from "./profile-button";
+import { DEFAULT_FONT, normalize } from "../utils/fonts";
 
 const AboutHeader = ({ data }) => {
   return (

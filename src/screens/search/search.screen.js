@@ -3,7 +3,7 @@ import { TextInput, View, Text } from "react-native";
 import { Icon, Button } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 //components
-import ButtonGroup from "../../components/ButtonGroup";
+import ButtonGroup from "../../components/button-group";
 //utils
 import styles, {
   pickerSelectStyles,

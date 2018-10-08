@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
-import ActiveStatus from "../../../components/ActiveStatus";
+import ActiveStatus from "./active-status";
 import { Rating } from "react-native-elements";
-import { addRating } from "../../../utils/firebase-fns";
+import { addRating } from "../utils/firebase-fns";
 class CheckRating extends React.Component {
   constructor(props) {
     super(props);

@@ -12,9 +12,9 @@ import {
 } from "native-base";
 import { withNavigation } from "react-navigation";
 import { TouchableOpacity } from "react-native";
-import Avatar from "./Avatar";
-import Availability from "./Availability";
-import ActiveStatus from "./ActiveStatus";
+import Avatar from "./avatar";
+import Availability from "./availability";
+import ActiveStatus from "./active-status";
 import styles from "../styles/user-card";
 import { truncate } from "../utils/helpers";
 

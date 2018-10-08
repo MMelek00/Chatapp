@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { FlatList, Text, RefreshControl } from "react-native";
 
-import UserCard from "./UserCard";
-import UserCardSelect from "./UserCardSelect";
-import Loader from "./Loader";
-import EmptyState from "./EmptyState";
+import UserCard from "./user-card";
+import UserCardSelect from "./user-card-select";
+import Loader from "./loader";
+import EmptyState from "./empty-state";
 
 export default class UsersList extends Component {
     _keyExtractor = (item, index) => item.id;

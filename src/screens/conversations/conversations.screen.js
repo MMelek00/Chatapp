@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import compareAsc from "date-fns/compare_asc";
 import { getConversations } from "../../utils/firebase-fns";
 import { Text, View } from "react-native";
-import Loader from "../../components/Loader";
-import ConversationsList from "./ConversationsList";
+import Loader from "../../components/loader";
+import ConversationsList from "./conversations-list";
 
 import styles from "../../styles/indicators";
 

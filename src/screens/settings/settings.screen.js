@@ -4,7 +4,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Icon } from "react-native-elements";
 import { withNavigation } from "react-navigation";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "./settings-card";
 import { logout } from "../../actions/member";
 import styles from "../../styles/settings";
 import colors from "../../utils/colors";

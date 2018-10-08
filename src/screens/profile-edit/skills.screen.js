@@ -1,15 +1,15 @@
 import React from "react";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-import { updateskills } from "../../../actions/member";
+import { updateskills } from "../../actions/member";
 import { View } from "react-native";
 //components
-import SkillAdd from "../Components/SkillAdd";
-import SkillsList from "../Components/SkillsList";
-import Loader from "../../../components/Loader";
+import SkillAdd from "../../components/skill-add";
+import SkillsList from "../../components/skills-list";
+import Loader from "../../components/loader";
 //utils
-import colors from "../../../utils/colors";
-import styles from "../../../styles/skills";
+import colors from "../../utils/colors";
+import styles from "../../styles/skills";
 
 class Skills extends React.Component {
   static navigationOptions = ({ navigation }) => {

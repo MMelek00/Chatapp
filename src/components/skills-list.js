@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { View, Text, FlatList, } from "react-native";
 import { Icon } from "react-native-elements";
 
-import ProgressBar from "../../../components/ProgressBar";
+import ProgressBar from "./progress-bar";
 
-import colors from "../../../utils/colors";
-import styles from "../../../styles/skills";
+import colors from "../utils/colors";
+import styles from "../styles/skills";
 
 
 class SkillsList extends Component {

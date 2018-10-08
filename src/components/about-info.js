@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { Item } from "native-base";
-import { DEFAULT_FONT, normalize } from "../../../utils/fonts";
-import Availability from "../../../components/Availability";
+import { DEFAULT_FONT, normalize } from "../utils/fonts";
+import Availability from "./availability";
 const AboutInfo = ({ data }) => {
   return (
     <View>

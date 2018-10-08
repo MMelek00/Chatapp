@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text, Dimensions } from "react-native";
-import { certeficateimages } from "../../../utils/properties";
-import colors from "../../../utils/colors";
+import { certeficateimages } from "../utils/properties";
+import colors from "../utils/colors";
 const deviceHeight = Dimensions.get("window").height;
 const CertifCard = ({ Name }) => {
   return (

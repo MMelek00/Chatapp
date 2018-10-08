@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { Icon } from "react-native-elements";
-import UsersList from "../../components/UsersList";
+import UsersList from "../../components/users-list";
 import { getFilteredUsers } from "../../utils/firebase-fns";
-import HomeHeader from "./HomeHeader";
+import HomeHeader from "./home-header";
 import styles from "../../styles/home";
 
 export default class Home extends React.Component {

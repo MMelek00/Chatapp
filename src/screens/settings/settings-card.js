@@ -4,7 +4,7 @@ import { Text } from "react-native-elements";
 import { connect } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 //components
-import Avatar from "../../components/Avatar";
+import Avatar from "../../components/avatar";
 //utils
 import styles from "../../styles/settings";
 import colors from "../../utils/colors";

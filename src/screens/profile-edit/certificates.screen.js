@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import SelectMultiple from "react-native-select-multiple";
 import { Button } from "react-native-elements";
-import Loader from "../../../components/Loader";
-import { certeficateOption } from "../../../utils/properties";
+import Loader from "../../components/loader";
+import { certeficateOption } from "../../utils/properties";
 import { connect } from "react-redux";
-import { updatecertificates } from "../../../actions/member";
-import colors from "../../../utils/colors";
-import styles from "../../../styles/indicators";
+import { updatecertificates } from "../../actions/member";
+import colors from "../../utils/colors";
+import styles from "../../styles/indicators";
 
 class Certificates extends Component {
   static navigationOptions = ({ navigation }) => {

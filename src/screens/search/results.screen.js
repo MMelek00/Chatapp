@@ -1,5 +1,5 @@
 import React from "react";
-import UsersList from "../../components/UsersList";
+import UsersList from "../../components/users-list";
 import { getFilteredUsers } from "../../utils/firebase-fns";
 
 export default class Results extends React.Component {

@@ -6,7 +6,7 @@ import { Item } from "native-base";
 import { Icon, Button } from "react-native-elements";
 import colors from "../../utils/colors";
 import styles from "../../styles/signup";
-import Loader from "../../components/Loader";
+import Loader from "../../components/loader";
 
 class SignUp extends React.Component {
   constructor(props) {

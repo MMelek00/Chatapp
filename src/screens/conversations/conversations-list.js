@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FlatList, RefreshControl } from "react-native";
 
-import ConversationCard from "./ConversationCard";
+import ConversationCard from "./conversation-card";
 
 import colors from "../../utils/colors";
 

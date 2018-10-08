@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
-import CheckRating from "../Components/Rating";
-import AboutHeader from "../Components/AboutHeader";
-import AboutInfo from "../Components/AboutInfo";
+import CheckRating from "../../components/rating";
+import AboutHeader from "../../components/about-header";
+import AboutInfo from "../../components/about-info";
 const About = ({ data }) => {
   return (
     <View

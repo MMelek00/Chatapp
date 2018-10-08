@@ -2,10 +2,10 @@ import React from "react";
 import { Container, Tab, Tabs, ScrollableTab } from "native-base";
 import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
-import About from "./ProfileDetails/About";
-import History from "./ProfileDetails/History";
-import Certificates from "./ProfileDetails/Certificates";
-import Skills from "./ProfileDetails/Skills";
+import About from "./about.tab";
+import History from "./history.tab";
+import Certificates from "./certificates.tab";
+import Skills from "./skills.tab";
 class Profile extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {

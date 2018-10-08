@@ -2,7 +2,7 @@ import React from "react";
 import { View, TextInput } from "react-native";
 import { Icon } from "react-native-elements";
 
-import UsersList from "../../components/UsersList";
+import UsersList from "../../components/users-list";
 import { getUsers, addGroup } from "../../utils/firebase-fns";
 
 import styles from "../../styles/groups";

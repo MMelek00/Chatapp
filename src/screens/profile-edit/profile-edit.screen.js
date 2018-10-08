@@ -14,18 +14,18 @@ import { Button, Icon } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 import * as firebase from "firebase";
 
-import Avatar from "../../../components/Avatar";
-import ButtonGroup from "../../../components/ButtonGroup";
-import { updateProfile } from "../../../actions/member";
-import { Imageurl } from "../../../utils/firebase-fns";
+import Avatar from "../../components/avatar";
+import ButtonGroup from "../../components/button-group";
+import { updateProfile } from "../../actions/member";
+import { Imageurl } from "../../utils/firebase-fns";
 import {
   categories,
   categoriesOptions,
   experience
-} from "../../../utils/properties";
-import Loader from "../../../components/Loader";
-import colors from "../../../utils/colors";
-import styles, { pickerSelectStyles } from "../../../styles/editProfile";
+} from "../../utils/properties";
+import Loader from "../../components/loader";
+import colors from "../../utils/colors";
+import styles, { pickerSelectStyles } from "../../styles/editProfile";
 
 class EditProfile extends React.Component {
   static navigationOptions = ({ navigation }) => {

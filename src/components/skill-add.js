@@ -4,9 +4,9 @@ import { Item, Button as NBButton, Icon as NBIcon, Text as NBText } from "native
 import { Slider } from "react-native-elements";
 import RNPickerSelect from "react-native-picker-select";
 
-import { skills } from "../../../utils/properties";
-import styles, { pickerSelectStyles } from "../../../styles/skills";
-import colors from "../../../utils/colors";
+import { skills } from "../utils/properties";
+import styles, { pickerSelectStyles } from "../styles/skills";
+import colors from "../utils/colors";
 
 class SkillAdd extends Component {
     state = {

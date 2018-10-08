@@ -6,7 +6,7 @@ import { Icon, Button } from "react-native-elements";
 import { resetPassword } from "../../actions/member";
 import styles from "../../styles/login";
 import colors from "../../utils/colors";
-import Loader from "../../components/Loader";
+import Loader from "../../components/loader";
 
 class Login extends React.Component {
   state = {

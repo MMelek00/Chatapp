@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
-import SkillsList from "../Components/SkillsList";
-import styles from "../../../styles/skills";
+import SkillsList from "../../components/skills-list";
+import styles from "../../styles/skills";
 
 const Skills = ({ data }) => {
   return (

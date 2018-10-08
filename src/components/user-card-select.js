@@ -10,7 +10,7 @@ import {
 import { withNavigation } from "react-navigation";
 import { TouchableHighlight } from "react-native";
 import { CheckBox } from "react-native-elements";
-import Avatar from "./Avatar";
+import Avatar from "./avatar";
 
 import styles from "../styles/user-card";
 import { truncate } from "../utils/helpers";

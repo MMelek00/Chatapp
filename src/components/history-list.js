@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, FlatList } from "react-native";
 import { Icon } from "react-native-elements";
-import colors from "../../../utils/colors";
-import styles from "../../../styles/skills";
-import Availability from "../../../components/Availability";
+import colors from "../utils/colors";
+import styles from "../styles/skills";
+import Availability from "./availability";
 class HistoryList extends Component {
   _keyExtractor = (item, index) => item.name;
 

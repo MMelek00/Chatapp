@@ -10,7 +10,7 @@ import {
 
 import { connect } from "react-redux";
 
-import Loader from "../../components/Loader";
+import Loader from "../../components/loader";
 
 import { updatePersonalInfo } from "../../actions/member";
 import styles from "../../styles/settings";

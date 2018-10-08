@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { FlatList, Text } from "react-native";
 import { View } from "native-base";
-import Loader from "../../../components/Loader";
-import CertifCard from "../Components/CertifCard";
+import Loader from "../../components/loader";
+import CertifCard from "../../components/certificate-card";
 
 class Certificates extends Component {
   constructor(props) {

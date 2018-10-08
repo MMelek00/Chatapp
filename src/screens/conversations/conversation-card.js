@@ -3,8 +3,8 @@ import { View, Card, CardItem, Text, Right, Left } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import format from "date-fns/format";
-import Avatar from "../../components/Avatar";
-import ActiveStatus from "../../components/ActiveStatus";
+import Avatar from "../../components/avatar";
+import ActiveStatus from "../../components/active-status";
 import styles from "../../styles/conversations-card";
 
 const ConversationCard = ({ data, navigation }) => {

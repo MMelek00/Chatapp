@@ -1,7 +1,7 @@
 import React from "react";
 import { Item, ListItem, Card } from "native-base";
 import { Icon } from "react-native-elements";
-import styles from "../../../styles/historyCard";
+import styles from "../styles/historyCard";
 import { View, Text } from "react-native";
 const HistoryCard = ({ data }) => {
   return (

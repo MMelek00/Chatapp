@@ -1,8 +1,8 @@
 import React from "react";
 import { FlatList, Text, View } from "react-native";
-import HistoryCard from "../Components/HistoryCard";
-import { Loader } from "../../../components/Loader";
-import styles from "../../../styles/indicators";
+import HistoryCard from "../../components/history-card";
+import { Loader } from "../../components/loader";
+import styles from "../../styles/indicators";
 class History extends React.Component {
   constructor(props) {
     super(props);
