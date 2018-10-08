@@ -5,24 +5,24 @@ import {
 } from "react-navigation";
 
 //navigation file
-import Login from "./screens/auth/Login";
-import SignUp from "./screens/auth/SignUp";
-import ForgetPassword from "./screens/auth/ForgetPassword";
-import AuthLoading from "./components/Loading";
-import Home from "./screens/home/Home";
-import Profile from "./screens/profile/Profile";
-import Search from "./screens/search/Search";
-import Results from "./screens/search/Results";
-import Messages from "./screens/conversations/Messages";
-import Conversations from "./screens/conversations/Conversations";
-import NewGroupe from "./screens/groups/NewGroup";
-import Settings from "./screens/settings/Settings";
-import PersonalInfo from "./screens/settings/PersonalInfo";
-import EditProfile from "./screens/profile/EditProfile/EditProfile";
-import Company from "./screens/profile/EditProfile/Company";
-import Skills from "./screens/profile/EditProfile/Skills";
-import Certificates from "./screens/profile/EditProfile/Certificates";
-import HomePicker from "./screens/home/HomePicker";
+import Login from "./screens/auth/login.screen";
+import SignUp from "./screens/auth/signup.screen";
+import ForgetPassword from "./screens/auth/forget-password.screen";
+import AuthLoading from "./components/auth-loading";
+import Home from "./screens/home/home.screen";
+import Profile from "./screens/profile/profile.screen";
+import Search from "./screens/search/search.screen";
+import Results from "./screens/search/results.screen";
+import Messages from "./screens/conversations/messages.screen";
+import Conversations from "./screens/conversations/conversations.screen";
+import NewGroupe from "./screens/groups/groups.screen";
+import Settings from "./screens/settings/settings.screen";
+import PersonalInfo from "./screens/settings/personal-info.screen";
+import EditProfile from "./screens/profile-edit/profile-edit.screen";
+import Company from "./screens/profile-edit/company.screen";
+import Skills from "./screens/profile-edit/skills.screen";
+import Certificates from "./screens/profile-edit/certificates.screen";
+import HomePicker from "./screens/home/home-picker";
 
 import { tabBarStyle, tabBarNavOptions, headerStyle } from "./styles/router";
 
