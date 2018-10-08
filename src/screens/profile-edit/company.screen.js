@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { updatehistory } from "../../actions/member";
@@ -7,7 +8,6 @@ import colors from "../../utils/colors";
 import styles from "../../styles/skills";
 import Addhistory from "../../components/history-add";
 import HistoryList from "../../components/history-list";
-import { Content } from "native-base";
 class Company extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -62,7 +62,7 @@ class Company extends React.Component {
       return <Loader />;
     }
     return (
-      <Content style={styles.container}>
+      <ScrollView style={styles.container}>
         <HistoryList
           data={history}
           deletehistoryHandler={this.deletehistoryHandler}
@@ -75,7 +75,7 @@ class Company extends React.Component {
           title="Save changes"
           backgroundColor={colors.base}
         />
-      </Content>
+      </ScrollView>
     );
   }
 }

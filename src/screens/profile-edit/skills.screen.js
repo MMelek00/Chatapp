@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { updateskills } from "../../actions/member";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 //components
 import SkillAdd from "../../components/skill-add";
 import SkillsList from "../../components/skills-list";
@@ -54,11 +54,10 @@ class Skills extends React.Component {
     this.setState({ isloading: true });
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
-    onFormSubmit(this.state.skills)
-      .then(resp => {
-        this.setState({ isloading: false });
-        navigate("Certificates");
-      });
+    onFormSubmit(this.state.skills).then(resp => {
+      this.setState({ isloading: false });
+      navigate("Certificates");
+    });
   };
 
   render() {
@@ -67,20 +66,24 @@ class Skills extends React.Component {
       return <Loader />;
     }
     return (
-      <View style={styles.container}>
-        <SkillsList
-          data={skills}
-          deleteSkillHandler={this.deleteSkillHandler}
-        />
-        <SkillAdd addSkillHandler={this.addSkillHandler} />
-        <Button
-          containerViewStyle={styles.button}
-          block
-          rounded
-          onPress={this.handleSubmit}
-          title="Save changes"
-          backgroundColor={colors.base}
-        />
+      <View style={{ flex: 1 }}>
+        <ScrollView style={styles.container}>
+          <View>
+            <SkillsList
+              data={skills}
+              deleteSkillHandler={this.deleteSkillHandler}
+            />
+          </View>
+          <View>
+            <SkillAdd addSkillHandler={this.addSkillHandler} />
+            <Button
+              rounded
+              onPress={this.handleSubmit}
+              title="Save changes"
+              backgroundColor={colors.base}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }

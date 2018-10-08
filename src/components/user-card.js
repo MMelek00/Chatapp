@@ -1,21 +1,13 @@
 import React from "react";
-import {
-  View,
-  Item,
-  Card,
-  CardItem,
-  Text,
-  Right,
-  Left,
-  Button,
-  Icon
-} from "native-base";
+import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
+import { Icon } from "react-native-elements";
 import { withNavigation } from "react-navigation";
 import { TouchableOpacity } from "react-native";
 import Avatar from "./avatar";
 import Availability from "./availability";
 import ActiveStatus from "./active-status";
 import styles from "../styles/user-card";
+import colors from "../utils/colors";
 import { truncate } from "../utils/helpers";
 
 const UserCard = ({ data, navigation }) => {
@@ -40,34 +32,27 @@ const UserCard = ({ data, navigation }) => {
             online={data.online}
             minimal
           />
-          <Button
-            iconRight
-            rounded
-            small
-            style={styles.sendButton}
+          <Icon
+            reverse
+            name="send"
+            type="materialicons"
+            color={colors.base}
             onPress={() => {
               navigation.navigate("Messages", {
                 sendToId: data.id,
                 sendToName: data.firstName
               });
             }}
-          >
-            <Text>Send message</Text>
-            <Icon name="send" type="MaterialIcons" />
-          </Button>
+          />
         </Right>
       </CardItem>
       <CardItem footer style={styles.footer}>
         <Item style={styles.span}>
-          <Icon name="500px" type="Entypo" style={{ color: "pink" }} />
+          <Icon name="500px" type="Entypo" color="#D46A6A" />
           <Text>{data.experience} Years Experience</Text>
         </Item>
         <Item style={styles.span}>
-          <Icon
-            name="access-time"
-            type="MaterialIcons"
-            style={{ color: "pink" }}
-          />
+          <Icon name="access-time" type="materialicons" color="#D46A6A" />
           <Availability availability={data.availability} />
         </Item>
       </CardItem>
