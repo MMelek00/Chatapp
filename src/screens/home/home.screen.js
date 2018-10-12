@@ -5,7 +5,7 @@ import UsersList from "../../components/users-list";
 import { getFilteredUsers } from "../../utils/firebase-fns";
 import HomeHeader from "./home-header";
 import styles from "../../styles/home";
-
+import { handleAndroidBackButton, exitAlert } from "../../utils/back-button";
 export default class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -21,18 +21,20 @@ export default class Home extends React.Component {
       )
     };
   };
-
-  state = {
-    selected: undefined,
-    country: null,
-    category: null,
-    data: [],
-    isLoading: true,
-    isRefreshing: false,
-    error: ""
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: undefined,
+      country: null,
+      category: null,
+      data: [],
+      isLoading: true,
+      isRefreshing: false,
+      error: ""
+    };
+  }
   componentDidMount() {
+    handleAndroidBackButton(exitAlert);
     const { navigation } = this.props;
     navigation.addListener("didFocus", () => {
       this._fetchUsers();

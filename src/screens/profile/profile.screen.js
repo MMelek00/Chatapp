@@ -12,7 +12,6 @@ class Profile extends React.Component {
       title: "PROFILE"
     };
   };
-
   render() {
     const { navigation, member } = this.props;
     const userProp = navigation.getParam("data");
