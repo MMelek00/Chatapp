@@ -56,7 +56,8 @@ export function getSingleUser(id) {
       .once("value")
       .then(function (snapshot) {
         const user = snapshot.val();
-        resolve(user);
+        const userId = snapshot.key;
+        resolve({ ...user, id: userId });
       })
       .catch(reject);
   });
@@ -129,6 +130,19 @@ export async function getConversations(uid) {
       }));
     })
     .catch(err => err);
+}
+
+export async function getGroupMembers(id) {
+  const groupRef = FirebaseRef.child(`/groups/${id}`);
+  try {
+    const snapshot = await groupRef.once("value");
+    const group = snapshot.val();
+    const usersPromises = group.members.map(userId => { return getSingleUser(userId); });
+    const users = await Promise.all(usersPromises);
+    return users;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export function loadMessages(conversationId, callback) {

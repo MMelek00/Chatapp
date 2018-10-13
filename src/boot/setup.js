@@ -14,6 +14,7 @@ export default class Setup extends Component {
     this.state = {
       isReady: false
     };
+    
   }
   componentWillMount() {
     this.loadFonts();

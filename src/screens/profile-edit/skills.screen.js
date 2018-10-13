@@ -66,25 +66,19 @@ class Skills extends React.Component {
       return <Loader />;
     }
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.container}>
-          <View>
-            <SkillsList
-              data={skills}
-              deleteSkillHandler={this.deleteSkillHandler}
-            />
-          </View>
-          <View>
-            <SkillAdd addSkillHandler={this.addSkillHandler} />
-            <Button
-              rounded
-              onPress={this.handleSubmit}
-              title="Save changes"
-              backgroundColor={colors.base}
-            />
-          </View>
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.container}>
+        <SkillsList
+          data={skills}
+          deleteSkillHandler={this.deleteSkillHandler}
+        />
+        <SkillAdd addSkillHandler={this.addSkillHandler} />
+        <Button
+          rounded
+          onPress={this.handleSubmit}
+          title="Save changes"
+          backgroundColor={colors.base}
+        />
+      </ScrollView>
     );
   }
 }

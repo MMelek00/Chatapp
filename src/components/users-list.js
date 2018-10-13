@@ -30,7 +30,7 @@ export default class UsersList extends Component {
     render() {
         const { isLoading, error, data, isRefreshing, _fetchUsers } = this.props;
         if (error) {
-            return (<Text>{error}</Text>);
+            return (<Text>{JSON.stringify(error)}</Text>);
         }
         if (isLoading) {
             return (<Loader />);

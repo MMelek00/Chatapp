@@ -22,15 +22,38 @@ import {
 import colors from "../../utils/colors";
 
 class Messages extends React.Component {
+
   static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+    const isGroup = navigation.getParam("isGroup");
+    if (!isGroup) {
+      return { title: navigation.getParam("sendToName", "MESSAGES") };
+    }
     return {
-      title: navigation.getParam("sendToName", "MESSAGES")
+      title: navigation.getParam("sendToName", "MESSAGES"),
+      headerRight:
+        <Icon
+          name="users"
+          type="feather"
+          color="#fff"
+          containerStyle={{ marginRight: 5 }}
+          onPress={() => params.handleMembersClick()} />
     };
   };
+
   state = { messages: [], conversationId: "" };
 
   componentDidMount() {
     this._fetchConversation();
+    this.props.navigation.setParams({
+      handleMembersClick: this.handleMembers
+    });
+  }
+
+  handleMembers = () => {
+    const { navigation } = this.props;
+    const sendToId = navigation.getParam("sendToId");
+    navigation.navigate("GroupMembers", { groupId: sendToId });
   }
 
   componentWillUnmount() {
