@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Business App",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconios.png",
     "sdkVersion": "30.0.0",
     "slug": "Chatapp",
     "version": "1.0.0",
