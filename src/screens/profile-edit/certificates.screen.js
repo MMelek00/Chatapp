@@ -7,7 +7,6 @@ import { certeficateOption } from "../../utils/properties";
 import { connect } from "react-redux";
 import { updatecertificates } from "../../actions/member";
 import colors from "../../utils/colors";
-import styles from "../../styles/indicators";
 
 class Certificates extends Component {
   static navigationOptions = ({ navigation }) => {

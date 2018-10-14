@@ -136,7 +136,7 @@ export default class Search extends React.Component {
           onPress={this.handleSubmit}
           title="SEARCH"
           backgroundColor="#1C39A1"
-          containerViewStyle={styles.button}
+         // containerViewStyle={styles.button}
         />
       </View>
     );

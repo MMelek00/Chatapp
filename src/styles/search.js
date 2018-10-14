@@ -7,7 +7,8 @@ const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15
+    padding: 15,
+    flex: 1
   },
   textInput: {
     color: "white",
