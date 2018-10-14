@@ -15,6 +15,7 @@ const HomeHeader = ({ country, job, onPickerChange }) => {
           label: "Select a country...",
           value: null
         }}
+        hideIcon
         items={countries}
         onValueChange={value => onPickerChange(value, "country")}
         style={{ ...countryPickerStyles }}

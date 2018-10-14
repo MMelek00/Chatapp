@@ -47,7 +47,7 @@ class HistoryList extends Component {
   render() {
     return (
       <FlatList
-        removeClippedSubviews={true}
+        removeClippedSubviews={false}
         data={this.props.data}
         extraData={this.props}
         keyExtractor={this._keyExtractor}

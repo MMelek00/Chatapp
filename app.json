@@ -1,15 +1,15 @@
 {
   "expo": {
     "name": "Business App",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconios.png",
     "sdkVersion": "30.0.0",
     "slug": "Chatapp",
     "version": "1.0.0",
     "ios": {
-      "bundleIdentifier": "com.princeapp.business"
+      "bundleIdentifier": "com.mousaalharby.businessapp"
     },
     "android": {
-      "package": "com.princeapp.business"
+      "package": "com.mousaalharby.businessapp"
     },
     "splash": {
       "image": "./assets/splash.png",
@@ -22,7 +22,9 @@
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "packagerOpts": {
-      "assetExts": ["ttf"],
+      "assetExts": [
+        "ttf"
+      ],
       "nonPersistent": "--nonPersistent"
     },
     "androidStatusBarColor": "#334393",

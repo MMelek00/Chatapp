@@ -103,149 +103,150 @@ class EditProfile extends React.Component {
     }
     return (
       <ScrollView style={styles.container} keyboardDismissMode="on-drag">
-        <TouchableOpacity
-          onPress={() => this.onChooseImagePress()}
-          style={{ alignSelf: "center" }}
-        >
-          {this.state.isuploading ? (
-            <ActivityIndicator />
-          ) : (
-            <Avatar user={{ ...this.state }} xlarge withIcon />
-          )}
-        </TouchableOpacity>
+        <KeyboardAvoidingView>
+          <TouchableOpacity
+            onPress={() => this.onChooseImagePress()}
+            style={{ alignSelf: "center" }}
+          >
+            {this.state.isuploading ? (
+              <ActivityIndicator />
+            ) : (
+                <Avatar user={{ ...this.state }} xlarge withIcon />
+              )}
+          </TouchableOpacity>
 
-        <Text style={styles.title}>First name</Text>
+          <Text style={styles.title}>First name</Text>
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Name"
-            placeholderTextColor="#fff"
-            style={styles.textInputt}
-            value={this.state.firstName}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            onChangeText={firstName => this.setState({ firstName })}
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.firstName}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={firstName => this.setState({ firstName })}
+            />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
+          </View>
+
+          <Text style={styles.title}>Phone number</Text>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="phoneNumber"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.phoneNumber}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={phoneNumber => this.setState({ phoneNumber })}
+            />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
+          </View>
+
+          <Text style={styles.title}>Country</Text>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="country"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.country}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={country => this.setState({ country })}
+            />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
+          </View>
+
+          <Text style={styles.title}>City</Text>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="city"
+              placeholderTextColor="#fff"
+              style={styles.textInputt}
+              value={this.state.city}
+              autoCorrect={false}
+              multiline={false}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              onChangeText={city => this.setState({ city })}
+            />
+            <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
+          </View>
+
+          <View style={{ paddingTop: 10 }}>
+            <ButtonGroup
+              selectMultiple
+              onPress={this.updateIndex}
+              selectedIndexes={this.state.availability}
+              buttons={["Freelancer", "Part Time", "Full Time"]}
+            />
+          </View>
+
+          <Text style={styles.title}>Experience</Text>
+
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a experience...",
+              value: null
+            }}
+            hideIcon
+            items={experience}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={value => {
+              this.setState({
+                experience: value
+              });
+            }}
+            value={this.state.experience}
           />
-          <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
-        </View>
 
-        <Text style={styles.title}>Phone number</Text>
+          <Text style={styles.title}>Category</Text>
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="phoneNumber"
-            placeholderTextColor="#fff"
-            style={styles.textInputt}
-            value={this.state.phoneNumber}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            onChangeText={phoneNumber => this.setState({ phoneNumber })}
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a category...",
+              value: null
+            }}
+            hideIcon
+            items={categories}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={value => {
+              this.setState({
+                category: value,
+                job: null
+              });
+            }}
+            value={this.state.category}
           />
-          <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
-        </View>
 
-        <Text style={styles.title}>Country</Text>
+          <Text style={styles.title}>Job</Text>
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="country"
-            placeholderTextColor="#fff"
-            style={styles.textInputt}
-            value={this.state.country}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            onChangeText={country => this.setState({ country })}
+          <RNPickerSelect
+            placeholder={{
+              label: "Select a category...",
+              value: null
+            }}
+            hideIcon
+            items={jobOptions}
+            style={{ ...pickerSelectStyles }}
+            onValueChange={value => {
+              this.setState({
+                job: value
+              });
+            }}
+            value={this.state.job}
           />
-          <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
-        </View>
 
-        <Text style={styles.title}>City</Text>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="city"
-            placeholderTextColor="#fff"
-            style={styles.textInputt}
-            value={this.state.city}
-            autoCorrect={false}
-            multiline={false}
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            onChangeText={city => this.setState({ city })}
-          />
-          <Icon name="edit" type="materialIcons" color={colors.darkGrey} />
-        </View>
-
-        <View style={{ paddingTop: 10 }}>
-          <ButtonGroup
-            selectMultiple
-            onPress={this.updateIndex}
-            selectedIndexes={this.state.availability}
-            buttons={["Freelancer", "Part Time", "Full Time"]}
-          />
-        </View>
-
-        <Text style={styles.title}>Experience</Text>
-
-        <RNPickerSelect
-          placeholder={{
-            label: "Select a experience...",
-            value: null
-          }}
-          hideIcon
-          items={experience}
-          style={{ ...pickerSelectStyles }}
-          onValueChange={value => {
-            this.setState({
-              experience: value
-            });
-          }}
-          value={this.state.experience}
-        />
-
-        <Text style={styles.title}>Category</Text>
-
-        <RNPickerSelect
-          placeholder={{
-            label: "Select a category...",
-            value: null
-          }}
-          hideIcon
-          items={categories}
-          style={{ ...pickerSelectStyles }}
-          onValueChange={value => {
-            this.setState({
-              category: value,
-              job: null
-            });
-          }}
-          value={this.state.category}
-        />
-
-        <Text style={styles.title}>Job</Text>
-
-        <RNPickerSelect
-          placeholder={{
-            label: "Select a category...",
-            value: null
-          }}
-          hideIcon
-          items={jobOptions}
-          style={{ ...pickerSelectStyles }}
-          onValueChange={value => {
-            this.setState({
-              job: value
-            });
-          }}
-          value={this.state.job}
-        />
-        <KeyboardAvoidingView behavior="position">
           <TextInput
             value={this.state.description}
             placeholder="Description ..."
@@ -256,15 +257,15 @@ class EditProfile extends React.Component {
             underlineColorAndroid="transparent"
             onChangeText={description => this.setState({ description })}
           />
+          <Button
+            rounded
+            block
+            onPress={this.handleSubmit}
+            title="Next"
+            backgroundColor={colors.base}
+            containerViewStyle={styles.button}
+          />
         </KeyboardAvoidingView>
-        <Button
-          rounded
-          block
-          onPress={this.handleSubmit}
-          title="Next"
-          backgroundColor={colors.base}
-          containerViewStyle={styles.button}
-        />
       </ScrollView>
     );
   }

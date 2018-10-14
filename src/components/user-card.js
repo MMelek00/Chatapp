@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
 import { Icon } from "react-native-elements";
+import { Button } from "native-base";
 import { withNavigation } from "react-navigation";
 import { TouchableOpacity } from "react-native";
 import Avatar from "./avatar";
@@ -32,27 +33,32 @@ const UserCard = ({ data, navigation }) => {
             online={data.online}
             minimal
           />
-          <Icon
-            reverse
-            name="send"
-            type="materialicons"
-            color={colors.base}
+          <Button small
+            rounded
+            style={{ backgroundColor: colors.base, paddingRight: 10 }}
             onPress={() => {
               navigation.navigate("Messages", {
                 sendToId: data.id,
                 sendToName: data.firstName
               });
-            }}
-          />
+            }}>
+            <Text>Send message</Text>
+            <Icon
+              name="send"
+              type="materialicons"
+              size={15}
+              color="white"
+            />
+          </Button>
         </Right>
       </CardItem>
       <CardItem footer style={styles.footer}>
         <Item style={styles.span}>
-          <Icon name="500px" type="Entypo" color="#D46A6A" />
-          <Text>{data.experience} Years Experience</Text>
+          <Icon style={{ padding: 10 }} name="briefcase" type="feather" color="#D46A6A" />
+          <Text >{data.experience} Years Experience</Text>
         </Item>
         <Item style={styles.span}>
-          <Icon name="access-time" type="materialicons" color="#D46A6A" />
+          <Icon style={{ padding: 10 }} name="access-time" type="materialicons" color="#D46A6A" />
           <Availability availability={data.availability} />
         </Item>
       </CardItem>

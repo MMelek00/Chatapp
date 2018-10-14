@@ -16,6 +16,7 @@ import Results from "./screens/search/results.screen";
 import Messages from "./screens/conversations/messages.screen";
 import Conversations from "./screens/conversations/conversations.screen";
 import NewGroupe from "./screens/groups/groups.screen";
+import GroupMembers from "./screens/groups/group-members.screen";
 import Settings from "./screens/settings/settings.screen";
 import PersonalInfo from "./screens/settings/personal-info.screen";
 import EditProfile from "./screens/profile-edit/profile-edit.screen";
@@ -108,7 +109,8 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
-    Messages: Messages
+    Messages: Messages,
+    GroupMembers: GroupMembers
   },
   {
     initialRouteName: "Main",
