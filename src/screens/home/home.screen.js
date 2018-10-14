@@ -34,7 +34,6 @@ export default class Home extends React.Component {
     };
   }
   componentDidMount() {
-    handleAndroidBackButton(exitAlert);
     const { navigation } = this.props;
     navigation.addListener("didFocus", () => {
       this._fetchUsers();
@@ -42,7 +41,8 @@ export default class Home extends React.Component {
     navigation.setParams({
       onValueChange: this.onValueChange,
       selected: this.state.selected
-    });
+    });  
+      handleAndroidBackButton(exitAlert);
   }
 
   _fetchUsers = () => {

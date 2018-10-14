@@ -1,7 +1,5 @@
 import * as Expo from "expo";
 import React, { Component } from "react";
-import { BackHandler } from "react-native";
-
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "./configureStore";
@@ -29,20 +27,7 @@ export default class Setup extends Component {
 
     this.setState({ isReady: true });
   }
-  componentDidMount() {
-    BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPressed);
-  }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener(
-      "hardwareBackPress",
-      this.onBackButtonPressed
-    );
-  }
-
-  onBackButtonPressed() {
-    return true;
-  }
   render() {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
