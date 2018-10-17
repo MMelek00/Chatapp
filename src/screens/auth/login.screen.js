@@ -42,9 +42,6 @@ class Login extends React.Component {
           justifyContent: "center"
         }}
       >
-        {this.state.errorMessage && (
-          <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
-        )}
         <Text style={styles.textStyle}>Login</Text>
         <Item style={styles.Iteminput}>
           <Icon name="mail" color="#c50d66" />
@@ -78,6 +75,11 @@ class Login extends React.Component {
             value={this.state.password}
           />
         </Item>
+        {this.state.errorMessage && (
+          <Text style={{ color: "red", fontSize: 20, fontWeight: "bold" }}>
+            {this.state.errorMessage}
+          </Text>
+        )}
         <TouchableOpacity
           style={{ flexDirection: "row", alignSelf: "flex-start" }}
           onPress={() => this.props.navigation.navigate("ForgetPassword")}

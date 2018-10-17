@@ -8,18 +8,19 @@ import { getUsers, addGroup } from "../../utils/firebase-fns";
 import styles from "../../styles/groups";
 
 class NewGroupe extends React.Component {
-
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
       title: "ADD GROUP",
-      headerRight:
+      headerRight: (
         <Icon
           name="check"
           type="feather"
           color="#fff"
           containerStyle={styles.addIcon}
-          onPress={() => params.handleAddClick()} />
+          onPress={() => params.handleAddClick()}
+        />
+      )
     };
   };
 
@@ -30,7 +31,7 @@ class NewGroupe extends React.Component {
     avatar: "",
     isLoading: true,
     error: ""
-  }
+  };
 
   componentDidMount() {
     this.props.navigation.setParams({
@@ -47,7 +48,7 @@ class NewGroupe extends React.Component {
         navigate("Conversations");
       })
       .catch(e => console.log(`Error: ${e}`));
-  }
+  };
 
   _fetchUsers = () => {
     getUsers()
@@ -60,22 +61,19 @@ class NewGroupe extends React.Component {
       });
   };
 
-  addUserToList = (id) => {
+  addUserToList = id => {
     var array = [...this.state.usersToAdd];
-    var index = array.map((e) => e).indexOf(id);
+    var index = array.map(e => e).indexOf(id);
     if (index === -1) {
       this.setState(prevState => ({
         usersToAdd: [...prevState.usersToAdd, id]
       }));
     } else {
       this.setState(prevState => ({
-        usersToAdd: [
-          ...array.slice(0, index),
-          ...array.slice(index + 1)
-        ]
+        usersToAdd: [...array.slice(0, index), ...array.slice(index + 1)]
       }));
     }
-  }
+  };
 
   render() {
     return (

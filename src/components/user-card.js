@@ -33,7 +33,8 @@ const UserCard = ({ data, navigation }) => {
             online={data.online}
             minimal
           />
-          <Button small
+          <Button
+            small
             rounded
             style={{ backgroundColor: colors.base, paddingRight: 10 }}
             onPress={() => {
@@ -41,24 +42,30 @@ const UserCard = ({ data, navigation }) => {
                 sendToId: data.id,
                 sendToName: data.firstName
               });
-            }}>
+            }}
+          >
             <Text>Send message</Text>
-            <Icon
-              name="send"
-              type="materialicons"
-              size={15}
-              color="white"
-            />
+            <Icon name="send" type="materialicons" size={15} color="white" />
           </Button>
         </Right>
       </CardItem>
       <CardItem footer style={styles.footer}>
         <Item style={styles.span}>
-          <Icon style={{ padding: 10 }} name="briefcase" type="feather" color="#D46A6A" />
-          <Text >{data.experience} Years Experience</Text>
+          <Icon
+            style={{ padding: 10 }}
+            name="briefcase"
+            type="feather"
+            color="#D46A6A"
+          />
+          <Text>{data.experience} cd Years Experience</Text>
         </Item>
         <Item style={styles.span}>
-          <Icon style={{ padding: 10 }} name="access-time" type="materialicons" color="#D46A6A" />
+          <Icon
+            style={{ padding: 10 }}
+            name="access-time"
+            type="materialicons"
+            color="#D46A6A"
+          />
           <Availability availability={data.availability} />
         </Item>
       </CardItem>
