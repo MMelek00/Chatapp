@@ -1,8 +1,5 @@
 import { StyleSheet } from "react-native";
 import colors from "../utils/colors";
-
-import { normalize } from "../utils/fonts";
-
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -15,7 +12,8 @@ const styles = StyleSheet.create({
   },
   avatarUpload: {
     position: "absolute",
-    marginTop: 12,
+    marginTop: 35,
+    marginLeft: 15,
     zIndex: 99
   },
   usersContainer: {

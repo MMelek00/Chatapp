@@ -1,9 +1,11 @@
 import React from "react";
 import { View, TextInput } from "react-native";
-import { Icon } from "react-native-elements";
-
+import { Icon, Avatar } from "react-native-elements";
+import { ImagePicker, Permissions } from "expo";
 import UsersList from "../../components/users-list";
 import { getUsers, addGroup } from "../../utils/firebase-fns";
+import { Imageurl } from "../../utils/firebase-fns";
+import * as firebase from "firebase";
 
 import styles from "../../styles/groups";
 
@@ -28,9 +30,11 @@ class NewGroupe extends React.Component {
     usersToAdd: [],
     data: [],
     name: "",
-    avatar: "",
+    avatar:
+      "https://cdn.dribbble.com/users/91147/screenshots/1741674/test_icons.png",
     isLoading: true,
-    error: ""
+    isuploading: false,
+    error: null
   };
 
   componentDidMount() {
@@ -43,11 +47,40 @@ class NewGroupe extends React.Component {
   handleSubmit = () => {
     const { usersToAdd, name, avatar } = this.state;
     const { navigate } = this.props.navigation;
-    addGroup(name, avatar, usersToAdd)
-      .then(groupId => {
-        navigate("Conversations");
-      })
-      .catch(e => console.log(`Error: ${e}`));
+    if (this.state.name !== "") {
+      addGroup(name, avatar, usersToAdd)
+        .then(groupId => {
+          navigate("Conversations");
+        })
+
+        .catch(e => console.log(`Error: ${e}`));
+    }
+  };
+  onChooseImagePress = async () => {
+    const id = Math.random(1000);
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === "granted") {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true
+      });
+      this.setState({ isuploading: true });
+      if (!result.cancelled) {
+        await this.uploadImage(result.uri, id);
+        const url = await Imageurl(id);
+        this.setState({ avatar: url });
+        this.setState({ isuploading: false });
+      }
+    }
+  };
+  uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("images")
+      .child(`${imageName}.jpg`);
+    return ref.put(blob);
   };
 
   _fetchUsers = () => {
@@ -86,15 +119,17 @@ class NewGroupe extends React.Component {
           onChangeText={name => this.setState({ name })}
         />
         <View style={styles.avatarUpload}>
-          <Icon
-            raised
-            name="camera"
-            type="entypo"
-            color="#f50"
-            size={35}
-            onPress={() => console.log("hello")}
+          <Avatar
+            large
+            rounded
+            source={{
+              uri: this.state.avatar
+            }}
+            onPress={() => this.onChooseImagePress()}
+            activeOpacity={0.7}
           />
         </View>
+
         <View style={styles.usersContainer}>
           <UsersList {...this.state} addUserToList={this.addUserToList} />
         </View>
