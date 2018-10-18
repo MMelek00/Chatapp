@@ -43,7 +43,6 @@ const Button = ({ data, member, navigation, blockUserAction }) => {
       <View style={{ flexDirection: "row" }}>
         < RNEButton
           rounded
-          style={{ padding: 10 }}
           title="Send message"
           onPress={() => {
             navigation.navigate("Messages", {
@@ -61,11 +60,10 @@ const Button = ({ data, member, navigation, blockUserAction }) => {
         />
         < RNEButton
           rounded
-          style={{ padding: 10 }}
           title="Block this user"
           onPress={() => blockUserhandler()}
           rightIcon={{
-            name: "send",
+            name: "block",
             type: "materialIcons",
             size: 20,
             style: { paddingLeft: 10 }

@@ -43,9 +43,15 @@ class SignUp extends React.Component {
         navigate("EditProfile");
       } else {
         this.setState({
-          errorMessage: "you should accept user License",
           isLoading: false
         });
+        Alert.alert(
+          "You should accept user License to create an account",
+          undefined,
+          [
+            { text: "Cancel", style: "cancel" },
+          ]
+        );
       }
     } catch (e) {
       Alert.alert(
@@ -138,18 +144,6 @@ class SignUp extends React.Component {
             onChangeText={phoneNumber => this.setState({ phoneNumber })}
           />
         </Item>
-        <TouchableOpacity
-          onPress={this._login}
-          style={{
-            flexDirection: "row",
-            alignSelf: "flex-start",
-            paddingTop: 10
-          }}
-        >
-          <Text style={styles.forgettext}>
-            already have an account? Login
-            </Text>
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={this._login}
           style={{
