@@ -1,14 +1,12 @@
 import React from "react";
 import { View, Item, Card, CardItem, Text, Right, Left } from "native-base";
 import { Icon } from "react-native-elements";
-import { Button } from "native-base";
 import { withNavigation } from "react-navigation";
 import { TouchableOpacity } from "react-native";
 import Avatar from "./avatar";
 import Availability from "./availability";
 import ActiveStatus from "./active-status";
 import styles from "../styles/user-card";
-import colors from "../utils/colors";
 import { truncate } from "../utils/helpers";
 
 const UserCard = ({ data, navigation }) => {
@@ -33,20 +31,20 @@ const UserCard = ({ data, navigation }) => {
             online={data.online}
             minimal
           />
-          <Button
-            small
-            rounded
-            style={{ backgroundColor: colors.base, paddingRight: 10 }}
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate("Messages", {
                 sendToId: data.id,
                 sendToName: data.firstName
               });
             }}
+            style={styles.ButtonStyle}
           >
-            <Text>Send message</Text>
+            <Text style={{ color: "white", paddingRight: 5 }}>
+              Send message
+            </Text>
             <Icon name="send" type="materialicons" size={15} color="white" />
-          </Button>
+          </TouchableOpacity>
         </Right>
       </CardItem>
       <CardItem footer style={styles.footer}>
@@ -57,7 +55,7 @@ const UserCard = ({ data, navigation }) => {
             type="feather"
             color="#D46A6A"
           />
-          <Text>{data.experience} cd Years Experience</Text>
+          <Text>{data.experience} Years Experience</Text>
         </Item>
         <Item style={styles.span}>
           <Icon

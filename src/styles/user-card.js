@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 import colors from "../utils/colors";
 import { normalize } from "../utils/fonts";
-
+let Width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   text: {
     fontSize: normalize(10),
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   span: {
-    flex: 1,
+    width: Width / 2 - 5,
     borderBottomWidth: 0
   },
   item: {
@@ -33,6 +33,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 10,
     marginRight: 10
+  },
+  ButtonStyle: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    backgroundColor: colors.base,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    width: Width / 3,
+    height: 25
   },
   sendButton: {
     backgroundColor: colors.base
