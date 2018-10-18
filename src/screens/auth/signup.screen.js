@@ -10,12 +10,15 @@ import {
   Alert
 } from "react-native";
 import { Item } from "native-base";
-import { Icon, Button } from "react-native-elements";
+import { Icon, Button, CheckBox } from "react-native-elements";
 import colors from "../../utils/colors";
 import styles from "../../styles/signup";
 import Loader from "../../components/loader";
-
+import { normalize } from "../../utils/fonts";
 class SignUp extends React.Component {
+  static navigationOptions = {
+    header: null
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +27,7 @@ class SignUp extends React.Component {
       firstName: "",
       phoneNumber: "",
       isLoading: false,
+      accepted: false,
       errorMessage: null
     };
   }
@@ -33,9 +37,16 @@ class SignUp extends React.Component {
     const { onFormSubmit } = this.props;
     const { navigate } = this.props.navigation;
     try {
-      await onFormSubmit(this.state);
-      await this.setState({ isLoading: false });
-      navigate("EditProfile");
+      if (this.state.accepted) {
+        await onFormSubmit(this.state);
+        await this.setState({ isLoading: false });
+        navigate("EditProfile");
+      } else {
+        this.setState({
+          errorMessage: "you should accept user License",
+          isLoading: false
+        });
+      }
     } catch (e) {
       Alert.alert(
         e,
@@ -50,6 +61,9 @@ class SignUp extends React.Component {
 
   _login = () => {
     this.props.navigation.navigate("Login");
+  };
+  _Terms = () => {
+    this.props.navigation.navigate("Terms");
   };
 
   render() {
@@ -124,11 +138,6 @@ class SignUp extends React.Component {
             onChangeText={phoneNumber => this.setState({ phoneNumber })}
           />
         </Item>
-        {this.state.errorMessage && (
-          <Text style={{ color: "red", fontSize: 20, fontWeight: "bold" }}>
-            {this.state.errorMessage}
-          </Text>
-        )}
         <TouchableOpacity
           onPress={this._login}
           style={{
@@ -141,6 +150,42 @@ class SignUp extends React.Component {
             already have an account? Login
             </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this._login}
+          style={{
+            flexDirection: "row",
+            alignSelf: "flex-start",
+            paddingTop: 10
+          }}
+        >
+          <Text style={styles.forgettext}>
+            already have an account? Login
+            </Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            alignSelf: "flex-start",
+            paddingTop: 10
+          }}
+        >
+          <CheckBox
+            checked={this.state.accepted}
+            onPress={() => this.setState({ accepted: !this.state.accepted })}
+          />
+          <TouchableOpacity onPress={this._Terms}>
+            <Text
+              style={{
+                color: colors.base,
+                fontFamily: "Roboto",
+                fontSize: normalize(18),
+                marginTop: 10
+              }}
+            >
+              Accept User License Agreement
+              </Text>
+          </TouchableOpacity>
+        </View>
         <View style={{ paddingTop: 30, width: "90%" }}>
           <Button
             block

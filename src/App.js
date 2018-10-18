@@ -9,6 +9,7 @@ import Login from "./screens/auth/login.screen";
 import SignUp from "./screens/auth/signup.screen";
 import ForgetPassword from "./screens/auth/forget-password.screen";
 import AuthLoading from "./components/auth-loading";
+import Terms from "./screens/auth/terms";
 import Home from "./screens/home/home.screen";
 import Profile from "./screens/profile/profile.screen";
 import Search from "./screens/search/search.screen";
@@ -92,16 +93,12 @@ const MainStack = createBottomTabNavigator(
   }
 );
 
-const AuthStack = createStackNavigator(
-  {
-    Login: Login,
-    SignUp: SignUp,
-    ForgetPassword: ForgetPassword,
-  },
-  {
-    headerMode: "none"
-  }
-);
+const AuthStack = createStackNavigator({
+  Login: Login,
+  SignUp: SignUp,
+  ForgetPassword: ForgetPassword,
+  Terms: Terms
+});
 
 const AppStack = createStackNavigator(
   {

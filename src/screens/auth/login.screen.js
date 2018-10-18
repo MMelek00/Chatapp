@@ -9,6 +9,9 @@ import colors from "../../utils/colors";
 import Loader from "../../components/loader";
 
 class Login extends React.Component {
+  static navigationOptions = {
+    header: null
+  };
   state = {
     email: "",
     password: "",
