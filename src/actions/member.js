@@ -234,6 +234,7 @@ export function updateskills(skills) {
       throw err.message;
     });
 }
+
 export function updatehistory(history) {
   return (dispatch, store) =>
     new Promise(async (resolve, reject) => {
@@ -251,8 +252,23 @@ export function updatehistory(history) {
       throw err.message;
     });
 }
+
+export function blockUser(toBlockId) {
+  return async (dispatch, store) => {
+    try {
+      const member = store().member;
+      const userRef = FirebaseRef.child(`users/${member.uid}`);
+      const newBlockList = [...(member.blockList || []), toBlockId];
+      await userRef.child("/blockList").set(newBlockList);
+      await getUserData(dispatch, store);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export function updatecertificates(certificates) {
-  return (dispatch, store) =>
+  return (dispatch, store) => {
     new Promise(async (resolve, reject) => {
       await status(dispatch, "USER_DETAILS_UPDATE", "loading", true);
       return FirebaseRef.child(`users/${store().member.uid}`)
@@ -267,7 +283,9 @@ export function updatecertificates(certificates) {
       await status(dispatch, "USER_DETAILS_UPDATE", "error", err.message);
       throw err.message;
     });
+  };
 }
+
 export function updatePersonalInfo(formData) {
   const {
     email,

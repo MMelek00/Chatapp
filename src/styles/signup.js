@@ -5,7 +5,9 @@ import { normalize } from "../utils/fonts";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
   },
   textInput: {
     height: 45,

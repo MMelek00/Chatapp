@@ -6,7 +6,8 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Alert
 } from "react-native";
 import { Item } from "native-base";
 import { Icon, Button } from "react-native-elements";
@@ -36,7 +37,14 @@ class SignUp extends React.Component {
       await this.setState({ isLoading: false });
       navigate("EditProfile");
     } catch (e) {
-      this.setState({ errorMessage: e, isLoading: false });
+      Alert.alert(
+        e,
+        undefined,
+        [
+          { text: "Cancel", style: "cancel" },
+        ]
+      );
+      this.setState({ isLoading: false });
     }
   };
 
@@ -49,109 +57,100 @@ class SignUp extends React.Component {
       return <Loader />;
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <KeyboardAvoidingView bahvior="padding" keyboardVerticalOffset={-50}>
-          <Text style={styles.textStyle}>Registre</Text>
-          <Item style={styles.Iteminput}>
-            <Icon name="mail" color="#c50d66" />
-            <TextInput
-              placeholder="email"
-              placeholderTextColor="#393E46"
-              returnKeyType="next"
-              onSubmitEditing={() => this.passwordInput.focus()}
-              keyboardType="email-address"
-              style={styles.textInput}
-              autoCorrect={false}
-              multiline={false}
-              autoCapitalize="none"
-              underlineColorAndroid="transparent"
-              onChangeText={email => this.setState({ email })}
-            />
-          </Item>
-          <Item style={styles.Iteminput}>
-            <Icon name="lock" type="font-awesome" color="#c50d66" />
-            <TextInput
-              secureTextEntry
-              style={styles.textInput}
-              placeholderTextColor="#393E46"
-              placeholder="Password"
-              autoCapitalize="none"
-              returnKeyType="next"
-              multiline={false}
-              ref={input => (this.passwordInput = input)}
-              onSubmitEditing={() => this.firstName.focus()}
-              underlineColorAndroid="transparent"
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-          </Item>
-          <Item style={styles.Iteminput}>
-            <Icon name="user" type="font-awesome" color="#c50d66" />
-            <TextInput
-              placeholder="First name"
-              placeholderTextColor="#393E46"
-              ref={input => (this.firstName = input)}
-              returnKeyType="next"
-              onSubmitEditing={() => this.phoneNumber.focus()}
-              style={styles.textInput}
-              autoCorrect={false}
-              multiline={false}
-              autoCapitalize="none"
-              underlineColorAndroid="transparent"
-              onChangeText={firstName => this.setState({ firstName })}
-            />
-          </Item>
-          <Item style={styles.Iteminput}>
-            <Icon name="phone" type="font-awesome" color="#c50d66" />
-            <TextInput
-              placeholder="Phone Number"
-              placeholderTextColor="#393E46"
-              ref={input => (this.phoneNumber = input)}
-              returnKeyType="go"
-              keyboardType="numeric"
-              style={styles.textInput}
-              autoCorrect={false}
-              multiline={false}
-              autoCapitalize="none"
-              underlineColorAndroid="transparent"
-              onChangeText={phoneNumber => this.setState({ phoneNumber })}
-            />
-          </Item>
-          {this.state.errorMessage && (
-            <Text style={{ color: "red", fontSize: 20, fontWeight: "bold" }}>
-              {this.state.errorMessage}
+      <KeyboardAvoidingView style={styles.container} bahvior="padding" keyboardVerticalOffset={-50}>
+        <Text style={styles.textStyle}>Registre</Text>
+        <Item style={styles.Iteminput}>
+          <Icon name="mail" color="#c50d66" />
+          <TextInput
+            placeholder="email"
+            placeholderTextColor="#393E46"
+            returnKeyType="next"
+            onSubmitEditing={() => this.passwordInput.focus()}
+            keyboardType="email-address"
+            style={styles.textInput}
+            autoCorrect={false}
+            multiline={false}
+            autoCapitalize="none"
+            underlineColorAndroid="transparent"
+            onChangeText={email => this.setState({ email })}
+          />
+        </Item>
+        <Item style={styles.Iteminput}>
+          <Icon name="lock" type="font-awesome" color="#c50d66" />
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            placeholderTextColor="#393E46"
+            placeholder="Password"
+            autoCapitalize="none"
+            returnKeyType="next"
+            multiline={false}
+            ref={input => (this.passwordInput = input)}
+            onSubmitEditing={() => this.firstName.focus()}
+            underlineColorAndroid="transparent"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+        </Item>
+        <Item style={styles.Iteminput}>
+          <Icon name="user" type="font-awesome" color="#c50d66" />
+          <TextInput
+            placeholder="First name"
+            placeholderTextColor="#393E46"
+            ref={input => (this.firstName = input)}
+            returnKeyType="next"
+            onSubmitEditing={() => this.phoneNumber.focus()}
+            style={styles.textInput}
+            autoCorrect={false}
+            multiline={false}
+            autoCapitalize="none"
+            underlineColorAndroid="transparent"
+            onChangeText={firstName => this.setState({ firstName })}
+          />
+        </Item>
+        <Item style={styles.Iteminput}>
+          <Icon name="phone" type="font-awesome" color="#c50d66" />
+          <TextInput
+            placeholder="Phone Number"
+            placeholderTextColor="#393E46"
+            ref={input => (this.phoneNumber = input)}
+            returnKeyType="done"
+            keyboardType="numeric"
+            style={styles.textInput}
+            autoCorrect={false}
+            multiline={false}
+            autoCapitalize="none"
+            underlineColorAndroid="transparent"
+            onChangeText={phoneNumber => this.setState({ phoneNumber })}
+          />
+        </Item>
+        {this.state.errorMessage && (
+          <Text style={{ color: "red", fontSize: 20, fontWeight: "bold" }}>
+            {this.state.errorMessage}
+          </Text>
+        )}
+        <TouchableOpacity
+          onPress={this._login}
+          style={{
+            flexDirection: "row",
+            alignSelf: "flex-start",
+            paddingTop: 10
+          }}
+        >
+          <Text style={styles.forgettext}>
+            already have an account? Login
             </Text>
-          )}
-          <TouchableOpacity
-            onPress={this._login}
-            style={{
-              flexDirection: "row",
-              alignSelf: "flex-start",
-              paddingTop: 10
-            }}
-          >
-            <Text style={styles.forgettext}>
-              already have an account? Login
-            </Text>
-          </TouchableOpacity>
-          <View style={{ paddingTop: 30, width: "90%" }}>
-            <Button
-              block
-              rounded
-              onPress={this.handleSubmit}
-              title="Create Account"
-              backgroundColor={colors.base}
-            />
-          </View>
-        </KeyboardAvoidingView>
-      </View>
+        </TouchableOpacity>
+        <View style={{ paddingTop: 30, width: "90%" }}>
+          <Button
+            block
+            rounded
+            onPress={this.handleSubmit}
+            title="Create Account"
+            backgroundColor={colors.base}
+          />
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }

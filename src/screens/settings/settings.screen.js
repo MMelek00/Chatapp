@@ -21,7 +21,13 @@ class Settings extends React.Component {
         url: "EditProfile",
         color: colors.primary,
         icon: "account-card-details"
-      }
+      },
+      {
+        name: "Report Content",
+        url: "Report",
+        color: colors.negative,
+        icon: "block-helper"
+      },
     ];
   }
 

@@ -1,9 +1,28 @@
 import React from "react";
-import { Button as RNEButton } from "react-native-elements";
+import { View, Alert } from "react-native";
 import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
+import { Button as RNEButton } from "react-native-elements";
 
-const Button = ({ data, member, navigation }) => {
+import { blockUser } from "../actions/member";
+
+const Button = ({ data, member, navigation, blockUserAction }) => {
+  const blockUserhandler = () => {
+    Alert.alert(
+      `Block ${data.firstName}`,
+      "Are you sure you want to block this user ?",
+      [
+        { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" },
+        {
+          text: "Yes", onPress: () => {
+            blockUserAction(data.id);
+            navigation.navigate("Home");
+          }
+        },
+      ],
+      { cancelable: false }
+    );
+  };
   if (data.email === member.email) {
     return (
       <RNEButton
@@ -21,23 +40,39 @@ const Button = ({ data, member, navigation }) => {
     );
   } else {
     return (
-      <RNEButton
-        rounded
-        title="Send message"
-        onPress={() => {
-          navigation.navigate("Messages", {
-            sendToId: data.id,
-            sendToName: data.firstName
-          });
-        }}
-        rightIcon={{
-          name: "send",
-          type: "materialIcons",
-          size: 20,
-          style: { paddingLeft: 10 }
-        }}
-        backgroundColor="#1C39A1"
-      />
+      <View style={{ flexDirection: "row" }}>
+        < RNEButton
+          rounded
+          style={{ padding: 10 }}
+          title="Send message"
+          onPress={() => {
+            navigation.navigate("Messages", {
+              sendToId: data.id,
+              sendToName: data.firstName
+            });
+          }}
+          rightIcon={{
+            name: "send",
+            type: "materialIcons",
+            size: 20,
+            style: { paddingLeft: 10 }
+          }}
+          backgroundColor="#1C39A1"
+        />
+        < RNEButton
+          rounded
+          style={{ padding: 10 }}
+          title="Block this user"
+          onPress={() => blockUserhandler()}
+          rightIcon={{
+            name: "send",
+            type: "materialIcons",
+            size: 20,
+            style: { paddingLeft: 10 }
+          }}
+          backgroundColor="#1C39A1"
+        />
+      </View>
     );
   }
 };
@@ -45,4 +80,8 @@ const mapStateToProps = state => ({
   member: state.member || {}
 });
 
-export default connect(mapStateToProps)(withNavigation(Button));
+const mapDispatchToProps = {
+  blockUserAction: blockUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Button));

@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import UsersList from "../../components/users-list";
 import { getFilteredUsers } from "../../utils/firebase-fns";
 
-export default class Results extends React.Component {
+class Results extends React.Component {
     static navigationOptions = {
         title: "Results",
     };
@@ -16,9 +18,13 @@ export default class Results extends React.Component {
     componentWillMount = () => {
         const { navigation } = this.props;
         const filters = navigation.getParam("filters");
-
+        const { member } = this.props;
         getFilteredUsers(filters)
-            .then(data => {
+            .then(res => {
+                const data = res.filter(user => {
+                    let index = (member.blockList || []).indexOf(user.id);
+                    return (index === -1 && user.id !== member.uid);
+                });
                 this.setState({ data, isLoading: false });
             });
     };
@@ -28,3 +34,7 @@ export default class Results extends React.Component {
         );
     }
 }
+
+export default connect(state => ({
+    member: state.member || {}
+}))(Results);

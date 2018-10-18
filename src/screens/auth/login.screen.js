@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { Item } from "native-base";
 import { Icon, Button } from "react-native-elements";
@@ -25,7 +25,15 @@ class Login extends React.Component {
       await this.setState({ isLoading: false });
       navigate("App");
     } catch (e) {
-      this.setState({ errorMessage: e, isLoading: false });
+      this.setState({ isLoading: false });
+      Alert.alert(
+        e,
+        undefined,
+        [
+          { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" },
+        ],
+        { cancelable: false }
+      );
     }
   };
 

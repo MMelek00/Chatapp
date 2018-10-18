@@ -12,9 +12,7 @@ const AboutHeader = ({ data }) => {
         alignItems: "center"
       }}
     >
-      <View>
-        <Avatar user={data} xlarge />
-      </View>
+      <Avatar user={data} xlarge />
       <Text
         style={{
           fontSize: normalize(25),
@@ -32,9 +30,7 @@ const AboutHeader = ({ data }) => {
       >
         {data.email}
       </Text>
-      <View style={{ width: 250, padding: 10 }}>
-        <Buttons data={data} />
-      </View>
+      <Buttons data={data} />
     </View>
   );
 };

@@ -27,10 +27,13 @@ class ConversationsScreen extends Component {
 
   _fetchConversations = () => {
     this.setState({ isRefreshing: true });
-    getConversations(this.props.member.uid)
+    const { member } = this.props;
+    getConversations(member.uid)
       .then(res => {
-        const data = res.sort((a, b) => {
-          return compareAsc(a.lastMessageTime, b.lastMessageTime);
+        console.log({ res });
+        const data = res.filter(conversation => {
+          let index = (member.blockList || []).indexOf(conversation.sendToId);
+          return index === -1;
         });
         this.setState({ data, isLoading: false, isRefreshing: false });
       });

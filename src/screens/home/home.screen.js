@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { View } from "react-native";
 import { Icon } from "react-native-elements";
 import UsersList from "../../components/users-list";
@@ -6,7 +7,9 @@ import { getFilteredUsers } from "../../utils/firebase-fns";
 import HomeHeader from "./home-header";
 import styles from "../../styles/home";
 import { handleAndroidBackButton, exitAlert } from "../../utils/back-button";
-export default class Home extends React.Component {
+
+
+class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: "BUSINESS APP",
@@ -41,15 +44,20 @@ export default class Home extends React.Component {
     navigation.setParams({
       onValueChange: this.onValueChange,
       selected: this.state.selected
-    });  
-      handleAndroidBackButton(exitAlert);
+    });
+    handleAndroidBackButton(exitAlert);
   }
 
   _fetchUsers = () => {
     this.setState({ isRefreshing: true });
     const { category, country } = this.state;
+    const { member } = this.props;
     getFilteredUsers({ category, country })
-      .then(data => {
+      .then(res => {
+        const data = res.filter(user => {
+          let index = (member.blockList || []).indexOf(user.id);
+          return (index === -1 && user.id !== member.uid);
+        });
         this.setState({ data, isLoading: false, isRefreshing: false });
       })
       .catch(error => {
@@ -83,3 +91,7 @@ export default class Home extends React.Component {
     );
   }
 }
+
+export default connect(state => ({
+  member: state.member || {}
+}))(Home);
