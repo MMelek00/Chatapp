@@ -48,19 +48,11 @@ class SignUp extends React.Component {
         Alert.alert(
           "You should accept user License to create an account",
           undefined,
-          [
-            { text: "Cancel", style: "cancel" },
-          ]
+          [{ text: "Cancel", style: "cancel" }]
         );
       }
     } catch (e) {
-      Alert.alert(
-        e,
-        undefined,
-        [
-          { text: "Cancel", style: "cancel" },
-        ]
-      );
+      Alert.alert(e, undefined, [{ text: "Cancel", style: "cancel" }]);
       this.setState({ isLoading: false });
     }
   };
@@ -77,7 +69,11 @@ class SignUp extends React.Component {
       return <Loader />;
     }
     return (
-      <KeyboardAvoidingView style={styles.container} bahvior="padding" keyboardVerticalOffset={-50}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        bahvior="padding"
+        keyboardVerticalOffset={-50}
+      >
         <Text style={styles.textStyle}>Registre</Text>
         <Item style={styles.Iteminput}>
           <Icon name="mail" color="#c50d66" />
@@ -152,9 +148,7 @@ class SignUp extends React.Component {
             paddingTop: 10
           }}
         >
-          <Text style={styles.forgettext}>
-            already have an account? Login
-            </Text>
+          <Text style={styles.forgettext}>already have an account? Login</Text>
         </TouchableOpacity>
         <View
           style={{
@@ -172,12 +166,12 @@ class SignUp extends React.Component {
               style={{
                 color: colors.base,
                 fontFamily: "Roboto",
-                fontSize: normalize(18),
+                fontSize: normalize(16),
                 marginTop: 10
               }}
             >
               Accept User License Agreement
-              </Text>
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ paddingTop: 30, width: "90%" }}>
